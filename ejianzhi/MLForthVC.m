@@ -23,7 +23,6 @@
 #import "AppDelegate.h"
 
 #import "MLTabbarVC.h"
-#import "MLTabbar1.h"
 
 #import "feedbackVC.h"
 #import "StudentCertifyViewController.h"
@@ -46,7 +45,6 @@
 @property (weak,nonatomic) MLLoginManger *loginManager;
 
 @property (weak, nonatomic) IBOutlet UILabel *buttonLabel;
-@property (weak, nonatomic) IBOutlet UIButton *logoutButton;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomConstraint;
 //@property (strong, nonatomic) IBOutlet UIImageView *userAvatarView;
@@ -79,11 +77,8 @@
     
     
     
-    [self.logoutButton.layer setBorderWidth:1.0f];
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGColorRef colorref = CGColorCreate(colorSpace,(CGFloat[]){ 247/255.0, 79/255.0, 92/255.0, 1.0 });
-    [self.logoutButton.layer setBorderColor:colorref];
-    [self.logoutButton.layer setCornerRadius:5.0];
 }
 
 - (void)creatAvuserImage{
@@ -247,23 +242,12 @@
         NSUserDefaults *mySettingData = [NSUserDefaults standardUserDefaults];
         
         if (buttonIndex==1) {
-            if ([[mySettingData objectForKey:@"userType"]isEqualToString:@"0"]) {
-                BOOL isLogout=[[[SRLoginBusiness alloc]init]logOut];
-                if (isLogout) {
-                    
-                    MLTabbarVC *tabbar=[MLTabbarVC shareInstance];
-                    [tabbar.navigationController popViewControllerAnimated:YES];
-                    [self finishLogout];
-                }
+            BOOL isLogout=[[[SRLoginBusiness alloc]init]logOut];
+            if (isLogout) {
                 
-            }else{
-                BOOL isLogout=[[[SRLoginBusiness alloc]init]logOut];
-                if (isLogout) {
-                    
-                    MLTabbar1 *tabbar=[MLTabbar1 shareInstance];
-                    [tabbar.navigationController popViewControllerAnimated:YES];
-                    [self finishLogout];
-                }
+                MLTabbarVC *tabbar=[MLTabbarVC shareInstance];
+                [tabbar.navigationController popViewControllerAnimated:YES];
+                [self finishLogout];
             }
         }
     }
@@ -273,8 +257,6 @@
     
     self.buttonLabel.text=@"点击登录";
     self.userAvatarView.image=[UIImage imageNamed:@"placeholder"];
-    self.logoutButton.hidden=YES;
-    self.logoutButton.tag=10000;
     self.bottomConstraint.constant=-60;
     
 }
@@ -303,11 +285,6 @@
             }
         }];
     }
-    
-    self.logoutButton.hidden=NO;
-    
-    //动态绑定LoginButton响应函数
-    self.logoutButton.tag=20000;
     
     self.bottomConstraint.constant=0;
 }
@@ -466,20 +443,6 @@
             self.buttonLabel.text=[mySettingData objectForKey:@"userName"];
         }else{
             self.buttonLabel.text = [AVUser currentUser].username;
-//            AVQuery *query=[AVQuery  queryWithClassName:@"UserDetail"];
-//            [query whereKey:@"userObjectId" equalTo:[AVUser currentUser].objectId];
-//            [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-//                if(!error&&[objects count]>0){
-//                    AVObject *userObject=[objects objectAtIndex:0];
-//                    if ([userObject objectForKey:@"userRealName"]) {
-//                        self.buttonLabel.text=[userObject objectForKey:@"userRealName"];
-//                    }else{
-//                        self.buttonLabel.text=@"e小兼";
-//                    }
-//                }else{
-//                    self.buttonLabel.text=@"e小兼";
-//                }
-//            }];
         }
     
 }

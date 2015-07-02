@@ -18,7 +18,6 @@
 #import "SRMapViewVC.h"
 #import "tousuViewController.h"
 #import "CompanyInfoViewController.h"
-#import "resumeListVC.h"
 #import "CDService.h"
 #import "CDUserFactory.h"
 #import "MBProgressHUD.h"
@@ -256,30 +255,16 @@ static NSString *selectFreecellIdentifier = @"freeselectViewCell";
         return [RACSignal empty];
     }];
     self.jobDetailMoreJobBtn.rac_command=[[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
-        if (self.fromEnterprise) {
-            resumeListVC *resumeVC=[[resumeListVC alloc]init];
-            resumeVC.jobObject=self.viewModel.jianZhi;
-            
-            UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
-            backItem.title = @"";
-            self.navigationItem.backBarButtonItem = backItem;
-            
-            resumeVC.hidesBottomBarWhenPushed=YES;
-            
-            [self.navigationController pushViewController:resumeVC animated:YES];
-            
-        }else{
-            if (self.thisCompanyId!=nil) {
-                CompanyInfoViewController *companyInfoVC=[[CompanyInfoViewController alloc]initWithData:self.thisCompanyId];
-                companyInfoVC.hidesBottomBarWhenPushed=YES;
-                companyInfoVC.edgesForExtendedLayout=UIRectEdgeNone;
-                [self.navigationController pushViewController:companyInfoVC animated:YES];
-            }
-            else
-            {
-                TTAlert(@"sorry,该公司的HR什么都没留下~！详情请电话咨询");
-                
-            }
+
+        if (self.thisCompanyId!=nil) {
+            CompanyInfoViewController *companyInfoVC=[[CompanyInfoViewController alloc]initWithData:self.thisCompanyId];
+            companyInfoVC.hidesBottomBarWhenPushed=YES;
+            companyInfoVC.edgesForExtendedLayout=UIRectEdgeNone;
+            [self.navigationController pushViewController:companyInfoVC animated:YES];
+        }
+        else
+        {
+            TTAlert(@"sorry,该公司的HR什么都没留下~！详情请电话咨询");
             
         }
         return [RACSignal empty];

@@ -56,15 +56,6 @@
     return _mainTabViewController;
 }
 
--(MLTabbar1*)qiyeTabViewController
-{
-    if(_qiyeTabViewController==nil)
-    {
-        _qiyeTabViewController=[[MLTabbar1 alloc]init];
-    }
-    return _qiyeTabViewController;
-}
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [NSThread sleepForTimeInterval:1];
     
@@ -83,50 +74,6 @@
     PullServerManager *pullServerManager=[PullServerManager sharedIntance];
     [pullServerManager rewriteUserDefaults];
     
-
-
-    
-//    //1、注册登录变化通知
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(loginStateChange:)
-//                                                 name:KNOTIFICATION_LOGINCHANGE
-//                                               object:nil];
-//    //
-//    if ([UIDevice currentDevice].systemVersion.floatValue >= 7.0) {
-//        [[UINavigationBar appearance] setBarTintColor:RGBACOLOR(78, 188, 211, 1)];
-//        [[UINavigationBar appearance] setTitleTextAttributes:
-//         [NSDictionary dictionaryWithObjectsAndKeys:RGBACOLOR(245, 245, 245, 1), NSForegroundColorAttributeName, [UIFont fontWithName:@ "HelveticaNeue-CondensedBlack" size:21.0], NSFontAttributeName, nil]];
-//    }
-
-    
-//    //友盟
-//    NSString *bundleID = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"];
-//    NSLog(@"bundleID=%@",bundleID);
-//    if ([bundleID isEqualToString:@"com.easemob.enterprise.demo.ui"]) {
-//        [MobClick startWithAppkey:@"5389bb7f56240ba94208ac97"
-//                     reportPolicy:BATCH
-//                        channelId:Nil];
-//#if DEBUG
-//        [MobClick setLogEnabled:YES];
-//#else
-//        [MobClick setLogEnabled:NO];
-//#endif
-//    }
-//    [MobClick startWithAppkey:@"54d0c830fd98c594f4000961"
-//                 reportPolicy:BATCH
-//                    channelId:Nil];
-//#if DEBUG
-//    [MobClick setLogEnabled:YES];
-//#else
-//    [MobClick setLogEnabled:NO];
-//#endif
-    
-  
-    //for ShareSDK
-//    [ShareSDK registerApp:@"50de98338b9f"];
-//    [ShareSDK connectSinaWeiboWithAppKey:@"568898243"
-//                               appSecret:@"38a4f8204cc784f81f9f0daaf31e02e3"
-//                             redirectUri:@"http://www.sharesdk.cn"];
     
     //短信验证模块
     [SMS_SDK registerApp:@"56454b8585da" withSecret:@"17e36cd8f741167baa78e940456c238c"];

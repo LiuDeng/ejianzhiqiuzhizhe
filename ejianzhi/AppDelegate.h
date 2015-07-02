@@ -10,7 +10,6 @@
 #import "IQKeyboardManager.h"
 #import <AVOSCloud/AVOSCloud.h>
 #import "MLTabbarVC.h"
-#import "MLTabbar1.h"
 
 enum PUSHTYPE {
     qiyeValidate = 1,
@@ -24,6 +23,5 @@ enum PUSHTYPE {
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong,nonatomic)MLTabbarVC *mainTabViewController;
-@property (strong,nonatomic)MLTabbar1 *qiyeTabViewController;
 @end
 

@@ -8,7 +8,6 @@
 
 #import "MLFirstVC.h"
 #import "SRAdvertisingView.h"
-//#import "MLCell1.h"
 #import "JobListTableViewCell.h"
 #import "SRScanVC.h"
 //#import "ResumeVC.h"

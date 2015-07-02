@@ -9,11 +9,10 @@
 #import "CompanyInfoViewController.h"
 #import "JobOfComListVC.h"
 #import "CompanyInfoViewModel.h"
-#import "InputInfoVC.h"
 #import "HZAreaPickerView.h"
 #import "MLSelectJobTypeVC.h"
 
-@interface CompanyInfoViewController ()<finishInputDelegate,HZAreaPickerDelegate,finishSelectDelegate>
+@interface CompanyInfoViewController ()<HZAreaPickerDelegate,finishSelectDelegate>
 {
     UIView *covervView;
 }
@@ -34,16 +33,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *comScaleLabel;
 
 @property (strong, nonatomic) IBOutlet UIButton *btn1;
-@property (strong, nonatomic) IBOutlet UIButton *btn2;
-@property (strong, nonatomic) IBOutlet UIButton *btn3;
-@property (strong, nonatomic) IBOutlet UIButton *btn4;
-@property (strong, nonatomic) IBOutlet UIButton *btn5;
-@property (strong, nonatomic) IBOutlet UIButton *btn6;
-@property (strong, nonatomic) IBOutlet UIButton *btn7;
-@property (strong, nonatomic) IBOutlet UIButton *btn8;
-@property (strong, nonatomic) IBOutlet UIButton *btn9;
-@property (strong, nonatomic) IBOutlet UIButton *btn10;
-@property (strong, nonatomic) IBOutlet UIButton *btn11;
+
 
 
 @property (strong,nonatomic)CompanyInfoViewModel *viewModel;
@@ -80,24 +70,7 @@
     self.title=@"企业信息";
     [self.comIconView.layer setCornerRadius:40.0f];
     [self.comIconView.layer setMasksToBounds:YES];
-    
-    
-    if (self.fromEnterprise) {
-        self.btn1.hidden=YES;
-    }else{
-        self.btn1.hidden=YES;
-        self.btn2.hidden=YES;
-        self.btn3.hidden=YES;
-        self.btn4.hidden=YES;
-        self.btn5.hidden=YES;
-        self.btn6.hidden=YES;
-        self.btn7.hidden=YES;
-        self.btn8.hidden=YES;
-        self.btn9.hidden=YES;
-        self.btn10.hidden=YES;
-        self.btn11.hidden=YES;
-    }
-    
+
     if (self.company!=nil) {
           self.viewModel=[[CompanyInfoViewModel alloc]initWithData:self.company];
     }
@@ -149,76 +122,6 @@
     if (self.company!=nil) {
         [jobListForCom setCompanyAndQuery:self.company];
     }
-}
-
-- (IBAction)btn2Click:(id)sender {
-    InputInfoVC *inputVC=[[InputInfoVC alloc]init];
-    inputVC.inputDelegate=self;
-    inputVC.inputType=2;
-    inputVC.labelText=@"请输入企业名称";
-    [self.navigationController pushViewController:inputVC animated:YES];
-}
-- (IBAction)btn3Click:(id)sender {
-    
-    HZAreaPickerView *locatePicker = [[HZAreaPickerView alloc] initWithStyle:HZAreaPickerWithStateAndCityAndDistrict delegate:self];
-    [self.view addSubview:covervView];
-    [locatePicker showInView:self.view];
-}
-- (IBAction)btn4Click:(id)sender {
-    InputInfoVC *inputVC=[[InputInfoVC alloc]init];
-    inputVC.inputDelegate=self;
-    inputVC.inputType=4;
-    inputVC.labelText=@"请输入详细地址";
-    [self.navigationController pushViewController:inputVC animated:YES];
-}
-- (IBAction)btn5Click:(id)sender {
-    InputInfoVC *inputVC=[[InputInfoVC alloc]init];
-    inputVC.inputDelegate=self;
-    inputVC.inputType=5;
-    inputVC.labelText=@"请输入联系人姓名";
-    [self.navigationController pushViewController:inputVC animated:YES];
-}
-- (IBAction)btn6Click:(id)sender {
-    InputInfoVC *inputVC=[[InputInfoVC alloc]init];
-    inputVC.inputDelegate=self;
-    inputVC.inputType=6;
-    inputVC.labelText=@"请输入联系电话";
-    [self.navigationController pushViewController:inputVC animated:YES];
-}
-- (IBAction)btn7Click:(id)sender {
-    InputInfoVC *inputVC=[[InputInfoVC alloc]init];
-    inputVC.inputDelegate=self;
-    inputVC.inputType=7;
-    inputVC.labelText=@"请输入企业邮箱";
-    [self.navigationController pushViewController:inputVC animated:YES];
-}
-- (IBAction)btn8Click:(id)sender {
-    InputInfoVC *inputVC=[[InputInfoVC alloc]init];
-    inputVC.inputDelegate=self;
-    inputVC.inputType=8;
-    inputVC.labelText=@"请输入营业执照编号";
-    [self.navigationController pushViewController:inputVC animated:YES];
-}
-- (IBAction)btn9Click:(id)sender {
-    MLSelectJobTypeVC *inputVC=[[MLSelectJobTypeVC alloc]init];
-    inputVC.selectDelegate=self;
-    inputVC.fromEnterprise=YES;
-    inputVC.type=9;
-    [self.navigationController pushViewController:inputVC animated:YES];
-}
-- (IBAction)btn10Click:(id)sender {
-    MLSelectJobTypeVC *inputVC=[[MLSelectJobTypeVC alloc]init];
-    inputVC.selectDelegate=self;
-    inputVC.fromEnterprise=YES;
-    inputVC.type=10;
-    [self.navigationController pushViewController:inputVC animated:YES];
-}
-- (IBAction)btn11Click:(id)sender {
-    MLSelectJobTypeVC *inputVC=[[MLSelectJobTypeVC alloc]init];
-    inputVC.selectDelegate=self;
-    inputVC.fromEnterprise=YES;
-    inputVC.type=11;
-    [self.navigationController pushViewController:inputVC animated:YES];
 }
 
 #pragma mark - HZAreaPicker delegate

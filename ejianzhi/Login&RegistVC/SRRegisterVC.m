@@ -161,20 +161,6 @@
  */
 - (IBAction)touchRegister:(id)sender {
     
-//    [SMS_SDK commitVerifyCode:verifyCode result:^(enum SMS_ResponseState state) {
-//        if (1==state) {
-//            Register.username=inputPhoneNumber;
-//            Register.pwd=inputPassword;
-//            Register.phone=inputPhoneNumber;
-//            [Register NewUserRegistInBackground:Register.username Pwd:Register.pwd Phone:Register.phone];
-//        }
-//        else if(0==state)
-//        {
-//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"验证码错误" message:Register.feedback delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
-//            [alert show];
-//        }
-//    }];
-    
     Register.username=inputPhoneNumber;
     Register.pwd=inputPassword;
     Register.phone=inputPhoneNumber;
