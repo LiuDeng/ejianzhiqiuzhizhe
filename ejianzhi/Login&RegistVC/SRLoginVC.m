@@ -14,8 +14,6 @@
 #import "MLTabbarVC.h"
 #import "ResetPwdViewController.h"
 #import "UMSocial.h"
-#import <AVOSCloudSNS/AVOSCloudSNS.h>
-#import <AVOSCloudSNS/AVUser+SNS.h>
 #import "UserDetail.h"
 
 @interface SRLoginVC ()<successRegistered,UIAlertViewDelegate>

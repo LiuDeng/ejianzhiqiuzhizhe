@@ -51,16 +51,6 @@ static  MLTabbarVC *thisController=nil;
 
 }
 
-
--(MLChatVC*)chatVC
-{
-    if(_chatVC==nil)
-    {
-        _chatVC=[[MLChatVC alloc]init];
-    }
-    return _chatVC;
-}
-
 -(MLForthVC*)forthVC
 {
     if (_forthVC==nil) {

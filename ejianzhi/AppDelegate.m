@@ -28,7 +28,6 @@
 
 #import "UMSocial.h"
 #import "UMSocialSinaHandler.h"
-#import <AVOSCloudSNS/AVOSCloudSNS.h>
 #import "UMSocialWechatHandler.h"
 #import "HelpViewController.h"
 #import "MyApplicationList.h"
@@ -63,6 +62,27 @@
     [JianZhi registerSubclass];
     [User registerSubclass];
     [UserDetail registerSubclass];
+    
+    [[EaseMob sharedInstance] registerSDKWithAppKey:@"jiaxiaotong#edutohome" apnsCertName:@"ejianzhidev"];
+    [[EaseMob sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
+    [[EaseMob sharedInstance].chatManager asyncRegisterNewAccount:@"8001" password:@"111111" withCompletion:^(NSString *username, NSString *password, EMError *error) {
+        if (!error) {
+            NSLog(@"注册成功");
+            [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:@"8001" password:@"111111" completion:^(NSDictionary *loginInfo, EMError *error) {
+                if (!error && loginInfo) {
+                    NSLog(@"登陆成功");
+                }
+            } onQueue:nil];
+        }
+        else
+        {
+            [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:@"8001" password:@"111111" completion:^(NSDictionary *loginInfo, EMError *error) {
+                if (!error && loginInfo) {
+                    NSLog(@"登陆成功");
+                }
+            } onQueue:nil];
+        }
+    } onQueue:nil];
 
 //AVOS Regist App Key origin
     [AVOSCloud setApplicationId:@"owqomw6mc9jlqcj7xc2p3mdk7h4hqe2at944fzt0zb8jholj"

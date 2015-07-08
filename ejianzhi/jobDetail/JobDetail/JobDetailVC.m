@@ -18,10 +18,10 @@
 #import "SRMapViewVC.h"
 #import "tousuViewController.h"
 #import "CompanyInfoViewController.h"
-#import "CDService.h"
-#import "CDUserFactory.h"
 #import "MBProgressHUD.h"
 #import "MBProgressHUD+Add.h"
+#import "ChatViewController.h"
+
 static NSString *selectFreecellIdentifier = @"freeselectViewCell";
 
 
@@ -185,14 +185,14 @@ static NSString *selectFreecellIdentifier = @"freeselectViewCell";
         }
         
     }else{
-        CDIM* im=[CDIM sharedInstance];
-        im.userDelegate=[CDIMService shareInstance];
-        [im openWithClientId:[AVUser currentUser].objectId callback:^(BOOL succeeded, NSError *error) {
-            if(error){
-                self.chatBtn.hidden=YES;
-                self.chatLabel.hidden=YES;
-            }
-        }];
+//        CDIM* im=[CDIM sharedInstance];
+//        im.userDelegate=[CDIMService shareInstance];
+//        [im openWithClientId:[AVUser currentUser].objectId callback:^(BOOL succeeded, NSError *error) {
+//            if(error){
+//                self.chatBtn.hidden=YES;
+//                self.chatLabel.hidden=YES;
+//            }
+//        }];
         
     }
     
@@ -519,34 +519,36 @@ static NSString *selectFreecellIdentifier = @"freeselectViewCell";
 }
 
 - (IBAction)chatWithEnterprise:(id)sender {
+    ChatViewController *chatVC = [[ChatViewController alloc] init];
     
-    if (self.viewModel.companyInfo!=nil) {
-        
-        if([self.viewModel.companyInfo objectForKey:@"qiYeUser"]){
-            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            AVObject *userQuery=[self.viewModel.companyInfo objectForKey:@"qiYeUser"];
-            [userQuery fetchInBackgroundWithBlock:^(AVObject *object, NSError *error) {
-                if (!error) {
-                    AVUser *_user=object;
-                    [CDCache registerUser:_user];
-                    
-                    CDIM* im=[CDIM sharedInstance];
-                    WEAKSELF
-                    [im fetchConvWithUserId:_user.objectId callback:^(AVIMConversation *conversation, NSError *error) {
-                        [MBProgressHUD hideHUDForView:self.view animated:YES];
-                        if(error){
-                            DLog(@"%@",error);
-                        }else{
-                            CDChatRoomVC* chatRoomVC=[[CDChatRoomVC alloc] initWithConv:conversation];
-                            chatRoomVC.hidesBottomBarWhenPushed=YES;
-                            [weakSelf.navigationController pushViewController:chatRoomVC animated:YES];
-                        }
-                    }];
-                }
-                
-            }];
-        }
-    }
+    [self.navigationController pushViewController:chatVC animated:YES];
+//    if (self.viewModel.companyInfo!=nil) {
+//        
+//        if([self.viewModel.companyInfo objectForKey:@"qiYeUser"]){
+//            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//            AVObject *userQuery=[self.viewModel.companyInfo objectForKey:@"qiYeUser"];
+//            [userQuery fetchInBackgroundWithBlock:^(AVObject *object, NSError *error) {
+//                if (!error) {
+//                    AVUser *_user=object;
+//                    [CDCache registerUser:_user];
+//                    
+//                    CDIM* im=[CDIM sharedInstance];
+//                    WEAKSELF
+//                    [im fetchConvWithUserId:_user.objectId callback:^(AVIMConversation *conversation, NSError *error) {
+//                        [MBProgressHUD hideHUDForView:self.view animated:YES];
+//                        if(error){
+//                            DLog(@"%@",error);
+//                        }else{
+//                            CDChatRoomVC* chatRoomVC=[[CDChatRoomVC alloc] initWithConv:conversation];
+//                            chatRoomVC.hidesBottomBarWhenPushed=YES;
+//                            [weakSelf.navigationController pushViewController:chatRoomVC animated:YES];
+//                        }
+//                    }];
+//                }
+//                
+//            }];
+//        }
+//    }
 }
 
 - (void)publish{
