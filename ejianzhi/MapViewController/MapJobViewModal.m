@@ -69,6 +69,7 @@
         NSString *titleString=job.jianZhiTitle;
         NSString *subtitle=[NSString stringWithFormat:@"%@元/%@",[job.jianZhiWage stringValue],job.jianZhiWageType];
         [self.handleView addAnnotation:point Title:titleString Subtitle:subtitle Index:i SetToCenter:NO];
+        self.handleView.jianzhiType = job.jianZhiType;
     }
 }
 

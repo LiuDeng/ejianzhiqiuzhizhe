@@ -32,6 +32,7 @@
 @property(nonatomic, retain) MAMapView *mapView;
 @property(nonatomic, strong)MAPointAnnotation *userAddMAPointAnnotation;
 @property(nonatomic,weak) id<showDetailDelegate> showDetailDelegate;
+@property (nonatomic, retain) NSString *jianzhiType;
 
 - (void)removeAllAnnotations;
 //主动请求定位

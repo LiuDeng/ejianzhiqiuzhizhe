@@ -10,6 +10,7 @@
 #import "CustomAnnotationView.h"
 #import "AJLocationManager.h"
 #import "UIView+ImageFromView.h"
+#import "ChineseToPinyin.h"
 @implementation MLMapView
 @synthesize mapView=_mapView;
 
@@ -43,7 +44,6 @@
  *  @param isCenter 是否设置该点坐标为地图中心
  */
 - (void)addAnnotation:(CLLocationCoordinate2D)point Title:(NSString*)title  Subtitle:(NSString*)subtitle Index:(NSInteger)index SetToCenter:(BOOL)isCenter{
-    
     MAPointAnnotation *sellerPoint = [[MAPointAnnotation alloc] init];
     btnIndex=index;
     
@@ -79,7 +79,10 @@
         static NSString *reuseIndetifier = @"annotationReuseIndetifier";
         CustomAnnotationView *annotationView = (CustomAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:reuseIndetifier];
 //        annotationView.rightCalloutAccessoryView=nil;
-        annotationView.image=[UIImage imageNamed:@"greenPin.png"];
+//        annotationView.image=[UIImage imageNamed:@"greenPin.png"];
+        NSLog(@"%@", NSStringFromCGRect(annotationView.frame));
+        annotationView.image = [UIImage imageNamed:[NSString stringWithFormat:@"type_%@", [[ChineseToPinyin pinyinFromChineseString:_jianzhiType] lowercaseString]]];
+        
         if (annotationView == nil)
         {
             annotationView = [[CustomAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseIndetifier];
@@ -109,7 +112,7 @@
         else{
 //            UIImage *image=[UIView createImageFromView:annotationView];
 //            annotationView.image=image;
-            annotationView.image=[UIImage imageNamed:@"greenPin.png"];
+            annotationView.image = [UIImage imageNamed:[NSString stringWithFormat:@"type_%@", [[ChineseToPinyin pinyinFromChineseString:_jianzhiType] lowercaseString]]];
             // 设置为NO，用以调用自定义的calloutView
             annotationView.canShowCallout = YES;
             // 设置中心点偏移，使得标注底部中间点成为经纬度对应点
