@@ -303,7 +303,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 #warning 以下第一行代码必须写，将self从ChatManager的代理中移除
     [[EaseMob sharedInstance].chatManager removeDelegate:self];
-    [[EaseMob sharedInstance].callManager removeDelegate:self];
     if (_conversation.conversationType == eConversationTypeChatRoom && !_isKicked)
     {
         //退出聊天室，删除会话
@@ -319,13 +318,15 @@
     }
 }
 
+#pragma mark 添加完动态的需要打开注释
 - (void)back
 {
+    
     //判断当前会话是否为空，若符合则删除该会话
-    EMMessage *message = [_conversation latestMessage];
-    if (message == nil) {
-        [[EaseMob sharedInstance].chatManager removeConversationByChatter:_conversation.chatter deleteMessages:NO append2Chat:YES];
-    }
+//    EMMessage *message = [_conversation latestMessage];
+//    if (message == nil) {
+//        [[EaseMob sharedInstance].chatManager removeConversationByChatter:_conversation.chatter deleteMessages:NO append2Chat:YES];
+//    }
     
     [self.navigationController popViewControllerAnimated:YES];
 }

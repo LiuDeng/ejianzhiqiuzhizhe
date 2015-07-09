@@ -819,6 +819,8 @@
 		6007F68F1B4CF3A300E03DFB /* tabbarSelectBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 6007F5CE1B4CF3A300E03DFB /* tabbarSelectBg.png */; };
 		6007F6901B4CF3A300E03DFB /* tabbarSelectBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6007F5CF1B4CF3A300E03DFB /* tabbarSelectBg@2x.png */; };
 		6007F6941B4D52A500E03DFB /* libEaseMobClientSDKLite.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6007F6931B4D52A500E03DFB /* libEaseMobClientSDKLite.a */; };
+		6007F6971B4E5E9D00E03DFB /* userPosition.png in Resources */ = {isa = PBXBuildFile; fileRef = 6007F6951B4E5E9D00E03DFB /* userPosition.png */; };
+		6007F6981B4E5E9D00E03DFB /* userPosition@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6007F6961B4E5E9D00E03DFB /* userPosition@2x.png */; };
 		6009BB041B3C30B8006B025C /* MLFirstVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6009BB021B3C30B8006B025C /* MLFirstVC.xib */; };
 		6009BB0A1B3CF9FE006B025C /* JobListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6009BB061B3CF9FE006B025C /* JobListTableViewCell.m */; };
 		6009BB0B1B3CF9FE006B025C /* JobListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6009BB071B3CF9FE006B025C /* JobListTableViewCell.xib */; };
@@ -2083,6 +2085,8 @@
 		6007F5CF1B4CF3A300E03DFB /* tabbarSelectBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbarSelectBg@2x.png"; sourceTree = "<group>"; };
 		6007F6911B4CF3E700E03DFB /* ChatDemoUIDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatDemoUIDefine.h; sourceTree = "<group>"; };
 		6007F6931B4D52A500E03DFB /* libEaseMobClientSDKLite.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libEaseMobClientSDKLite.a; sourceTree = "<group>"; };
+		6007F6951B4E5E9D00E03DFB /* userPosition.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = userPosition.png; sourceTree = "<group>"; };
+		6007F6961B4E5E9D00E03DFB /* userPosition@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "userPosition@2x.png"; sourceTree = "<group>"; };
 		6009BB001B3C30B8006B025C /* MLFirstVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLFirstVC.h; sourceTree = "<group>"; };
 		6009BB021B3C30B8006B025C /* MLFirstVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MLFirstVC.xib; sourceTree = "<group>"; };
 		6009BB051B3CF9FE006B025C /* JobListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobListTableViewCell.h; sourceTree = "<group>"; };
@@ -2615,6 +2619,8 @@
 		045622ED1AD61A33006E159C /* MapView */ = {
 			isa = PBXGroup;
 			children = (
+				6007F6951B4E5E9D00E03DFB /* userPosition.png */,
+				6007F6961B4E5E9D00E03DFB /* userPosition@2x.png */,
 				045622EE1AD61A33006E159C /* CustomAnnotationView.h */,
 				045622EF1AD61A33006E159C /* CustomAnnotationView.m */,
 				045622F01AD61A33006E159C /* MLMapView.h */,
@@ -5122,6 +5128,7 @@
 				0456254F1AD6211D006E159C /* d4.png in Resources */,
 				0456258F1AD6211D006E159C /* Icon-Spotlight-40.png in Resources */,
 				605E5A9C1B3A8F5900FD9AB2 /* ios-social-sdk-shake.html in Resources */,
+				6007F6981B4E5E9D00E03DFB /* userPosition@2x.png in Resources */,
 				045AA7491AE93CC700ED20F1 /* SearchViewController.xib in Resources */,
 				045625551AD6211D006E159C /* label_more.png in Resources */,
 				045625611AD6211D006E159C /* btnRight.png in Resources */,
@@ -5288,6 +5295,7 @@
 				605E5A871B3A8F5900FD9AB2 /* UMSLoginViewController.xib in Resources */,
 				045626261AD62129006E159C /* placeholder.png in Resources */,
 				040861CF1AF90B5F0060C76D /* map_icon_time.png in Resources */,
+				6007F6971B4E5E9D00E03DFB /* userPosition.png in Resources */,
 				6007F5E41B4CF3A300E03DFB /* VoiceSearchFeedback003.png in Resources */,
 				6007F5FA1B4CF3A300E03DFB /* VoiceSearchFeedback014.png in Resources */,
 				0456251F1AD6211D006E159C /* d2.png in Resources */,

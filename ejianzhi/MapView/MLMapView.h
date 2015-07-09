@@ -28,6 +28,7 @@
     BOOL requestUserLocation;
     NSInteger btnIndex;
 }
+@property (nonatomic, strong) MAAnnotationView *userLocationAnnotationView;
 @property(nonatomic, retain) MAMapView *mapView;
 @property(nonatomic, strong)MAPointAnnotation *userAddMAPointAnnotation;
 @property(nonatomic,weak) id<showDetailDelegate> showDetailDelegate;
