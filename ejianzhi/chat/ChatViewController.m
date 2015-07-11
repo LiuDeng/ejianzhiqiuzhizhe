@@ -203,7 +203,7 @@
 
 - (void)loadMessageFormLocal
 {
-    EMConversation *conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:@"8001" conversationType:eConversationTypeChat];
+    EMConversation *conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:_chatter conversationType:eConversationTypeChat];
     __weak ChatViewController *weakSelf = self;
     NSArray *array = [conversation loadAllMessages];
     if (array.count > 0)
@@ -1707,7 +1707,7 @@
 -(void)sendTextMessage:(NSString *)textMessage
 {
     EMMessage *tempMessage = [ChatSendHelper sendTextMessageWithString:textMessage
-                                                            toUsername:@"8001"
+                                                            toUsername:_chatter
                                                            messageType:[self messageType]
                                                      requireEncryption:NO
                                                                    ext:nil];
@@ -1717,7 +1717,7 @@
 -(void)sendImageMessage:(UIImage *)image
 {
     EMMessage *tempMessage = [ChatSendHelper sendImageMessageWithImage:image
-                                                            toUsername:@"8001"
+                                                            toUsername:_chatter
                                                            messageType:[self messageType]
                                                      requireEncryption:NO
                                                                    ext:nil];
@@ -1727,7 +1727,7 @@
 -(void)sendAudioMessage:(EMChatVoice *)voice
 {
     EMMessage *tempMessage = [ChatSendHelper sendVoice:voice
-                                            toUsername:@"8001"
+                                            toUsername:_chatter
                                            messageType:[self messageType]
                                      requireEncryption:NO ext:nil];
     [self addMessage:tempMessage];

@@ -256,6 +256,17 @@ static  SRLoginVC *thisController=nil;
                         [[NSUserDefaults standardUserDefaults] setObject:user.objectId forKey:@"userObjectId"];
                         [[NSUserDefaults standardUserDefaults] setObject:user.username forKey:@"userName"];
                         [[NSUserDefaults standardUserDefaults] synchronize];
+                        //环信登录
+                        [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:user.objectId password:@"111111" completion:^(NSDictionary *loginInfo, EMError *error) {
+                            if (error)
+                            {
+                                NSLog(@"环信登录失败");
+                            }
+                            else
+                            {
+                                NSLog(@"环信登录成功");
+                            }
+                        } onQueue:nil];
                         
                         
                         
@@ -397,7 +408,17 @@ static  SRLoginVC *thisController=nil;
                         [currentUser saveEventually];
                         [[NSUserDefaults standardUserDefaults] setObject:currentUser.objectId forKey:@"userObjectId"];
                         [[NSUserDefaults standardUserDefaults] synchronize];
-                        
+                        if (succeeded) {
+                            [[EaseMob sharedInstance].chatManager asyncRegisterNewAccount:currentUser.objectId password:@"111111" withCompletion:^(NSString *username, NSString *password, EMError *error) {
+                                
+                            } onQueue:nil];
+                        }
+                        else
+                        {
+                            [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:currentUser.objectId password:@"111111" completion:^(NSDictionary *loginInfo, EMError *error) {
+                                
+                            } onQueue:nil];
+                        }
                         
                         AVQuery *userDetailQuery=[AVQuery queryWithClassName:@"UserDetail"];
                         [userDetailQuery whereKey:@"userObjectId" equalTo:currentUser.objectId];
@@ -491,6 +512,17 @@ static  SRLoginVC *thisController=nil;
                         [[NSUserDefaults standardUserDefaults] setObject:currentUser.objectId forKey:@"userObjectId"];
                         [[NSUserDefaults standardUserDefaults] synchronize];
                         
+                        if (succeeded) {
+                            [[EaseMob sharedInstance].chatManager asyncRegisterNewAccount:currentUser.objectId password:@"111111" withCompletion:^(NSString *username, NSString *password, EMError *error) {
+                                
+                            } onQueue:nil];
+                        }
+                        else
+                        {
+                            [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:currentUser.objectId password:@"111111" completion:^(NSDictionary *loginInfo, EMError *error) {
+                                
+                            } onQueue:nil];
+                        }
                         
                         AVQuery *userDetailQuery=[AVQuery queryWithClassName:@"UserDetail"];
                         [userDetailQuery whereKey:@"userObjectId" equalTo:currentUser.objectId];
@@ -583,6 +615,17 @@ static  SRLoginVC *thisController=nil;
                         [[NSUserDefaults standardUserDefaults] setObject:currentUser.objectId forKey:@"userObjectId"];
                         [[NSUserDefaults standardUserDefaults] synchronize];
                         
+                        if (succeeded) {
+                            [[EaseMob sharedInstance].chatManager asyncRegisterNewAccount:currentUser.objectId password:@"111111" withCompletion:^(NSString *username, NSString *password, EMError *error) {
+                                
+                            } onQueue:nil];
+                        }
+                        else
+                        {
+                            [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:currentUser.objectId password:@"111111" completion:^(NSDictionary *loginInfo, EMError *error) {
+                                
+                            } onQueue:nil];
+                        }
                         
                         AVQuery *userDetailQuery=[AVQuery queryWithClassName:@"UserDetail"];
                         [userDetailQuery whereKey:@"userObjectId" equalTo:currentUser.objectId];
