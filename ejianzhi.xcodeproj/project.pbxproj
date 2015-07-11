@@ -833,6 +833,7 @@
 		601C388F1B51137B00158B17 /* profile_pop_button_background_bottom.png in Resources */ = {isa = PBXBuildFile; fileRef = 601C388C1B51137B00158B17 /* profile_pop_button_background_bottom.png */; };
 		601C38901B51137B00158B17 /* profile_pop_button_background_rect.png in Resources */ = {isa = PBXBuildFile; fileRef = 601C388D1B51137B00158B17 /* profile_pop_button_background_rect.png */; };
 		601C38911B51137B00158B17 /* profile_pop_button_background_top.png in Resources */ = {isa = PBXBuildFile; fileRef = 601C388E1B51137B00158B17 /* profile_pop_button_background_top.png */; };
+		601C38991B5123ED00158B17 /* TopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 601C38981B5123ED00158B17 /* TopView.m */; };
 		605E59111B351B7400FD9AB2 /* 服务中心icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 605E59101B351B7400FD9AB2 /* 服务中心icon.png */; };
 		605E591B1B351BDC00FD9AB2 /* 默认头像.png in Resources */ = {isa = PBXBuildFile; fileRef = 605E59141B351BDC00FD9AB2 /* 默认头像.png */; };
 		605E591C1B351BDC00FD9AB2 /* 我的简历icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 605E59151B351BDC00FD9AB2 /* 我的简历icon.png */; };
@@ -2108,6 +2109,8 @@
 		601C388C1B51137B00158B17 /* profile_pop_button_background_bottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile_pop_button_background_bottom.png; sourceTree = "<group>"; };
 		601C388D1B51137B00158B17 /* profile_pop_button_background_rect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile_pop_button_background_rect.png; sourceTree = "<group>"; };
 		601C388E1B51137B00158B17 /* profile_pop_button_background_top.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile_pop_button_background_top.png; sourceTree = "<group>"; };
+		601C38971B5123ED00158B17 /* TopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopView.h; sourceTree = "<group>"; };
+		601C38981B5123ED00158B17 /* TopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopView.m; sourceTree = "<group>"; };
 		605E59101B351B7400FD9AB2 /* 服务中心icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "服务中心icon.png"; sourceTree = "<group>"; };
 		605E59141B351BDC00FD9AB2 /* 默认头像.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "默认头像.png"; sourceTree = "<group>"; };
 		605E59151B351BDC00FD9AB2 /* 我的简历icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "我的简历icon.png"; sourceTree = "<group>"; };
@@ -4262,6 +4265,8 @@
 			children = (
 				6007F4AF1B4CF35C00E03DFB /* MessageToolbar */,
 				6007F4BE1B4CF35C00E03DFB /* MessageView */,
+				601C38971B5123ED00158B17 /* TopView.h */,
+				601C38981B5123ED00158B17 /* TopView.m */,
 			);
 			path = ChatView;
 			sourceTree = "<group>";
@@ -5920,6 +5925,7 @@
 				0443C1CB1AD55572004F29A5 /* MapViewController.m in Sources */,
 				6007F3D61B4CF12D00E03DFB /* EMCDDeviceManager+Microphone.m in Sources */,
 				0443C16B1AD5541D004F29A5 /* JobListWithDropDownListVCViewController.m in Sources */,
+				601C38991B5123ED00158B17 /* TopView.m in Sources */,
 				6009BB101B3E4B53006B025C /* HelpViewController.m in Sources */,
 				3B8D4AEA1AE257A9001F5E7F /* MJRefreshBaseView.m in Sources */,
 				6007F3D51B4CF12D00E03DFB /* EMCDDeviceManager+Media.m in Sources */,

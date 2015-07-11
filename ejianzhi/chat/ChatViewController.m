@@ -33,8 +33,10 @@
 #import "EMCDDeviceManagerDelegate.h"
 #define KPageCount 20
 #define KHintAdjustY    50
+#import "TopView.h"
+#import "JobDetailVC.h"
 
-@interface ChatViewController ()<UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, SRRefreshDelegate, IChatManagerDelegate, DXChatBarMoreViewDelegate, DXMessageToolBarDelegate, EMCDDeviceManagerDelegate,EMCallManagerDelegate>
+@interface ChatViewController ()<UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, SRRefreshDelegate, IChatManagerDelegate, DXChatBarMoreViewDelegate, DXMessageToolBarDelegate, EMCDDeviceManagerDelegate,EMCallManagerDelegate, TopViewDelegate>
 {
     UIMenuController *_menuController;
     UIMenuItem *_copyMenuItem;
@@ -180,6 +182,16 @@
     [self.tableView addSubview:self.slimeView];
     [self.view addSubview:self.chatToolBar];
     
+    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 90)];
+    backView.backgroundColor = [UIColor lightGrayColor];
+    TopView *topView = [[TopView alloc] initWithFrame:CGRectMake(SCREENWIDTH*0.1, 10, SCREENWIDTH*0.7, 70)];
+    [topView setContentValue:self.jianzhi];
+    topView.delegate = self;
+    topView.layer.cornerRadius = 5.0f;
+    topView.layer.masksToBounds = YES;
+    [backView addSubview:topView];
+    [self.view addSubview:backView];
+    
     //将self注册为chatToolBar的moreView的代理
     if ([self.chatToolBar.moreView isKindOfClass:[DXChatBarMoreView class]]) {
         [(DXChatBarMoreView *)self.chatToolBar.moreView setDelegate:self];
@@ -199,6 +211,13 @@
     {
         [self joinChatroom:_chatter];
     }
+}
+
+#pragma mark TopViewDelegate -----  点击顶部视图代理
+- (void)topViewClick
+{
+    JobDetailVC *detailVC=[[JobDetailVC alloc]initWithData:self.jianzhi];
+    [self.navigationController pushViewController:detailVC animated:YES];
 }
 
 - (void)loadMessageFormLocal
@@ -430,7 +449,7 @@
 - (UITableView *)tableView
 {
     if (_tableView == nil) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - self.chatToolBar.frame.size.height) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 100, self.view.frame.size.width, self.view.frame.size.height - self.chatToolBar.frame.size.height) style:UITableViewStylePlain];
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _tableView.delegate = self;
         _tableView.dataSource = self;
@@ -544,7 +563,7 @@
 {
     NSObject *obj = [self.dataSource objectAtIndex:indexPath.row];
     if ([obj isKindOfClass:[NSString class]]) {
-        return 40;
+        return 100;
     }
     else{
         return [EMChatViewCell tableView:tableView heightForRowAtIndexPath:indexPath withObject:(MessageModel *)obj];

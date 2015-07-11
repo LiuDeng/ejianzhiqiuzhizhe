@@ -125,8 +125,14 @@
 {
     if (buttonIndex == 1)
     {
+        
         BOOL isLogout=[[[SRLoginBusiness alloc]init]logOut];
         if (isLogout) {
+            [[EaseMob sharedInstance].chatManager asyncLogoffWithUnbindDeviceToken:YES completion:^(NSDictionary *info, EMError *error) {
+                if (!error && info) {
+                    NSLog(@"退出成功");
+                }
+            } onQueue:nil];
             [self.navigationController popViewControllerAnimated:YES];
         }
     }

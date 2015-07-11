@@ -526,13 +526,13 @@ static NSString *selectFreecellIdentifier = @"freeselectViewCell";
     if (user.objectId)
     {
         chatVC = [[ChatViewController alloc] initWithChatter:user.objectId conversationType:eConversationTypeChat];
-        chatVC.title = user.username;
     }
     else
     {
         chatVC = [[ChatViewController alloc] initWithChatter:@"5541f97be4b0fe513834d3fb" conversationType:eConversationTypeChat];
-        chatVC.title = user.username;
     }
+    chatVC.title = user.username;
+    chatVC.jianzhi = self.viewModel.jianZhi;
     [self.navigationController pushViewController:chatVC animated:YES];
     
 //    ChatViewController *chatVC = [[ChatViewController alloc] init];
