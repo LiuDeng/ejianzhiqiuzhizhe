@@ -93,14 +93,14 @@
     
     if(companyId!=nil){
         
-    AVQuery *userQuery=[AVUser query];
-    AVUser *usr=[AVUser currentUser];
-    [userQuery whereKey:@"objectId" equalTo:usr.objectId];
+//    AVQuery *userQuery=[AVUser query];
+//    AVUser *usr=[AVUser currentUser];
+//    [userQuery whereKey:@"objectId" equalTo:usr.objectId];
         
     AVQuery *query=[AVQuery queryWithClassName:@"QiYeInfo"];
         
-    [query whereKey:@"qiYeUser" matchesQuery:userQuery];
-
+//    [query whereKey:@"qiYeUser" matchesQuery:userQuery];
+        [query whereKey:@"objectId" equalTo:companyId];
     query.cachePolicy=kAVCachePolicyNetworkElseCache;
     query.maxCacheAge=3600*24;
 
@@ -126,19 +126,19 @@
                 self.comFileNum=@"未填写";
                 self.comIcon=[UIImage imageNamed:@"placeholder"];
                 
-                AVQuery *query=[AVUser query];
-                [query whereKey:@"objectId" equalTo:[AVUser currentUser].objectId];
-                [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-                    if (!error) {
-                        if ([objects count]>0) {
-                            AVUser *user=[objects objectAtIndex:0];
-                            self.companyInfoObject=[AVObject objectWithClassName:@"QiYeInfo"];
-                            [self.companyInfoObject setObject:user forKey:@"qiYeUser"];
-                            [self.companyInfoObject setObject:user.objectId forKey:@"userObjectId"];
-                            [self.companyInfoObject saveEventually];
-                        }
-                    }
-                }];
+//                AVQuery *query=[AVUser query];
+//                [query whereKey:@"objectId" equalTo:[AVUser currentUser].objectId];
+//                [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+//                    if (!error) {
+//                        if ([objects count]>0) {
+//                            AVUser *user=[objects objectAtIndex:0];
+//                            self.companyInfoObject=[AVObject objectWithClassName:@"QiYeInfo"];
+//                            [self.companyInfoObject setObject:user forKey:@"qiYeUser"];
+//                            [self.companyInfoObject setObject:user.objectId forKey:@"userObjectId"];
+//                            [self.companyInfoObject saveEventually];
+//                        }
+//                    }
+//                }];
                 }
         }else{
             NSString *errorString=[NSString stringWithFormat:@"sorry，加载出错。错误原因：%@"  ,error.description];
