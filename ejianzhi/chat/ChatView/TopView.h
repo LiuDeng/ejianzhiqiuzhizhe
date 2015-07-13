@@ -22,7 +22,8 @@
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *distanceLabel;
 @property (nonatomic, strong) UILabel *wageLabel;
-@property (nonatomic, strong) UILabel *addressLabel;
+@property (nonatomic, strong) UILabel *createTimeLabel;
+@property (nonatomic, strong) UILabel *salaryType;
 
 @property (nonatomic, weak) id<TopViewDelegate> delegate;
 

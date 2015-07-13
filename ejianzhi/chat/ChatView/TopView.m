@@ -11,7 +11,8 @@
 #import  "PullServerManager.h"
 #import "MLMapManager.h"
 #import "AJLocationManager.h"
-#define interval 5
+#import "DateUtil.h"
+#define interval 10
 #define GreenFillColor [UIColor colorWithRed: 0.22 green: 0.69 blue: 0.58 alpha: 1]
 @implementation TopView
 
@@ -28,13 +29,18 @@
 
 - (void)initView
 {
-    _typeView = [[UIView alloc] initWithFrame:CGRectMake(interval, interval, 70, 60)];
+    UIImageView *backImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+    backImageView.image = [UIImage imageNamed:@"背景框"];
+    [self addSubview:backImageView];
+    
+    
+    _typeView = [[UIView alloc] initWithFrame:CGRectMake(interval, interval, 60, 60)];
     _typeView.layer.cornerRadius = 5;
     _typeView.layer.masksToBounds = YES;
     [self addSubview:_typeView];
     
     // 类型
-    _typeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 15, _typeView.frame.size.width, 30)];
+    _typeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 8, _typeView.frame.size.width, 44)];
     _typeLabel.backgroundColor = [UIColor clearColor];
     _typeLabel.textColor = [UIColor whiteColor];
     _typeLabel.textAlignment = NSTextAlignmentCenter;
@@ -47,28 +53,40 @@
     _titleLabel.textColor = [UIColor blackColor];
     [self addSubview:_titleLabel];
     
-    // 距离
-    _distanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(_typeView.frame.origin.x+_typeView.frame.size.width+interval, _titleLabel.frame.origin.y+_titleLabel.frame.size.height, 60, 20)];
-    _distanceLabel.backgroundColor = [UIColor clearColor];
-    _distanceLabel.font = [UIFont systemFontOfSize:13.0f];
-    _distanceLabel.textColor = [UIColor blackColor];
-    [self addSubview:_distanceLabel];
-    
     // 工资
-    _wageLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width-100, _titleLabel.frame.origin.y+_titleLabel.frame.size.height, 100, 20)];
+    _wageLabel = [[UILabel alloc] initWithFrame:CGRectMake(_typeView.frame.origin.x+_typeView.frame.size.width+interval, _titleLabel.frame.origin.y+_titleLabel.frame.size.height, 100, 20)];
     _wageLabel.backgroundColor = [UIColor clearColor];
     _wageLabel.font = [UIFont systemFontOfSize:13.0f];
     _wageLabel.textColor = [UIColor blackColor];
     [self addSubview:_wageLabel];
     
-    // 地址
-    _addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(_typeView.frame.origin.x+_typeView.frame.size.width+interval, _distanceLabel.frame.origin.y+_distanceLabel.frame.size.height, self.frame.size.width-_typeView.frame.size.width+interval*2, 20)];
-    _addressLabel.backgroundColor = [UIColor clearColor];
-    _addressLabel.font = [UIFont systemFontOfSize:13.0f];
-    _addressLabel.textColor = [UIColor blackColor];
-    _addressLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-    _addressLabel.numberOfLines = 1;
-    [self addSubview:_addressLabel];
+    // 结算方式
+    _salaryType = [[UILabel alloc] initWithFrame:CGRectMake(_wageLabel.frame.origin.x+_wageLabel.frame.size.width+interval, _titleLabel.frame.origin.y+_titleLabel.frame.size.height, 100, 20)];
+    _salaryType.backgroundColor = [UIColor clearColor];
+    _salaryType.font = [UIFont systemFontOfSize:13.0f];
+    _salaryType.textColor = [UIColor blackColor];
+    [self addSubview:_salaryType];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(_typeView.frame.size.width+interval*2, _wageLabel.frame.origin.y+_wageLabel.frame.size.height+4, 12, 12)];
+    imageView.image = [UIImage imageNamed:@"地标"];
+    [self addSubview:imageView];
+    // 距离
+    _distanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(imageView.frame.origin.x+imageView.frame.size.width, _wageLabel.frame.origin.y+_wageLabel.frame.size.height, 90, 20)];
+    _distanceLabel.backgroundColor = [UIColor clearColor];
+    _distanceLabel.font = [UIFont systemFontOfSize:13.0f];
+    _distanceLabel.textColor = [UIColor blackColor];
+    [self addSubview:_distanceLabel];
+    
+    
+    
+    // 发布日期
+    _createTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(_distanceLabel.frame.origin.x+_distanceLabel.frame.size.width+interval, _distanceLabel.frame.origin.y, self.frame.size.width-_typeView.frame.size.width+interval*2, 20)];
+    _createTimeLabel.backgroundColor = [UIColor clearColor];
+    _createTimeLabel.font = [UIFont systemFontOfSize:13.0f];
+    _createTimeLabel.textColor = [UIColor blackColor];
+    _createTimeLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    _createTimeLabel.numberOfLines = 1;
+    [self addSubview:_createTimeLabel];
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.frame = self.bounds;
@@ -90,8 +108,10 @@
     [self setIconBackgroundColor:[self colorForType:jianzhi.jianZhiType]];
     _typeLabel.text = jianzhi.jianZhiType;
     _titleLabel.text = jianzhi.jianZhiTitle;
-    _addressLabel.text = jianzhi.jianZhiAddress;
-    _wageLabel.text = [@"¥" stringByAppendingString:[jianzhi.jianZhiWage stringValue]];
+    _createTimeLabel.text = [DateUtil stringFromDate:jianzhi.createdAt];
+    _wageLabel.text = [NSString stringWithFormat:@"%@元/%@",[@"¥" stringByAppendingString:[jianzhi.jianZhiWage stringValue]],jianzhi.jianZhiWageType];
+    
+    _salaryType.text = [NSString stringWithFormat:@"结算方式：%@",jianzhi.jianZhiWageType];
     
     self.distanceLabel.text=[self distanceFromJobPoint:jianzhi.jianZhiPoint.latitude Lon:jianzhi.jianZhiPoint.longitude];
     if([self.distanceLabel.text isEqualToString:@""]){

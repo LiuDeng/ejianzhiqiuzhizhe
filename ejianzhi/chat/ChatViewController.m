@@ -182,13 +182,11 @@
     [self.tableView addSubview:self.slimeView];
     [self.view addSubview:self.chatToolBar];
     
-    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 90)];
-    backView.backgroundColor = [UIColor lightGrayColor];
-    TopView *topView = [[TopView alloc] initWithFrame:CGRectMake(SCREENWIDTH*0.1, 10, SCREENWIDTH*0.7, 70)];
+    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 100)];
+    backView.backgroundColor = COLOR(240, 240, 240);
+    TopView *topView = [[TopView alloc] initWithFrame:CGRectMake(22, 10, SCREENWIDTH-44, 80)];
     [topView setContentValue:self.jianzhi];
     topView.delegate = self;
-    topView.layer.cornerRadius = 5.0f;
-    topView.layer.masksToBounds = YES;
     [backView addSubview:topView];
     [self.view addSubview:backView];
     
