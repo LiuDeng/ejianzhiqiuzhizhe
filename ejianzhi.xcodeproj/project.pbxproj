@@ -834,9 +834,9 @@
 		601C38901B51137B00158B17 /* profile_pop_button_background_rect.png in Resources */ = {isa = PBXBuildFile; fileRef = 601C388D1B51137B00158B17 /* profile_pop_button_background_rect.png */; };
 		601C38911B51137B00158B17 /* profile_pop_button_background_top.png in Resources */ = {isa = PBXBuildFile; fileRef = 601C388E1B51137B00158B17 /* profile_pop_button_background_top.png */; };
 		601C38991B5123ED00158B17 /* TopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 601C38981B5123ED00158B17 /* TopView.m */; };
-		601C38A01B53A5ED00158B17 /* 地标.png in Resources */ = {isa = PBXBuildFile; fileRef = 601C389F1B53A5ED00158B17 /* 地标.png */; };
 		601C38A21B53A8BE00158B17 /* 背景框.png in Resources */ = {isa = PBXBuildFile; fileRef = 601C38A11B53A8BE00158B17 /* 背景框.png */; };
 		601C38AB1B54DE9000158B17 /* Single.m in Sources */ = {isa = PBXBuildFile; fileRef = 601C38AA1B54DE9000158B17 /* Single.m */; };
+		601C38B11B550FEA00158B17 /* 地标.png in Resources */ = {isa = PBXBuildFile; fileRef = 601C38B01B550FEA00158B17 /* 地标.png */; };
 		605E59111B351B7400FD9AB2 /* 服务中心icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 605E59101B351B7400FD9AB2 /* 服务中心icon.png */; };
 		605E591B1B351BDC00FD9AB2 /* 默认头像.png in Resources */ = {isa = PBXBuildFile; fileRef = 605E59141B351BDC00FD9AB2 /* 默认头像.png */; };
 		605E591C1B351BDC00FD9AB2 /* 我的简历icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 605E59151B351BDC00FD9AB2 /* 我的简历icon.png */; };
@@ -2114,10 +2114,10 @@
 		601C388E1B51137B00158B17 /* profile_pop_button_background_top.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile_pop_button_background_top.png; sourceTree = "<group>"; };
 		601C38971B5123ED00158B17 /* TopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopView.h; sourceTree = "<group>"; };
 		601C38981B5123ED00158B17 /* TopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopView.m; sourceTree = "<group>"; };
-		601C389F1B53A5ED00158B17 /* 地标.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "地标.png"; sourceTree = "<group>"; };
 		601C38A11B53A8BE00158B17 /* 背景框.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "背景框.png"; sourceTree = "<group>"; };
 		601C38A91B54DE9000158B17 /* Single.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Single.h; sourceTree = "<group>"; };
 		601C38AA1B54DE9000158B17 /* Single.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Single.m; sourceTree = "<group>"; };
+		601C38B01B550FEA00158B17 /* 地标.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "地标.png"; sourceTree = "<group>"; };
 		605E59101B351B7400FD9AB2 /* 服务中心icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "服务中心icon.png"; sourceTree = "<group>"; };
 		605E59141B351BDC00FD9AB2 /* 默认头像.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "默认头像.png"; sourceTree = "<group>"; };
 		605E59151B351BDC00FD9AB2 /* 我的简历icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "我的简历icon.png"; sourceTree = "<group>"; };
@@ -4272,7 +4272,7 @@
 		6007F4AE1B4CF35C00E03DFB /* ChatView */ = {
 			isa = PBXGroup;
 			children = (
-				601C389F1B53A5ED00158B17 /* 地标.png */,
+				601C38B01B550FEA00158B17 /* 地标.png */,
 				601C38A11B53A8BE00158B17 /* 背景框.png */,
 				6007F4AF1B4CF35C00E03DFB /* MessageToolbar */,
 				6007F4BE1B4CF35C00E03DFB /* MessageView */,
@@ -5243,6 +5243,7 @@
 				6007F6591B4CF3A300E03DFB /* chat_receiver_audio_playing002.png in Resources */,
 				6007F6381B4CF3A300E03DFB /* chatBar_recordSelected.png in Resources */,
 				6007F5EB1B4CF3A300E03DFB /* VoiceSearchFeedback006@2x.png in Resources */,
+				601C38B11B550FEA00158B17 /* 地标.png in Resources */,
 				045625201AD6211D006E159C /* d3.png in Resources */,
 				6007F6791B4CF3A300E03DFB /* group_invitee_delete@2x.png in Resources */,
 				6007F5F21B4CF3A300E03DFB /* VoiceSearchFeedback010.png in Resources */,
@@ -5257,7 +5258,6 @@
 				045625031AD6211D006E159C /* get.png in Resources */,
 				045625B11AD6211D006E159C /* protait3-Small.png in Resources */,
 				6007F6291B4CF3A300E03DFB /* chatBar_face@2x.png in Resources */,
-				601C38A01B53A5ED00158B17 /* 地标.png in Resources */,
 				04B346E91AEA95FA00A8A180 /* 5.png in Resources */,
 				045625021AD6211D006E159C /* experience.png in Resources */,
 				04B346E71AEA95FA00A8A180 /* 4.png in Resources */,
