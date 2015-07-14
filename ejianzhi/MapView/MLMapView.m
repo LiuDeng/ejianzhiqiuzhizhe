@@ -10,6 +10,7 @@
 #import "CustomAnnotationView.h"
 #import "AJLocationManager.h"
 #import "UIView+ImageFromView.h"
+#import "ChineseToPinyin.h"
 @implementation MLMapView
 @synthesize mapView=_mapView;
 
@@ -22,13 +23,16 @@
         [self addSubview:_mapView];
         _mapView.userInteractionEnabled=YES;
         _mapView.delegate = self;
+        _mapView.showsUserLocation = YES;
+        [_mapView setUserTrackingMode:MAUserTrackingModeFollow animated:YES];
+        [_mapView setZoomLevel:10.0f];
+
         pointAnnoArray=[[NSMutableArray alloc]init];
         firstLoad=YES;
         requestUserLocation=NO;
     }
     return self;
 }
-
 
 
 /**
@@ -40,7 +44,6 @@
  *  @param isCenter 是否设置该点坐标为地图中心
  */
 - (void)addAnnotation:(CLLocationCoordinate2D)point Title:(NSString*)title  Subtitle:(NSString*)subtitle Index:(NSInteger)index SetToCenter:(BOOL)isCenter{
-    
     MAPointAnnotation *sellerPoint = [[MAPointAnnotation alloc] init];
     btnIndex=index;
     
@@ -75,8 +78,11 @@
     {
         static NSString *reuseIndetifier = @"annotationReuseIndetifier";
         CustomAnnotationView *annotationView = (CustomAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:reuseIndetifier];
-        annotationView.rightCalloutAccessoryView=nil;
-        annotationView.image=[UIImage imageNamed:@"greenPin.png"];
+//        annotationView.rightCalloutAccessoryView=nil;
+//        annotationView.image=[UIImage imageNamed:@"greenPin.png"];
+        NSLog(@"%@", NSStringFromCGRect(annotationView.frame));
+        annotationView.image = [UIImage imageNamed:[NSString stringWithFormat:@"type_%@", [[ChineseToPinyin pinyinFromChineseString:_jianzhiType] lowercaseString]]];
+        
         if (annotationView == nil)
         {
             annotationView = [[CustomAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseIndetifier];
@@ -102,10 +108,11 @@
             annotationView.canShowCallout = YES;
             annotationView.centerOffset = CGPointMake(0, 0);
         }
+        
         else{
 //            UIImage *image=[UIView createImageFromView:annotationView];
 //            annotationView.image=image;
-            annotationView.image=[UIImage imageNamed:@"greenPin.png"];
+            annotationView.image = [UIImage imageNamed:[NSString stringWithFormat:@"type_%@", [[ChineseToPinyin pinyinFromChineseString:_jianzhiType] lowercaseString]]];
             // 设置为NO，用以调用自定义的calloutView
             annotationView.canShowCallout = YES;
             // 设置中心点偏移，使得标注底部中间点成为经纬度对应点
@@ -121,6 +128,13 @@
         }
         return annotationView;
     }
+    else if ([annotation isKindOfClass:[MAUserLocation class]])
+    {
+        static NSString *reuseIndetifier = @"annotationReuseIndetifier";
+        MAAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:reuseIndetifier];
+        annotationView.rightCalloutAccessoryView=nil;
+        annotationView.image = [UIImage imageNamed:@"annotation.png"];
+    }
     return nil;
 }
 
@@ -130,16 +144,46 @@
     [self.showDetailDelegate showDetail:button.tag];
 }
 
+- (void)mapView:(MAMapView *)mapView didAddAnnotationViews:(NSArray *)views
+{
+    MAAnnotationView *view = views[0];
+    
+    // 放到该方法中用以保证userlocation的annotationView已经添加到地图上了。
+    if ([view.annotation isKindOfClass:[MAUserLocation class]])
+    {
+        MAUserLocationRepresentation *pre = [[MAUserLocationRepresentation alloc] init];
+//        pre.fillColor = [UIColor colorWithRed:0.9 green:0.1 blue:0.1 alpha:0.3];
+//        pre.strokeColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.9 alpha:1.0];
+        pre.image = [UIImage imageNamed:@"userPosition"];
+        pre.lineWidth = 3;
+        //        pre.lineDashPattern = @[@6, @3];
+        
+        [self.mapView updateUserLocationRepresentation:pre];
+        
+        view.calloutOffset = CGPointMake(0, 0);
+        view.canShowCallout = NO;
+        self.userLocationAnnotationView = view;
+    }  
+}
 
 -(void)mapView:(MAMapView*)mapView didUpdateUserLocation:(MAUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation
 {
+    if (!updatingLocation && self.userLocationAnnotationView != nil)
+    {
+        [UIView animateWithDuration:0.1 animations:^{
+            
+            double degree = userLocation.heading.trueHeading;
+            self.userLocationAnnotationView.transform = CGAffineTransformMakeRotation(degree * M_PI / 180.f );
+            
+        }];
+    }
     if (requestUserLocation) {
         //更新用户信息
         AJLocationManager *locationManger=[AJLocationManager shareLocation];
         locationManger.lastCoordinate=userLocation.coordinate;
         [locationManger getReverseGeocode];
         
-        requestUserLocation=NO;
+        _mapView.region = MACoordinateRegionMake([_mapView userLocation].coordinate,MACoordinateSpanMake(0.05, 0.05));
         _mapView.showsUserLocation=YES;
     }else if (firstLoad) {
         _mapView.region = MACoordinateRegionMake([_mapView userLocation].coordinate,MACoordinateSpanMake(0.05, 0.05));
@@ -182,13 +226,6 @@
 - (void)removeAllAnnotations{
     [_mapView removeAnnotations:pointAnnoArray];
     [pointAnnoArray removeAllObjects];
-}
-
-
-
-- (void)mapView:(MAMapView *)mapView didAddAnnotationViews:(NSArray *)views
-{
-   
 }
 
 @end

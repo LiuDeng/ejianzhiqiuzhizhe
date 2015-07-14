@@ -33,8 +33,10 @@
 #import "EMCDDeviceManagerDelegate.h"
 #define KPageCount 20
 #define KHintAdjustY    50
+#import "TopView.h"
+#import "JobDetailVC.h"
 
-@interface ChatViewController ()<UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, SRRefreshDelegate, IChatManagerDelegate, DXChatBarMoreViewDelegate, DXMessageToolBarDelegate, EMCDDeviceManagerDelegate,EMCallManagerDelegate>
+@interface ChatViewController ()<UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, SRRefreshDelegate, IChatManagerDelegate, DXChatBarMoreViewDelegate, DXMessageToolBarDelegate, EMCDDeviceManagerDelegate,EMCallManagerDelegate, TopViewDelegate>
 {
     UIMenuController *_menuController;
     UIMenuItem *_copyMenuItem;
@@ -180,6 +182,14 @@
     [self.tableView addSubview:self.slimeView];
     [self.view addSubview:self.chatToolBar];
     
+    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 100)];
+    backView.backgroundColor = COLOR(240, 240, 240);
+    TopView *topView = [[TopView alloc] initWithFrame:CGRectMake(22, 10, SCREENWIDTH-44, 80)];
+    [topView setContentValue:self.jianzhi];
+    topView.delegate = self;
+    [backView addSubview:topView];
+    [self.view addSubview:backView];
+    
     //将self注册为chatToolBar的moreView的代理
     if ([self.chatToolBar.moreView isKindOfClass:[DXChatBarMoreView class]]) {
         [(DXChatBarMoreView *)self.chatToolBar.moreView setDelegate:self];
@@ -201,9 +211,16 @@
     }
 }
 
+#pragma mark TopViewDelegate -----  点击顶部视图代理
+- (void)topViewClick
+{
+    JobDetailVC *detailVC=[[JobDetailVC alloc]initWithData:self.jianzhi];
+    [self.navigationController pushViewController:detailVC animated:YES];
+}
+
 - (void)loadMessageFormLocal
 {
-    EMConversation *conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:@"8001" conversationType:eConversationTypeChat];
+    EMConversation *conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:_chatter conversationType:eConversationTypeChat];
     __weak ChatViewController *weakSelf = self;
     NSArray *array = [conversation loadAllMessages];
     if (array.count > 0)
@@ -303,7 +320,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 #warning 以下第一行代码必须写，将self从ChatManager的代理中移除
     [[EaseMob sharedInstance].chatManager removeDelegate:self];
-    [[EaseMob sharedInstance].callManager removeDelegate:self];
     if (_conversation.conversationType == eConversationTypeChatRoom && !_isKicked)
     {
         //退出聊天室，删除会话
@@ -319,13 +335,15 @@
     }
 }
 
+#pragma mark 添加完动态的需要打开注释
 - (void)back
 {
+    
     //判断当前会话是否为空，若符合则删除该会话
-    EMMessage *message = [_conversation latestMessage];
-    if (message == nil) {
-        [[EaseMob sharedInstance].chatManager removeConversationByChatter:_conversation.chatter deleteMessages:NO append2Chat:YES];
-    }
+//    EMMessage *message = [_conversation latestMessage];
+//    if (message == nil) {
+//        [[EaseMob sharedInstance].chatManager removeConversationByChatter:_conversation.chatter deleteMessages:NO append2Chat:YES];
+//    }
     
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -429,7 +447,7 @@
 - (UITableView *)tableView
 {
     if (_tableView == nil) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - self.chatToolBar.frame.size.height) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 100, self.view.frame.size.width, self.view.frame.size.height - self.chatToolBar.frame.size.height) style:UITableViewStylePlain];
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _tableView.delegate = self;
         _tableView.dataSource = self;
@@ -543,7 +561,7 @@
 {
     NSObject *obj = [self.dataSource objectAtIndex:indexPath.row];
     if ([obj isKindOfClass:[NSString class]]) {
-        return 40;
+        return 100;
     }
     else{
         return [EMChatViewCell tableView:tableView heightForRowAtIndexPath:indexPath withObject:(MessageModel *)obj];
@@ -963,7 +981,7 @@
 
 -(void)didReceiveMessage:(EMMessage *)message
 {
-//    if ([_conversation.chatter isEqualToString:message.conversationChatter]) {
+    if ([_conversation.chatter isEqualToString:message.conversationChatter]) {
         [self addMessage:message];
         if ([self shouldAckMessage:message read:NO])
         {
@@ -973,7 +991,7 @@
         {
             [self markMessagesAsRead:@[message]];
         }
-//    }
+    }
 }
 
 -(void)didReceiveCmdMessage:(EMMessage *)message
@@ -1706,7 +1724,7 @@
 -(void)sendTextMessage:(NSString *)textMessage
 {
     EMMessage *tempMessage = [ChatSendHelper sendTextMessageWithString:textMessage
-                                                            toUsername:@"8001"
+                                                            toUsername:_chatter
                                                            messageType:[self messageType]
                                                      requireEncryption:NO
                                                                    ext:nil];
@@ -1716,7 +1734,7 @@
 -(void)sendImageMessage:(UIImage *)image
 {
     EMMessage *tempMessage = [ChatSendHelper sendImageMessageWithImage:image
-                                                            toUsername:@"8001"
+                                                            toUsername:_chatter
                                                            messageType:[self messageType]
                                                      requireEncryption:NO
                                                                    ext:nil];
@@ -1726,7 +1744,7 @@
 -(void)sendAudioMessage:(EMChatVoice *)voice
 {
     EMMessage *tempMessage = [ChatSendHelper sendVoice:voice
-                                            toUsername:@"8001"
+                                            toUsername:_chatter
                                            messageType:[self messageType]
                                      requireEncryption:NO ext:nil];
     [self addMessage:tempMessage];

@@ -15,6 +15,7 @@
 #import "ResetPwdViewController.h"
 #import "UMSocial.h"
 #import "UserDetail.h"
+#import "MBProgressHUD.h"
 
 @interface SRLoginVC ()<successRegistered,UIAlertViewDelegate>
 {
@@ -32,6 +33,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *weiboLabel;
 @property (weak, nonatomic) IBOutlet UIButton *qqButton;
 @property (weak, nonatomic) IBOutlet UILabel *qqLabel;
+@property (weak, nonatomic) IBOutlet UIView *leftViewLine;
+@property (weak, nonatomic) IBOutlet UIView *rightViewLine;
+@property (weak, nonatomic) IBOutlet UILabel *centerLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
@@ -119,11 +123,78 @@ static  SRLoginVC *thisController=nil;
             break;
     }
 }
+
+- (void)checkVersion
+{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    AVQuery *query = [AVQuery queryWithClassName:@"Version"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error)
+        {
+            if (objects.count > 0)
+            {
+                AVObject *object = [objects objectAtIndex:0];
+                if ([[object objectForKey:@"versionNumber"] isEqualToString:@"1.0.9"])
+                {
+                    [Single shareUserInstance].isAudit = NO;
+                    _weixinButton.hidden = NO;
+                    _weixinLabel.hidden = NO;
+                    _weiboButton.hidden = NO;
+                    _weiboLabel.hidden = NO;
+                    _qqButton.hidden = NO;
+                    _qqLabel.hidden = NO;
+                    _rightViewLine.hidden = NO;
+                    _leftViewLine.hidden = NO;
+                    _centerLabel.hidden = NO;
+                    if (![Single shareUserInstance].isAudit)
+                    {
+                        [self creatThirdLoginView];
+                        
+                    }
+                    [MBProgressHUD hideHUDForView:self.view animated:YES];
+                }
+                else
+                {
+                    [Single shareUserInstance].isAudit = YES;
+                    [self appIsAudit];
+                    [MBProgressHUD hideHUDForView:self.view animated:YES];
+                }
+            }
+            else
+            {
+                [Single shareUserInstance].isAudit = YES;
+                [self appIsAudit];
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+            }
+        }
+        else
+        {
+            [Single shareUserInstance].isAudit = YES;
+            [self appIsAudit];
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        }
+    }];
+}
+
+- (void)appIsAudit
+{
+    _weixinButton.hidden = YES;
+    _weixinLabel.hidden = YES;
+    _weiboButton.hidden = YES;
+    _weiboLabel.hidden = YES;
+    _qqButton.hidden = YES;
+    _qqLabel.hidden = YES;
+    _rightViewLine.hidden = YES;
+    _leftViewLine.hidden = YES;
+    _centerLabel.hidden = YES;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.userPassword.clearButtonMode=NO;
     self.loginButton.tag=101;
-    [self creatThirdLoginView];
+    [self appIsAudit];
+    [self checkVersion];
     
     
     if ([AVUser currentUser] != nil) {
@@ -256,6 +327,17 @@ static  SRLoginVC *thisController=nil;
                         [[NSUserDefaults standardUserDefaults] setObject:user.objectId forKey:@"userObjectId"];
                         [[NSUserDefaults standardUserDefaults] setObject:user.username forKey:@"userName"];
                         [[NSUserDefaults standardUserDefaults] synchronize];
+                        //环信登录
+                        [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:user.objectId password:@"111111" completion:^(NSDictionary *loginInfo, EMError *error) {
+                            if (error)
+                            {
+                                NSLog(@"环信登录失败");
+                            }
+                            else
+                            {
+                                NSLog(@"环信登录成功");
+                            }
+                        } onQueue:nil];
                         
                         
                         
@@ -397,7 +479,17 @@ static  SRLoginVC *thisController=nil;
                         [currentUser saveEventually];
                         [[NSUserDefaults standardUserDefaults] setObject:currentUser.objectId forKey:@"userObjectId"];
                         [[NSUserDefaults standardUserDefaults] synchronize];
-                        
+                        if (succeeded) {
+                            [[EaseMob sharedInstance].chatManager asyncRegisterNewAccount:currentUser.objectId password:@"111111" withCompletion:^(NSString *username, NSString *password, EMError *error) {
+                                
+                            } onQueue:nil];
+                        }
+                        else
+                        {
+                            [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:currentUser.objectId password:@"111111" completion:^(NSDictionary *loginInfo, EMError *error) {
+                                
+                            } onQueue:nil];
+                        }
                         
                         AVQuery *userDetailQuery=[AVQuery queryWithClassName:@"UserDetail"];
                         [userDetailQuery whereKey:@"userObjectId" equalTo:currentUser.objectId];
@@ -491,6 +583,17 @@ static  SRLoginVC *thisController=nil;
                         [[NSUserDefaults standardUserDefaults] setObject:currentUser.objectId forKey:@"userObjectId"];
                         [[NSUserDefaults standardUserDefaults] synchronize];
                         
+                        if (succeeded) {
+                            [[EaseMob sharedInstance].chatManager asyncRegisterNewAccount:currentUser.objectId password:@"111111" withCompletion:^(NSString *username, NSString *password, EMError *error) {
+                                
+                            } onQueue:nil];
+                        }
+                        else
+                        {
+                            [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:currentUser.objectId password:@"111111" completion:^(NSDictionary *loginInfo, EMError *error) {
+                                
+                            } onQueue:nil];
+                        }
                         
                         AVQuery *userDetailQuery=[AVQuery queryWithClassName:@"UserDetail"];
                         [userDetailQuery whereKey:@"userObjectId" equalTo:currentUser.objectId];
@@ -583,6 +686,17 @@ static  SRLoginVC *thisController=nil;
                         [[NSUserDefaults standardUserDefaults] setObject:currentUser.objectId forKey:@"userObjectId"];
                         [[NSUserDefaults standardUserDefaults] synchronize];
                         
+                        if (succeeded) {
+                            [[EaseMob sharedInstance].chatManager asyncRegisterNewAccount:currentUser.objectId password:@"111111" withCompletion:^(NSString *username, NSString *password, EMError *error) {
+                                
+                            } onQueue:nil];
+                        }
+                        else
+                        {
+                            [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:currentUser.objectId password:@"111111" completion:^(NSDictionary *loginInfo, EMError *error) {
+                                
+                            } onQueue:nil];
+                        }
                         
                         AVQuery *userDetailQuery=[AVQuery queryWithClassName:@"UserDetail"];
                         [userDetailQuery whereKey:@"userObjectId" equalTo:currentUser.objectId];

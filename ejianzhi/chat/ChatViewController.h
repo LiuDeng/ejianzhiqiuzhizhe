@@ -12,6 +12,7 @@
 
 #import <UIKit/UIKit.h>
 #import "EMChatManagerDefs.h"
+#import "JianZhi.h"
 
 @protocol ChatViewControllerDelegate <NSObject>
 
@@ -23,6 +24,7 @@
 @interface ChatViewController : UIViewController
 @property (strong, nonatomic, readonly) NSString *chatter;
 @property (nonatomic) BOOL isInvisible;
+@property (nonatomic, strong) JianZhi *jianzhi;
 @property (nonatomic, assign) id <ChatViewControllerDelegate> delelgate;
 
 - (instancetype)initWithChatter:(NSString *)chatter isGroup:(BOOL)isGroup;

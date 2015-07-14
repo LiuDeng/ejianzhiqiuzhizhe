@@ -31,7 +31,13 @@
             NSUserDefaults *mySettingData = [NSUserDefaults standardUserDefaults];
             [mySettingData setObject:_username forKey:@"currentUserName"];
             [mySettingData synchronize];
-            
+            [[EaseMob sharedInstance].chatManager asyncRegisterNewAccount:user.objectId password:@"111111" withCompletion:^(NSString *username, NSString *password, EMError *error) {
+                if (!error)
+                {
+                    //注册聊天服务器成功
+                    NSLog(@"注册聊天服务器成功");
+                }
+            } onQueue:nil];
             [user setObject:[NSNumber numberWithInteger:self.registerType] forKey:@"userType"];
             [user saveEventually];
             

@@ -519,9 +519,25 @@ static NSString *selectFreecellIdentifier = @"freeselectViewCell";
 }
 
 - (IBAction)chatWithEnterprise:(id)sender {
-    ChatViewController *chatVC = [[ChatViewController alloc] init];
     
+    AVObject *qiyeInfo = self.viewModel.jianZhi.jianZhiQiYe;
+    AVUser *user = [qiyeInfo objectForKey:@"qiYeUser"];
+    ChatViewController *chatVC;
+    if (user.objectId)
+    {
+        chatVC = [[ChatViewController alloc] initWithChatter:user.objectId conversationType:eConversationTypeChat];
+    }
+    else
+    {
+        chatVC = [[ChatViewController alloc] initWithChatter:@"5541f97be4b0fe513834d3fb" conversationType:eConversationTypeChat];
+    }
+    chatVC.title = user.username;
+    chatVC.jianzhi = self.viewModel.jianZhi;
     [self.navigationController pushViewController:chatVC animated:YES];
+    
+//    ChatViewController *chatVC = [[ChatViewController alloc] init];
+//    
+//    [self.navigationController pushViewController:chatVC animated:YES];
 //    if (self.viewModel.companyInfo!=nil) {
 //        
 //        if([self.viewModel.companyInfo objectForKey:@"qiYeUser"]){

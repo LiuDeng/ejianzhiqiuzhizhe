@@ -15,6 +15,7 @@
 #import "AppDelegate.h"
 @interface settingVC ()<UIAlertViewDelegate>
 @property (strong, nonatomic) IBOutlet UILabel *cacheLabel;
+@property (weak, nonatomic) IBOutlet UILabel *versionLabel;
 
 @end
 
@@ -22,7 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.versionLabel.text = [NSString stringWithFormat:@"版本号：%@", [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleVersionKey]];
     self.cacheLabel.text=[NSString stringWithFormat:@"%.1fM",(float)[[EMSDImageCache sharedImageCache] getSize]/(1024*1024)];
 }
 - (IBAction)clearCache:(id)sender {
@@ -125,8 +126,14 @@
 {
     if (buttonIndex == 1)
     {
+        
         BOOL isLogout=[[[SRLoginBusiness alloc]init]logOut];
         if (isLogout) {
+            [[EaseMob sharedInstance].chatManager asyncLogoffWithUnbindDeviceToken:YES completion:^(NSDictionary *info, EMError *error) {
+                if (!error && info) {
+                    NSLog(@"退出成功");
+                }
+            } onQueue:nil];
             [self.navigationController popViewControllerAnimated:YES];
         }
     }
