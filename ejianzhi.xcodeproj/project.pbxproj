@@ -836,6 +836,7 @@
 		601C38991B5123ED00158B17 /* TopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 601C38981B5123ED00158B17 /* TopView.m */; };
 		601C38A01B53A5ED00158B17 /* 地标.png in Resources */ = {isa = PBXBuildFile; fileRef = 601C389F1B53A5ED00158B17 /* 地标.png */; };
 		601C38A21B53A8BE00158B17 /* 背景框.png in Resources */ = {isa = PBXBuildFile; fileRef = 601C38A11B53A8BE00158B17 /* 背景框.png */; };
+		601C38AB1B54DE9000158B17 /* Single.m in Sources */ = {isa = PBXBuildFile; fileRef = 601C38AA1B54DE9000158B17 /* Single.m */; };
 		605E59111B351B7400FD9AB2 /* 服务中心icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 605E59101B351B7400FD9AB2 /* 服务中心icon.png */; };
 		605E591B1B351BDC00FD9AB2 /* 默认头像.png in Resources */ = {isa = PBXBuildFile; fileRef = 605E59141B351BDC00FD9AB2 /* 默认头像.png */; };
 		605E591C1B351BDC00FD9AB2 /* 我的简历icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 605E59151B351BDC00FD9AB2 /* 我的简历icon.png */; };
@@ -2115,6 +2116,8 @@
 		601C38981B5123ED00158B17 /* TopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopView.m; sourceTree = "<group>"; };
 		601C389F1B53A5ED00158B17 /* 地标.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "地标.png"; sourceTree = "<group>"; };
 		601C38A11B53A8BE00158B17 /* 背景框.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "背景框.png"; sourceTree = "<group>"; };
+		601C38A91B54DE9000158B17 /* Single.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Single.h; sourceTree = "<group>"; };
+		601C38AA1B54DE9000158B17 /* Single.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Single.m; sourceTree = "<group>"; };
 		605E59101B351B7400FD9AB2 /* 服务中心icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "服务中心icon.png"; sourceTree = "<group>"; };
 		605E59141B351BDC00FD9AB2 /* 默认头像.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "默认头像.png"; sourceTree = "<group>"; };
 		605E59151B351BDC00FD9AB2 /* 我的简历icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "我的简历icon.png"; sourceTree = "<group>"; };
@@ -3123,6 +3126,8 @@
 		045626491AD621AC006E159C /* Utilty */ = {
 			isa = PBXGroup;
 			children = (
+				601C38A91B54DE9000158B17 /* Single.h */,
+				601C38AA1B54DE9000158B17 /* Single.m */,
 				601A46B11B452FE900779C35 /* AuthenticateButton.h */,
 				601A46B21B452FE900779C35 /* AuthenticateButton.m */,
 				0456264A1AD621AC006E159C /* DateUtil.h */,
@@ -5832,6 +5837,7 @@
 				045AA7481AE93CC700ED20F1 /* SearchViewController.m in Sources */,
 				04F5C9931AE547F500341491 /* tousuViewController.m in Sources */,
 				3B8D4ABD1AE254F1001F5E7F /* MyApplicationList.m in Sources */,
+				601C38AB1B54DE9000158B17 /* Single.m in Sources */,
 				04C3480B1AEE1ECD00B48D11 /* ComJianZhiViewModel.m in Sources */,
 				3B8D4AEE1AE257A9001F5E7F /* UIScrollView+Extension.m in Sources */,
 				0456264F1AD621AC006E159C /* DateUtil.m in Sources */,
