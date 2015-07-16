@@ -71,7 +71,7 @@
     imageView.image = [UIImage imageNamed:@"地标"];
     [self addSubview:imageView];
     // 距离
-    _distanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(imageView.frame.origin.x+imageView.frame.size.width+5, _wageLabel.frame.origin.y+_wageLabel.frame.size.height, 90, 20)];
+    _distanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(imageView.frame.origin.x+imageView.frame.size.width+5, _wageLabel.frame.origin.y+_wageLabel.frame.size.height, 70, 20)];
     _distanceLabel.backgroundColor = [UIColor clearColor];
     _distanceLabel.font = [UIFont systemFontOfSize:13.0f];
     _distanceLabel.textColor = [UIColor blackColor];
