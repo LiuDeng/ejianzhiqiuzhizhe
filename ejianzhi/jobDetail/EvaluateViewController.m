@@ -106,18 +106,18 @@
     [submitButton addTarget:self action:@selector(submitAction:) forControlEvents:UIControlEventTouchUpInside];
     [scrollView addSubview:submitButton];
     
-   
+    // 页脚图片
+    UIImageView *footimageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, submitButton.frame.origin.y+submitButton.frame.size.height + 20, SCREENWIDTH, 50)];
+    footimageView.image = [UIImage imageNamed:@"页脚"];
+    [self.view addSubview:footimageView];
     
     float height = seperatorView.frame.origin.y;
-    height += 20 + label.frame.size.height+20+textView.frame.size.height+20+submitButton.frame.size.height+50+50;
+    height += 20 + label.frame.size.height+20+textView.frame.size.height+20+submitButton.frame.size.height+50+50+20;
     if (height > SCREENHEIGHT)
     {
         scrollView.contentSize = CGSizeMake(SCREENWIDTH, height);
     }
-    // 页脚图片
-    UIImageView *footimageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, SCREENHEIGHT-114, SCREENWIDTH, 50)];
-    footimageView.image = [UIImage imageNamed:@"页脚"];
-    [self.view addSubview:footimageView];
+    
 }
 
 -(void)selectedAfter:(RatingBar *)ratingBar
@@ -143,7 +143,6 @@
         fiveth = ratingBar.starNumber;
     }
     RatingBar *rat = (RatingBar *)[scrollView viewWithTag:105];
-    NSLog(@"%ld", (first + second + third + forth + fiveth));
     rat.starNumber = [[stringUtil decimalwithFormat:@"0" floatV:(first + second + third + forth + fiveth) / 5.0]integerValue];
 }
 
