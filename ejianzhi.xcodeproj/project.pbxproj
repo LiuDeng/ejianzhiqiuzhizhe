@@ -890,6 +890,8 @@
 		605E5AB21B3BB0CC00FD9AB2 /* hmTeacherIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 605E5AAD1B3BB0CC00FD9AB2 /* hmTeacherIcon.png */; };
 		605E5AB31B3BB0CC00FD9AB2 /* internIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 605E5AAE1B3BB0CC00FD9AB2 /* internIcon.png */; };
 		605E5AB41B3BB0CC00FD9AB2 /* moreFirstPage.png in Resources */ = {isa = PBXBuildFile; fileRef = 605E5AAF1B3BB0CC00FD9AB2 /* moreFirstPage.png */; };
+		60616F891B57572C00408C09 /* EvaluateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60616F881B57572C00408C09 /* EvaluateViewController.m */; };
+		60616F981B5760CE00408C09 /* RatingBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 60616F931B5760CE00408C09 /* RatingBar.m */; };
 		607997F31B302CA200408A1F /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 607997F21B302CA200408A1F /* ImageIO.framework */; };
 		607997F51B302CAF00408A1F /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 607997F41B302CAF00408A1F /* libz.dylib */; };
 		607997F71B302CC200408A1F /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 607997F61B302CC200408A1F /* libstdc++.dylib */; };
@@ -2195,6 +2197,10 @@
 		605E5AAD1B3BB0CC00FD9AB2 /* hmTeacherIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hmTeacherIcon.png; sourceTree = "<group>"; };
 		605E5AAE1B3BB0CC00FD9AB2 /* internIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = internIcon.png; sourceTree = "<group>"; };
 		605E5AAF1B3BB0CC00FD9AB2 /* moreFirstPage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = moreFirstPage.png; sourceTree = "<group>"; };
+		60616F871B57572C00408C09 /* EvaluateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EvaluateViewController.h; sourceTree = "<group>"; };
+		60616F881B57572C00408C09 /* EvaluateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EvaluateViewController.m; sourceTree = "<group>"; };
+		60616F921B5760CE00408C09 /* RatingBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RatingBar.h; sourceTree = "<group>"; };
+		60616F931B5760CE00408C09 /* RatingBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RatingBar.m; sourceTree = "<group>"; };
 		607997F21B302CA200408A1F /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		607997F41B302CAF00408A1F /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		607997F61B302CC200408A1F /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
@@ -2568,6 +2574,7 @@
 		0443C20A1AD5560F004F29A5 /* jobDetail */ = {
 			isa = PBXGroup;
 			children = (
+				60616F8D1B5760CE00408C09 /* RatingBar */,
 				0443C20B1AD5560F004F29A5 /* CommonUtility.h */,
 				0443C20C1AD5560F004F29A5 /* CommonUtility.m */,
 				0443C20D1AD5560F004F29A5 /* JobDetail */,
@@ -2587,6 +2594,8 @@
 				0443C2201AD5560F004F29A5 /* SRShowRouteVC.h */,
 				0443C2211AD5560F004F29A5 /* SRShowRouteVC.m */,
 				0443C2221AD5560F004F29A5 /* SRShowRouteVC.xib */,
+				60616F871B57572C00408C09 /* EvaluateViewController.h */,
+				60616F881B57572C00408C09 /* EvaluateViewController.m */,
 			);
 			path = jobDetail;
 			sourceTree = "<group>";
@@ -4946,6 +4955,15 @@
 			path = UMSocial_Sdk_Instructions;
 			sourceTree = "<group>";
 		};
+		60616F8D1B5760CE00408C09 /* RatingBar */ = {
+			isa = PBXGroup;
+			children = (
+				60616F921B5760CE00408C09 /* RatingBar.h */,
+				60616F931B5760CE00408C09 /* RatingBar.m */,
+			);
+			path = RatingBar;
+			sourceTree = "<group>";
+		};
 		AEECAB4102EFBDB4F800C5C6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -5937,6 +5955,7 @@
 				04B346901AEA843F00A8A180 /* UIView+ImageFromView.m in Sources */,
 				045626501AD621AC006E159C /* stringUtil.m in Sources */,
 				3BBF6F1A1AD6D0C900A33F5A /* SDWaitingView.m in Sources */,
+				60616F891B57572C00408C09 /* EvaluateViewController.m in Sources */,
 				6007F4EB1B4CF35C00E03DFB /* DXFaceView.m in Sources */,
 				045622E71AD61651006E159C /* MBProgressHUD.m in Sources */,
 				0443C1CA1AD55572004F29A5 /* MapJobViewModal.m in Sources */,
@@ -5978,6 +5997,7 @@
 				0443C1E31AD55589004F29A5 /* AJLocationManager.m in Sources */,
 				3BBF6F0F1AD6D0C900A33F5A /* MKAnnotationView+EMWebCache.m in Sources */,
 				04F5C9B21AE6A89D00341491 /* FliterTableViewController.m in Sources */,
+				60616F981B5760CE00408C09 /* RatingBar.m in Sources */,
 				6007F3E61B4CF12D00E03DFB /* NSIndexPath+PSTCollectionViewAdditions.m in Sources */,
 				6007F3D41B4CF12D00E03DFB /* EMAudioRecorderUtil.m in Sources */,
 				04C348261AF1156B00B48D11 /* CompanyInfoViewModel.m in Sources */,

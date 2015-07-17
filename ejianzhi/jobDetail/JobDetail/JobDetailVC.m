@@ -722,6 +722,9 @@ static NSString *selectFreecellIdentifier = @"freeselectViewCell";
 
 - (IBAction)chatWithEnterprise:(id)sender {
     
+    
+    
+    
     AVObject *qiyeInfo = self.viewModel.jianZhi.jianZhiQiYe;
     AVUser *user = [qiyeInfo objectForKey:@"qiYeUser"];
     ChatViewController *chatVC;
