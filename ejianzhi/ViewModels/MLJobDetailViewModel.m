@@ -110,6 +110,9 @@
  */
 -(void)mappingJianZhiModel:(JianZhi *)data
 {
+    self.jobRequrement=data.jianZhiRequirement;
+    self.jobArea= data.jianZhiDistrict;
+    self.jobContent=data.jianZhiContent;
     self.jobTitle=data.jianZhiTitle;
     self.jobWages=[data.jianZhiWage stringValue];
     self.jobWagesType=[NSString stringWithFormat:@"/%@",data.jianZhiWageType];
