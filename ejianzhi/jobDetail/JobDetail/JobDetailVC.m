@@ -33,20 +33,49 @@ static NSString *selectFreecellIdentifier = @"freeselectViewCell";
     NSArray  *selectfreetimetitleArray;
     CGFloat freecellwidth;
     bool selectFreeData[21];
+    
+    //界面的适配
+    UIScrollView *_underScrollView;
+    UIView *_upView;
+    UIView *_middleView;
+    UILabel *_leftLabel;
+    UILabel *_innerLabel;
+    UILabel *_jobTitleLabel;
+    UILabel *_moneyLabel;
+    UILabel *_moneyTypeLabel;
+    UILabel *_areaLabel;
+    UILabel *_settleTypeLabel;
+    UILabel *_pushTimeLabel;
+    UILabel *_jobTypeLabel;
+    UILabel *_needNumberLabel;
+    UILabel *_secondMoneyLabel;
+    UILabel *_secondMoneyTypeLabel;
+    UILabel *_workTimeLabel;
+    UILabel *_companyLabel;
+    UILabel *_workPlaceLabel;
+    UILabel *_jobResponsebility;
+    UILabel *_jobNeedLabel;
+    UIButton *_connectComanyButton;
+    UIButton *_applyJianZhiButton;
+    NSString *companyId;
+    
+    
 }
 @property (strong,nonatomic) MLJobDetailViewModel *viewModel;
+@property (strong,nonatomic)UIBarButtonItem *addFaviatorBtnItem;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *jobContentViewHeightConstraint;
-@property (weak, nonatomic) IBOutlet UICollectionView *selectfreeCollectionOutlet;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *containerViewConstraint;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *scrollConstraint;
+
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *jobTeShuYaoQiuHeightConstraint;
 @property (strong, nonatomic) IBOutlet UIButton *btn1;
 @property (strong, nonatomic) IBOutlet UIButton *btn2;
 @property (strong, nonatomic) IBOutlet UIButton *btn3;
 
+@property (strong, nonatomic)JianZhi* jianzhi;
+
 - (IBAction)showInMapAction:(id)sender;
+//测试
+@property (weak, nonatomic) IBOutlet UIScrollView *showUIVIEWCESHIDE;
 
 //popUpView
 @property (strong, nonatomic) IBOutlet UIView *popUpView;
@@ -59,56 +88,8 @@ static NSString *selectFreecellIdentifier = @"freeselectViewCell";
 @property (weak, nonatomic) IBOutlet UILabel *popUpViewNameLabel;
 
 //绑定内容展示表现层
-
-@property (weak, nonatomic) IBOutlet UILabel *jobDetailTitleLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *jobDetailJobWageTypeImage;
-@property (weak, nonatomic) IBOutlet UILabel *jobDetailJobWagesLabel;
-@property (weak, nonatomic) IBOutlet UILabel *jobDetailJobWageTypeLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *jobDetailJobSubFlagImage;
-
-@property (weak, nonatomic) IBOutlet UILabel *jobDetailJobRequiredNumLabel;
-
-@property (weak, nonatomic) IBOutlet UIImageView *jobDetailJobFlagImage;
-@property (weak, nonatomic) IBOutlet UILabel *jobDetailTeShuYaoQiuLabel;
-
-@property (weak, nonatomic) IBOutlet UILabel *jobDetailAddressLabel;
-@property (weak, nonatomic) IBOutlet UILabel *jobDetailAddressNaviLabel;
-@property (weak, nonatomic) IBOutlet UILabel *jobDetailJobQiYeLabel;
-@property (weak, nonatomic) IBOutlet UIButton *jobDetailMoreJobBtn;
-@property (weak, nonatomic) IBOutlet UILabel *jobDetailJobXiangQingLabel;
-
 @property (strong, nonatomic) IBOutlet UIButton *chatBtn;
 @property (strong, nonatomic) IBOutlet UILabel *chatLabel;
-
-
-
-//另外获取的数据
-
-@property (weak, nonatomic) IBOutlet UILabel *jobDetailJobEvaluationLabel;
-@property (weak, nonatomic) IBOutlet UILabel *jobDetailJobComments;
-@property (weak, nonatomic) IBOutlet UILabel *jobDetailWarnningLabel;
-@property (weak, nonatomic) IBOutlet UIButton *jobDetailModifyWorkTimeBtn;
-
-@property (weak, nonatomic) IBOutlet UIButton *jobDetailComplainBtn;
-
-@property (weak, nonatomic) IBOutlet UIButton *jobDetailAddFavioritesBtn;
-
-@property (weak, nonatomic) IBOutlet UIButton *jobDetailApplyBtn;
-
-@property (weak,nonatomic)id thisCompanyId;
-
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *constraint1;
-
-@property (strong,nonatomic)UIBarButtonItem *addFaviatorBtnItem;
-
-@property (strong, nonatomic) IBOutlet UILabel *label11;
-@property (strong, nonatomic) IBOutlet UILabel *label12;
-
-@property (strong, nonatomic) IBOutlet UIView *view13;
-@property (strong, nonatomic) IBOutlet UILabel *label14;
-@property (strong, nonatomic) IBOutlet UIImageView *view15;
-@property (strong, nonatomic) IBOutlet UIImageView *view16;
-
 @end
 
 @implementation JobDetailVC
@@ -120,6 +101,8 @@ static NSString *selectFreecellIdentifier = @"freeselectViewCell";
  *
  *  @return instancetype
  */
+
+
 - (instancetype)initWithData:(id)data
 {
     self=[super init];
@@ -128,12 +111,12 @@ static NSString *selectFreecellIdentifier = @"freeselectViewCell";
     return self;
 }
 
-
 /**
  *  设置兼职数据
  *
  *  @param data <#data description#>
  */
+
 - (void)setViewModelJianZhi:(id)data
 {
     if ([data isKindOfClass:[JianZhi class]]) {
@@ -143,122 +126,255 @@ static NSString *selectFreecellIdentifier = @"freeselectViewCell";
     }
 }
 
+- (void)creatTitleLabel{
+    UILabel *label=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, 80, 44)];
+    label.font=[UIFont fontWithName:nil size:18];
+    label.textColor=[UIColor whiteColor];
+    label.text=@"兼职详情";
+    self.navigationItem.titleView=label;
+}
+
 - (void)viewDidLoad {
+    
+    UILabel *titleLabel=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, 21, 80)];    
     [super viewDidLoad];
-    [self timeCollectionViewInit];
-    self.title=@"详情";
+    [self creatTitleLabel];
+    //[self timeCollectionViewInit];
+    [self creatUI];
+    self.title=@"兼职详情";
     self.tabBarController.tabBar.hidden=YES;
-    //init rightBarButton
+ 
     if (self.viewModel==nil) {
         self.viewModel=[[MLJobDetailViewModel alloc]init];
     }
     
-    if (!self.fromEnterprise) {
-        UIBarButtonItem *rightBarItem1=[[UIBarButtonItem alloc]initWithTitle:@"投诉" style:UIBarButtonItemStylePlain target:self action:@selector(makeComplainAction)];
-        self.addFaviatorBtnItem=[[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"hollowheart25-25"] style:UIBarButtonItemStylePlain target:self.viewModel action:@selector(addFavirateAction)];
-        self.addFaviatorBtnItem.tintColor=[UIColor redColor];
-        
-        NSArray *barItems=@[rightBarItem1,self.addFaviatorBtnItem];
-        
-        self.navigationItem.rightBarButtonItems=barItems;
+            if (!self.fromEnterprise) {
+                //UIBarButtonItem  *rightBarItem1=[[UIBarButtonItem alloc]initWithTitle:@"投诉" style:UIBarButtonItemStylePlain target:self action:@selector(makeComplainAction)];
+                
 
-    }
+                UIBarButtonItem *rightBarItem1=[[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"投诉"] style:UIBarButtonItemStylePlain target:self action:@selector(makeComplainAction)];
+                self.addFaviatorBtnItem=[[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"收藏"] style:UIBarButtonItemStylePlain target:self.viewModel action:@selector(addFavirateAction)];
     
-    if (self.fromEnterprise) {
-        
-        self.btn1.hidden=YES;
-        self.btn2.hidden=YES;
-        self.btn3.hidden=YES;
-        self.navigationItem.rightBarButtonItem=nil;
-        self.scrollConstraint.constant=-44;
-        
-        if (self.isPreview) {
-            UIBarButtonItem *rightBarItem=[[UIBarButtonItem alloc]initWithTitle:@"确认发布" style:UIBarButtonItemStylePlain target:self action:@selector(publish)];
-            self.navigationItem.rightBarButtonItem=rightBarItem;
-            
-            UIBarButtonItem *leftBarItem=[[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(pushBack)];
-            self.navigationItem.rightBarButtonItem=rightBarItem;
-            self.navigationItem.leftBarButtonItem=leftBarItem;
-
-        }else{
-//            UIBarButtonItem *rightBarItem=[[UIBarButtonItem alloc]initWithTitle:@"再次发布" style:UIBarButtonItemStylePlain target:self action:@selector(publishAgain)];
-//            self.navigationItem.rightBarButtonItem=rightBarItem;
-        }
-        
-    }else{
-//        CDIM* im=[CDIM sharedInstance];
-//        im.userDelegate=[CDIMService shareInstance];
-//        [im openWithClientId:[AVUser currentUser].objectId callback:^(BOOL succeeded, NSError *error) {
-//            if(error){
-//                self.chatBtn.hidden=YES;
-//                self.chatLabel.hidden=YES;
-//            }
-//        }];
-        
-    }
+                NSArray *barItems=@[rightBarItem1,self.addFaviatorBtnItem];
     
-    //创建监听
-    @weakify(self)
-    [RACObserve(self.viewModel,worktime) subscribeNext:^(id x) {
-        @strongify(self)
-        NSArray *workTimeArray=self.viewModel.worktime;
-        //默认空数据true,所以先刷新数据为false
-        for (int j = 0; j<21; j++) {
-            selectFreeData[j]=false;
-        }
-        for (int i = 0; i < [workTimeArray count]; i++) {
-            NSLog(@"string:%@", [workTimeArray objectAtIndex:i]);
-            int num=[[workTimeArray objectAtIndex:i] intValue];
-            if (num>0 && num <21) selectFreeData[num]=true;
-            
-        }
-        [self.selectfreeCollectionOutlet reloadData];
-    }];
-    [RACObserve(self.viewModel, isFavorite) subscribeNext:^(NSNumber *x) {
+                self.navigationItem.rightBarButtonItems=barItems;
+    
+            }
+    
+       [RACObserve(self.viewModel, isFavorite) subscribeNext:^(NSNumber *x) {
         if ([x boolValue]) {
-            self.addFaviatorBtnItem.image=[UIImage imageNamed:@"solidheart25-25"];
+                    self.addFaviatorBtnItem.image=[UIImage imageNamed:@"hollowheart25-25"];
+                    self.addFaviatorBtnItem.tintColor=[UIColor redColor];
         }else
         {
-            self.addFaviatorBtnItem.image=[UIImage imageNamed:@"hollowheart25-25"];
+                    self.addFaviatorBtnItem.image=[UIImage imageNamed:@"hollowheart25-25"];
+                    self.addFaviatorBtnItem.tintColor=[UIColor whiteColor];
         }
     }];
-    
-    RAC(self.jobDetailTitleLabel,text)=RACObserve(self.viewModel, jobTitle);
-    RAC(self.jobDetailJobWagesLabel,text)=RACObserve(self.viewModel, jobWages);
-    RAC(self.jobDetailJobWageTypeLabel,text)=RACObserve(self.viewModel, jobWagesType);
-    RAC(self.jobDetailJobQiYeLabel,text)=RACObserve(self.viewModel, jobQiYeName);
-    RAC(self.jobDetailAddressLabel,text)=RACObserve(self.viewModel, jobAddress);
-    RAC(self.jobDetailAddressNaviLabel,text)=RACObserve(self.viewModel, jobAddressNavi);
-    RAC(self.jobDetailJobEvaluationLabel,text)=RACObserve(self.viewModel, jobEvaluation);
-    RAC(self.popUpViewNameLabel,text)=RACObserve(self.viewModel, jobContactName);
-    RAC(self.popUpViewPhoneLabel,text)=RACObserve(self.viewModel, jobPhone);
-    RAC(self.jobDetailJobComments,text)=RACObserve(self.viewModel, jobCommentsText);
-    RAC(self.jobDetailTeShuYaoQiuLabel,text)=RACObserve(self.viewModel, jobTeShuYaoQiu);
-    RAC(self.jobDetailJobRequiredNumLabel,text)=RACObserve(self.viewModel, jobRequiredNum);
-    RAC(self.jobDetailJobXiangQingLabel,text)=RACObserve(self.viewModel,jobXiangQing);
-#warning 色块变化监听
-    RAC(self.jobDetailJobFlagImage,image)=RACObserve(self.viewModel, typeImage);
-    RAC(self,thisCompanyId)=RACObserve(self.viewModel, companyId);
-#warning 绑定按钮事件
-    self.jobDetailApplyBtn.rac_command=[[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
-        [self.viewModel applyThisJob];
-        return [RACSignal empty];
-    }];
-    
-    self.jobDetailComplainBtn.rac_command=[[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
-        [self makeContactAction];
-        return [RACSignal empty];
-    }];
-    
-    self.jobDetailAddFavioritesBtn.rac_command=[[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
-        
-        [self.viewModel addFavirateAction];
-        return [RACSignal empty];
-    }];
-    self.jobDetailMoreJobBtn.rac_command=[[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
+}
 
-        if (self.thisCompanyId!=nil) {
-            CompanyInfoViewController *companyInfoVC=[[CompanyInfoViewController alloc]initWithData:self.thisCompanyId];
+
+- (void)creatUI{
+    
+    [self creatUnderScrollView];
+    [self creatUPView];
+    [self creatMiddle];
+    [self creatButton];
+}
+
+- (void)creatUnderScrollView{
+    _underScrollView=[[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT)];
+    [self.view addSubview:_underScrollView];
+
+
+}
+
+- (void)creatUPView{
+  
+    _upView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREENHEIGHT, 82)];
+    
+    _leftLabel=[[UILabel alloc]initWithFrame:CGRectMake(20, 15, 50, 50)];
+    [ self setIconBackgroundColor:[self colorForType: self.viewModel.jianZhi.jianZhiType]];
+    _leftLabel.text=self.viewModel.jianZhi.jianZhiType;
+    _leftLabel.font=[UIFont systemFontOfSize:12];
+    _leftLabel.layer.masksToBounds=YES;
+    _leftLabel.layer.cornerRadius=8;
+    _leftLabel.textColor=[UIColor whiteColor];
+    _leftLabel.textAlignment=NSTextAlignmentCenter;
+    [_upView addSubview:_leftLabel];
+    
+
+    
+    _jobTitleLabel =[[UILabel alloc]initWithFrame:CGRectMake(80, 15, SCREENHEIGHT-30, 13)];
+    _jobTitleLabel.font=[UIFont systemFontOfSize:12];
+    _jobTitleLabel.text=self.viewModel.jianZhi.jianZhiTitle;
+    [_upView addSubview:_jobTitleLabel];
+    
+    _moneyLabel=[[UILabel alloc]initWithFrame:CGRectMake(80, 32, 40, 15)];
+    _moneyLabel.font=[UIFont systemFontOfSize:12];
+    _moneyLabel.textColor=RGBACOLOR(235, 46, 41, 1);
+    NSString *moneyString=@"元";
+    RAC(_moneyLabel,text)=RACObserve(self.viewModel, jobWages);
+    _moneyLabel.text=[_moneyLabel.text stringByAppendingString:moneyString];
+    
+    
+    [_upView addSubview:_moneyLabel];
+    _moneyTypeLabel =[[UILabel alloc]initWithFrame:CGRectMake(118, 32, 20, 15)];
+    _moneyTypeLabel.font=[UIFont systemFontOfSize:12];
+    _moneyTypeLabel.textColor=RGBACOLOR(235, 46, 41, 1);
+    //_moneyTypeLabel.text=@"/天";
+    RAC(_moneyTypeLabel,text)=RACObserve(self.viewModel, jobWagesType);
+    
+    [_upView addSubview:_moneyTypeLabel];
+    
+    _settleTypeLabel=[[UILabel alloc]initWithFrame:CGRectMake(173, 32, SCREENHEIGHT-173-30, 15)];
+    NSString *styleString =@"结算方式:" ;
+    
+    _settleTypeLabel.text= [styleString stringByAppendingString:self.viewModel.jianZhi.jianZhiWageType];
+    _settleTypeLabel.font=[UIFont systemFontOfSize:12];
+    [_upView addSubview:_settleTypeLabel];
+    
+    _pushTimeLabel=[[UILabel alloc]initWithFrame:CGRectMake(173, 54, SCREENHEIGHT-173-54, 15)];
+    _pushTimeLabel.text=[@"发布日期:" stringByAppendingString:[DateUtil stringFromDate:self.viewModel.jianZhi.createdAt]];
+
+    //_pushTimeLabel.text=@"发布日期：2015年7月12日" ;
+    
+    _pushTimeLabel.font=[UIFont systemFontOfSize:12];
+    [_upView addSubview:_pushTimeLabel];
+    
+    UIImageView *mapIamgeView=[[UIImageView alloc]initWithFrame:CGRectMake(80, 54, 12, 20)];
+    mapIamgeView.image=[UIImage imageNamed:@"地标"];
+    [_upView addSubview:mapIamgeView];
+    _areaLabel =[[UILabel alloc]initWithFrame:CGRectMake(100, 54, 34, 15)];
+    RAC(_areaLabel,text)=RACObserve(self.viewModel, jobArea);
+    _areaLabel.font=[UIFont systemFontOfSize:12];
+    [_upView addSubview:_areaLabel];
+    
+    UILabel *distanceLabel=[[UILabel alloc]initWithFrame:CGRectMake(125, 54, 60, 15)];
+    distanceLabel.text=[self distanceFromJobPoint:self.viewModel.jianZhi.jianZhiPoint.latitude Lon:self.viewModel.jianZhi.jianZhiPoint.longitude];
+    distanceLabel.font=[UIFont systemFontOfSize:12];
+
+    [_upView addSubview:distanceLabel];
+    UIView *firstView=[[UIView alloc]initWithFrame:CGRectMake(0, 82, SCREENHEIGHT, 5)];
+    firstView.backgroundColor=RGBACOLOR(244, 244, 244, 1);
+    [_underScrollView addSubview:firstView];
+    [_underScrollView addSubview:_upView];
+    
+}
+
+-(UIColor*)colorForType:(NSString*)type
+{
+    NSUserDefaults *mysetting=[NSUserDefaults standardUserDefaults];
+    NSDictionary *typeAndColorDict=[mysetting objectForKey:TypeListAndColor];
+    NSArray *typeArray=[typeAndColorDict allKeys];
+    if ([typeArray containsObject:type]) {
+        UIColor *color=[UIColor colorRGBFromArray:[typeAndColorDict objectForKey:type]];
+        return  color;
+    }
+    else
+    {
+        return nil;
+    }
+}
+
+- (void)setIconBackgroundColor:(UIColor*)color
+{
+    if(color==nil) _leftLabel.backgroundColor=GreenFillColor;
+    else _leftLabel.backgroundColor=color;
+}
+
+
+-(NSString *)distanceFromJobPoint:(double)lat Lon:(double)lon
+{
+    if (lat>0 && lon>0) {
+        
+        CLLocationCoordinate2D jobP=CLLocationCoordinate2DMake(lat, lon);
+        CLLocationCoordinate2D location=[AJLocationManager shareLocation].lastCoordinate;
+        NSNumber *disNumber=[MLMapManager calDistanceMeterWithPointA:jobP PointB:location];
+        int threshold=[disNumber intValue];
+        if (threshold >100000) {
+            return [NSString stringWithFormat:@">100km"];
+        }else if(threshold>1000)
+        {
+            return [NSString stringWithFormat:@"%.2fkm",[disNumber doubleValue]/1000];
+        }else if(threshold<100&&threshold>0)
+        {
+            return [NSString stringWithFormat:@"%dm",threshold];
+        }
+        
+    }
+    return @"";
+    
+}
+
+
+
+- (void)creatMiddle{
+    _middleView=[[UIView alloc]initWithFrame:CGRectMake(0, 87, SCREENWIDTH, 105)];
+    [_underScrollView addSubview:_middleView];
+    
+    _jobTypeLabel=[[UILabel alloc]initWithFrame:CGRectMake(20, 10, 100, 21)];
+    _jobTypeLabel.text=self.viewModel.jianZhi.jianZhiType;
+    //RAC(_jobTypeLabel,text)=RACObserve(self.viewModel, jianZhi.jianZhiType);
+    _jobTypeLabel.textColor=RGBACOLOR(63, 164, 123, 1);
+    NSString *typeString=@"职位类型: ";
+    _jobTypeLabel.text=[typeString stringByAppendingString:_jobTypeLabel.text];
+    _jobTypeLabel.font=[UIFont systemFontOfSize:12];
+    [_middleView addSubview:_jobTypeLabel];
+    
+    _needNumberLabel=[[UILabel alloc]initWithFrame:CGRectMake(20, 31, 100, 21)];
+    NSString *numString=@"招聘人数: ";
+    RAC(_needNumberLabel,text)=RACObserve(self.viewModel, jobRequiredNum);
+    _needNumberLabel.text=[numString stringByAppendingString:_needNumberLabel.text];
+    
+    _needNumberLabel.font=[UIFont systemFontOfSize:12];
+    [_middleView addSubview:_needNumberLabel];
+    
+    _secondMoneyLabel=[[UILabel alloc]initWithFrame:CGRectMake(20, 52, 200, 21)];
+    _secondMoneyLabel.textColor=RGBACOLOR(235, 46, 41, 1);
+    NSString *secondMoneyString=@"薪资待遇:";
+    _secondMoneyLabel.text= [secondMoneyString stringByAppendingString:[_moneyLabel.text stringByAppendingString:_moneyTypeLabel.text]] ;
+    
+    _secondMoneyLabel.font=[UIFont systemFontOfSize:12];
+    [_middleView addSubview:_secondMoneyLabel];
+    
+    _workTimeLabel=[[UILabel alloc]initWithFrame:CGRectMake(20, 76, 300, 21)];
+    _workTimeLabel.text=@"工作日期:  " ;
+    NSString *startTime= [DateUtil stringFromDate:self.viewModel.jianZhi.jianZhiTimeStart];
+    NSString *endTime= [DateUtil stringFromDate:self.viewModel.jianZhi.jianZhiTimeEnd];
+    _workTimeLabel.text=[[_workTimeLabel.text stringByAppendingString:startTime] stringByAppendingString:@"   "];
+    _workTimeLabel.text=[_workTimeLabel.text stringByAppendingString:@"至   "];
+     _workTimeLabel.text=[_workTimeLabel.text stringByAppendingString:endTime];
+    
+    
+    _workTimeLabel.font=[UIFont systemFontOfSize:12];
+    [_middleView addSubview:_workTimeLabel];
+    
+    UIView *secondView=[[UIView alloc]initWithFrame:CGRectMake(10, 75, SCREENWIDTH-20, 1)];
+    secondView.backgroundColor=RGBACOLOR(183, 183, 183, 1);
+    [_middleView addSubview:secondView];
+    
+    UIView *thirdView=[[UIView alloc]initWithFrame:CGRectMake(0, 100, SCREENWIDTH, 5)];
+    thirdView.backgroundColor=RGBACOLOR(244, 244, 244, 1);
+    [_middleView addSubview:thirdView];
+    
+    UILabel *comanyLabel=[[UILabel alloc]initWithFrame:CGRectMake(20, 187, SCREENWIDTH, 30)];
+    comanyLabel.font=[UIFont systemFontOfSize:15];
+    comanyLabel.text=@"招聘单位";
+    comanyLabel.userInteractionEnabled=YES;
+    RAC(comanyLabel,text)=RACObserve(self.viewModel, jobQiYeName);
+    
+    
+    [_underScrollView addSubview:comanyLabel];
+    UIButton *comanyButton=[[UIButton alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 30)];
+    [comanyLabel addSubview:comanyButton];
+    comanyButton.rac_command=[[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
+        companyId=self.viewModel.jianZhi.jianZhiQiYe.objectId;
+
+        
+        NSLog(@"%@",companyId);
+        if (companyId!=nil) {
+            CompanyInfoViewController *companyInfoVC=[[CompanyInfoViewController alloc]initWithData:companyId];
             companyInfoVC.hidesBottomBarWhenPushed=YES;
             companyInfoVC.edgesForExtendedLayout=UIRectEdgeNone;
             [self.navigationController pushViewController:companyInfoVC animated:YES];
@@ -270,64 +386,175 @@ static NSString *selectFreecellIdentifier = @"freeselectViewCell";
         }
         return [RACSignal empty];
     }];
+
     
-    if (self.isPreview) {
-        self.constraint1.constant=-121;
-        self.label11.hidden=YES;
-        self.label12.hidden=YES;
-        
-        self.view13.hidden=YES;
-        self.label14.hidden=YES;
-        self.view15.hidden=YES;
-        self.view16.hidden=YES;
-    }
     
-    if (!self.fromEnterprise) {
-        [self.viewModel.jianZhi incrementKey:@"jianZhiBrowseTime"];
-        [self.viewModel.jianZhi saveInBackground];
-    }
+    UIView *forthView=[[UIView alloc]initWithFrame:CGRectMake(0, 217, SCREENWIDTH, 5)];
+    forthView.backgroundColor=RGBACOLOR(244, 244, 244, 1);
+    [_underScrollView addSubview:forthView];
+    
+    
+    UILabel *placeLabel=[[UILabel alloc]initWithFrame:CGRectMake(20, 222, SCREENWIDTH, 30)];
+    placeLabel.font=[UIFont systemFontOfSize:15];
+    placeLabel.text=@"工作地址";
+    placeLabel.userInteractionEnabled=YES;
+    [_underScrollView addSubview:placeLabel];
+    
+    UIButton *placeButton=[UIButton buttonWithType:UIButtonTypeCustom];
+    placeButton.frame=CGRectMake(0, 0,SCREENWIDTH, 30);
+    [placeLabel addSubview:placeButton];
+    [placeButton addTarget:self action:@selector(showInMapAction:) forControlEvents:UIControlEventTouchUpInside];
+    UIImageView *placeView=[[UIImageView alloc]initWithFrame:CGRectMake(SCREENWIDTH/4*3, 8, 15, 15)];
+    placeView.image=[UIImage imageNamed:@"地图"];
+    
+    //箭头
+    UIImageView *rightImageView=[[UIImageView alloc]initWithFrame:CGRectMake(placeView.frame.origin.x+30, 10, 10, 10)];
+    rightImageView.image=[UIImage imageNamed:@"灰箭头"];
+    [placeLabel addSubview:rightImageView];
+    
+    UIImageView *rightImageView2=[[UIImageView alloc]initWithFrame:CGRectMake(placeView.frame.origin.x+30, 10, 10, 10)];
+    rightImageView2.image=[UIImage imageNamed:@"灰箭头"];
+    [comanyLabel addSubview:rightImageView2];
+
+
+    [placeButton addSubview:placeView];
+    
+    
+    
+    
+    
+    
+    UIView *underPlaceLabelLine=[[UIView alloc]initWithFrame:CGRectMake(10, 252, SCREENWIDTH-20, 1)];
+    underPlaceLabelLine.backgroundColor=RGBACOLOR(183, 183, 183, 1);
+    
+    [_underScrollView addSubview:underPlaceLabelLine];
+    
+    _workPlaceLabel=[[UILabel alloc]initWithFrame:CGRectMake(20, 263, SCREENWIDTH-40, 20)];
+    RAC(_workPlaceLabel,text)=RACObserve(self.viewModel, jobAddress);
+    _workPlaceLabel.numberOfLines=0;
+     CGSize workPlace = [_workPlaceLabel.text sizeWithFont:[UIFont systemFontOfSize:15.0f] constrainedToSize:CGSizeMake(SCREENWIDTH-40, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
+    
+    
+    _workPlaceLabel.frame=CGRectMake(25, 263, SCREENWIDTH-40, workPlace.height);
+    [_underScrollView addSubview:_workPlaceLabel];
+    
+    UIView *underWorkPlaceLabelView=[[UIView alloc]initWithFrame:CGRectMake(0, _workPlaceLabel.frame.origin.y+workPlace.height+10, SCREENWIDTH, 10)];
+    underWorkPlaceLabelView.backgroundColor=RGBACOLOR(244, 244, 244, 1);
+    [_underScrollView addSubview:underWorkPlaceLabelView];
+    
+    UILabel *jobResponsibility=[[UILabel alloc]initWithFrame:CGRectMake(20, underWorkPlaceLabelView.frame.origin.y+15, 60, 20)];
+    jobResponsibility.text=@"岗位职责";
+    
+    jobResponsibility.font=[UIFont systemFontOfSize:15];
+    [_underScrollView addSubview:jobResponsibility];
+    
+    UIView *underResponsibilityLine=[[UIView alloc]initWithFrame:CGRectMake(10, jobResponsibility.frame.origin.y+jobResponsibility.frame.size.height+5, SCREENWIDTH-20, 1)];
+    underResponsibilityLine.backgroundColor=RGBACOLOR(183, 183, 183, 1);
+    
+    [_underScrollView addSubview:underResponsibilityLine];
+    
+    _jobResponsebility=[[UILabel alloc]initWithFrame:CGRectMake(20, 368, SCREENWIDTH-50, 20)];
+    _jobResponsebility.font=[UIFont systemFontOfSize:15];
+    
+    
+    RAC(_jobResponsebility,text)=RACObserve(self.viewModel, jobContent);
+    CGSize jobResponsebilitySize = [_jobResponsebility.text sizeWithFont:[UIFont systemFontOfSize:15.0f] constrainedToSize:CGSizeMake(SCREENWIDTH-50, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
+    _jobResponsebility.numberOfLines=0;
+    
+    _jobResponsebility.frame=CGRectMake(20, underResponsibilityLine.frame.origin.y+10, SCREENWIDTH-20, jobResponsebilitySize.height);
+    [_underScrollView addSubview:_jobResponsebility];
+    
+    //岗位职责内容下的细线
+    UIView *line=[[UIView alloc]initWithFrame:CGRectMake(0, _jobResponsebility.frame.origin.y+jobResponsebilitySize.height+15, SCREENWIDTH, 1)];
+    line.backgroundColor=RGBACOLOR(183, 183, 183, 1);
+    
+    [_underScrollView addSubview:line];
+
+    //任职资格
+    UILabel *needLabel=[[UILabel alloc]initWithFrame:CGRectMake(20, line.frame.origin.y+10, 60, 20)];
+    needLabel.text=@"任职资格";
+    needLabel.font=[UIFont systemFontOfSize:15];
+    [_underScrollView addSubview:needLabel];
+    
+    //任职资格下的细线
+    UIView *underNeedLabelLine=[[UIView alloc]initWithFrame:CGRectMake(10, needLabel.frame.origin.y+25, SCREENWIDTH-20, 1)];
+    underNeedLabelLine.backgroundColor=RGBACOLOR(183, 183, 183, 1);
+   [_underScrollView addSubview:underNeedLabelLine];
+    
+    
+    
+    //任职资格内容
+    _jobNeedLabel=[[UILabel alloc]initWithFrame:CGRectMake(20, underNeedLabelLine.frame.origin.y+10, SCREENHEIGHT-40, 20)];
+    _jobNeedLabel.numberOfLines=0;
+    _jobNeedLabel.font=[UIFont systemFontOfSize:15];
+    _jobNeedLabel.text=self.viewModel.jianZhi.jianZhiRequirement;
+
+    CGSize jobNeed = [_jobNeedLabel.text sizeWithFont:[UIFont systemFontOfSize:15.0f] constrainedToSize:CGSizeMake(SCREENWIDTH-40, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
+    _jobNeedLabel.frame=CGRectMake(20, underNeedLabelLine.frame.origin.y+10,SCREENHEIGHT-40,jobNeed.height);
+    
+    [_underScrollView addSubview:_jobNeedLabel];
+    
+    UIView *upConnectView=[[UIView alloc]initWithFrame:CGRectMake(0, _jobNeedLabel.frame.origin.y+_jobNeedLabel.frame.size.height, SCREENWIDTH, 10)];
+    upConnectView.backgroundColor=RGBACOLOR(244, 244, 244, 1);
+    [_underScrollView addSubview:upConnectView];
+    
+    //联系方式
+    UILabel *connetLabel=[[UILabel alloc]initWithFrame:CGRectMake(20, upConnectView.frame.origin.y+10, SCREENWIDTH, 20)];
+    connetLabel.text=@"联系方式";
+    [_underScrollView addSubview:connetLabel];
+    
+    UIView *underConnectView=[[UIView alloc]initWithFrame:CGRectMake(10, connetLabel.frame.origin.y+25, SCREENWIDTH-20, 1)];
+    underConnectView.backgroundColor=RGBACOLOR(183, 183, 183, 1);
+    [_underScrollView addSubview:underConnectView];
+    UILabel *phoneLabel=[[UILabel alloc]initWithFrame:CGRectMake(20, underConnectView.frame.origin.y+5, 200, 20)];
+    phoneLabel.text=[@"电话: " stringByAppendingString:self.viewModel.jianZhi.jianZhiContactPhone ];
+    [_underScrollView addSubview:phoneLabel];
+    
+    
+    UIImageView *bottomView=[[UIImageView alloc]initWithFrame:CGRectMake(0, phoneLabel.frame.origin.y+32,SCREENWIDTH, 50)];
+    bottomView.image=[UIImage imageNamed:@"页脚"];
+    [_underScrollView addSubview:bottomView];
+    _underScrollView.contentSize=CGSizeMake(SCREENWIDTH, bottomView.frame.origin.y+155);
+    
 }
 
+
+- (void)creatButton{
+    UIButton *connectCompanyButton=[UIButton buttonWithType:UIButtonTypeCustom];
+    connectCompanyButton.frame=CGRectMake(0, SCREENHEIGHT-40-64, SCREENWIDTH/2, 40);
+    [connectCompanyButton setTitle:@"联系企业" forState:UIControlStateNormal];
+    connectCompanyButton.backgroundColor=RGBACOLOR(238, 114, 68, 1);
+    
+    UIButton *applyJobButton=[UIButton buttonWithType:UIButtonTypeCustom];
+    applyJobButton.frame=CGRectMake(SCREENWIDTH/2, SCREENHEIGHT-40-64, SCREENWIDTH/2, 40);
+    [applyJobButton setTitle:@"投递简历" forState:UIControlStateNormal];
+    applyJobButton.backgroundColor=RGBACOLOR(59, 179, 227, 1);
+    
+    [self.view addSubview:connectCompanyButton];
+    [self.view addSubview:applyJobButton];
+    
+    connectCompanyButton.rac_command=[[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
+        [self makeContactAction];
+        return [RACSignal empty];
+        
+    }];
+    
+    applyJobButton.rac_command=[[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
+        [self.viewModel applyThisJob];
+        return [RACSignal empty];
+    }];
+    
+}
 
 - (void)makeComplainAction
 {
     tousuViewController *tousuVC=[[tousuViewController alloc]init];
     tousuVC.delegate=self.viewModel;
-    
     [self.navigationController pushViewController:tousuVC animated:YES];
     
 }
 
-/**
- *  修改视图大小
- */
-- (void)viewWillLayoutSubviews
-{
-    [self updateConstraintsforJobContentLabelWithString:self.jobDetailJobXiangQingLabel.text];
-    [self updateConstraintsforJobTeShuYaoQiuLabelWithString:self.jobDetailTeShuYaoQiuLabel.text];
-    
-}
 
-
--(void)updateConstraintsforJobTeShuYaoQiuLabelWithString:(NSString*)str
-{
-    if (str==nil) return;
-    self.jobDetailTeShuYaoQiuLabel.text=str;
-    float stringHeight=[self heightForString:str fontSize:14 andWidth:([[UIScreen mainScreen] bounds].size.width-16)];
-    self.jobTeShuYaoQiuHeightConstraint.constant=stringHeight;
-    
-    self.containerViewConstraint.constant=self.containerViewConstraint.constant+stringHeight;
-}
-
-- (void)updateConstraintsforJobContentLabelWithString:(NSString*) str{
-    
-    if (str==nil) return;
-    self.jobDetailJobXiangQingLabel.text=str;
-    float stringHeight=[self heightForString:str fontSize:14 andWidth:([[UIScreen mainScreen] bounds].size.width-16)];
-    self.jobContentViewHeightConstraint.constant=stringHeight;
-    
-    self.containerViewConstraint.constant=608+stringHeight;
-}
 
 
 - (float) heightForString:(NSString *)value fontSize:(float)fontSize andWidth:(float)width
@@ -336,38 +563,6 @@ static NSString *selectFreecellIdentifier = @"freeselectViewCell";
     return sizeToFit.height;
 }
 
-
-- (void)timeCollectionViewInit{
-    selectfreetimepicArray = [[NSMutableArray alloc]init];
-    selectfreetimetitleArray = [[NSMutableArray alloc]init];
-    freecellwidth = CollectionViewItemsWidth;
-    
-    selectfreetimetitleArray = @[
-                                 [UIImage imageNamed:@"d1"],
-                                 [UIImage imageNamed:@"d2"],
-                                 [UIImage imageNamed:@"d3"],
-                                 [UIImage imageNamed:@"d4"],
-                                 [UIImage imageNamed:@"d5"],
-                                 [UIImage imageNamed:@"d6"],
-                                 [UIImage imageNamed:@"d7"],
-                                 ];
-    
-    selectfreetimepicArray = @[[UIImage imageNamed:@"no"],
-                               [UIImage imageNamed:@"yes"],
-                               [UIImage imageNamed:@"no"],
-                               [UIImage imageNamed:@"yes"],
-                               [UIImage imageNamed:@"no"],
-                               [UIImage imageNamed:@"yes"]
-                               ];
-    
-    for (int index = 0; index<21; index++) {
-        selectFreeData[index] = TRUE;
-    }
-    self.selectfreeCollectionOutlet.delegate = self;
-    self.selectfreeCollectionOutlet.dataSource = self;
-    UINib *niblogin = [UINib nibWithNibName:selectFreecellIdentifier bundle:nil];
-    [self.selectfreeCollectionOutlet registerNib:niblogin forCellWithReuseIdentifier:selectFreecellIdentifier];
-}
 
 #pragma mark - Collection View Data Source
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
@@ -504,7 +699,7 @@ static NSString *selectFreecellIdentifier = @"freeselectViewCell";
     if (self.viewModel.jianZhi.jianZhiPoint) {
         SRMapViewVC *mapVC=[[SRMapViewVC alloc]init];
         mapVC.sellerCoord=CLLocationCoordinate2DMake(self.viewModel.jianZhi.jianZhiPoint.latitude, self.viewModel.jianZhi.jianZhiPoint.longitude);
-        mapVC.sellerTitle=self.jobDetailTitleLabel.text;
+        mapVC.sellerTitle=_jobTitleLabel.text;
         
         [self.navigationController pushViewController:mapVC animated:YES];
     }else {
@@ -539,36 +734,36 @@ static NSString *selectFreecellIdentifier = @"freeselectViewCell";
     chatVC.jianzhi = self.viewModel.jianZhi;
 //    [self.navigationController pushViewController:chatVC animated:YES];
     
-//    ChatViewController *chatVC = [[ChatViewController alloc] init];
-//    
-//    [self.navigationController pushViewController:chatVC animated:YES];
-//    if (self.viewModel.companyInfo!=nil) {
-//        
-//        if([self.viewModel.companyInfo objectForKey:@"qiYeUser"]){
-//            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-//            AVObject *userQuery=[self.viewModel.companyInfo objectForKey:@"qiYeUser"];
-//            [userQuery fetchInBackgroundWithBlock:^(AVObject *object, NSError *error) {
-//                if (!error) {
-//                    AVUser *_user=object;
-//                    [CDCache registerUser:_user];
-//                    
-//                    CDIM* im=[CDIM sharedInstance];
-//                    WEAKSELF
-//                    [im fetchConvWithUserId:_user.objectId callback:^(AVIMConversation *conversation, NSError *error) {
-//                        [MBProgressHUD hideHUDForView:self.view animated:YES];
-//                        if(error){
-//                            DLog(@"%@",error);
-//                        }else{
-//                            CDChatRoomVC* chatRoomVC=[[CDChatRoomVC alloc] initWithConv:conversation];
-//                            chatRoomVC.hidesBottomBarWhenPushed=YES;
-//                            [weakSelf.navigationController pushViewController:chatRoomVC animated:YES];
-//                        }
-//                    }];
-//                }
-//                
-//            }];
-//        }
-//    }
+    //    ChatViewController *chatVC = [[ChatViewController alloc] init];
+    //
+    //    [self.navigationController pushViewController:chatVC animated:YES];
+    //    if (self.viewModel.companyInfo!=nil) {
+    //
+    //        if([self.viewModel.companyInfo objectForKey:@"qiYeUser"]){
+    //            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //            AVObject *userQuery=[self.viewModel.companyInfo objectForKey:@"qiYeUser"];
+    //            [userQuery fetchInBackgroundWithBlock:^(AVObject *object, NSError *error) {
+    //                if (!error) {
+    //                    AVUser *_user=object;
+    //                    [CDCache registerUser:_user];
+    //
+    //                    CDIM* im=[CDIM sharedInstance];
+    //                    WEAKSELF
+    //                    [im fetchConvWithUserId:_user.objectId callback:^(AVIMConversation *conversation, NSError *error) {
+    //                        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    //                        if(error){
+    //                            DLog(@"%@",error);
+    //                        }else{
+    //                            CDChatRoomVC* chatRoomVC=[[CDChatRoomVC alloc] initWithConv:conversation];
+    //                            chatRoomVC.hidesBottomBarWhenPushed=YES;
+    //                            [weakSelf.navigationController pushViewController:chatRoomVC animated:YES];
+    //                        }
+    //                    }];
+    //                }
+    //
+    //            }];
+    //        }
+    //    }
 }
 
 - (void)publish{
@@ -595,16 +790,16 @@ static NSString *selectFreecellIdentifier = @"freeselectViewCell";
     [jianzhiObject setObject:self.viewModel.jianZhi.jianZhiWage forKey:@"jianZhiWage"];
     [jianzhiObject setObject:self.viewModel.jianZhi.jianzhiTeShuYaoQiu forKey:@"jianzhiTeShuYaoQiu"];
     [jianzhiObject setObject:self.viewModel.jianZhi.jianZhiQiYeName forKey:@"jianZhiQiYeName"];
-
+    
     [jianzhiObject setObject:self.viewModel.jianZhi.jianZhiQiYeResumeValue forKey:@"jianZhiQiYeResumeValue"];
     [jianzhiObject setObject:self.viewModel.jianZhi.jianZhiType forKey:@"jianZhiType"];
     [jianzhiObject setObject:self.viewModel.jianZhi.jianZhiPoint forKey:@"jianZhiPoint"];
     [jianzhiObject setObject:self.viewModel.jianZhi.jianZhiLuYongValue forKey:@"jianZhiLuYongValue"];
-
+    
     [jianzhiObject setObject:self.viewModel.jianZhi.jianZhiTitle forKey:@"jianZhiTitle"];
-
+    
     [jianzhiObject setObject:self.viewModel.jianZhi.jianZhiContactEmail forKey:@"jianZhiContactEmail"];
-
+    
     [jianzhiObject setObject:self.viewModel.jianZhi.qiYeInfoId forKey:@"qiYeInfoId"];
     
     //AVUser *user=[AVUser currentUser];

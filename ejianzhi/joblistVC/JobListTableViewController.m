@@ -154,6 +154,9 @@
 {
     JobDetailVC *detailVC=[[JobDetailVC alloc]initWithData:[self.resultsArray objectAtIndex:indexPath.row]];
     detailVC.hidesBottomBarWhenPushed=YES;
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
+    backItem.title = @"";
+    self.navigationItem.backBarButtonItem = backItem;
     [self.navigationController pushViewController:detailVC animated:YES];
     [self performSelector:@selector(deselect) withObject:nil afterDelay:0.5f];
 }

@@ -44,6 +44,12 @@
 @property (nonatomic,strong)NSString *jobPhone;
 @property (nonatomic,strong)NSString *jobContactName;
 @property (nonatomic, assign) BOOL isTest;
+
+
+@property (nonatomic, strong)NSString *jobContent;
+@property (nonatomic, strong)NSString *jobArea;
+@property (nonatomic, strong)NSString *jobRequrement;
+
 //页面所需评价、评论数据请求
 
 @property (nonatomic,strong)UIImage *typeImage;
