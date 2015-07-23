@@ -21,8 +21,14 @@
 #import "MBProgressHUD.h"
 #import "MBProgressHUD+Add.h"
 #import "ChatViewController.h"
-#import "EvaluateViewController.h"
-
+#import "UIColor+ColorFromArray.h"
+#define GreenFillColor [UIColor colorWithRed: 0.22 green: 0.69 blue: 0.58 alpha: 1]
+#import "PullServerManager.h"
+#import "JianZhi.h"
+#import <CoreLocation/CoreLocation.h>
+#import"MLMapManager.h"
+#import "AJLocationManager.h"
+#import "DateUtil.h"
 static NSString *selectFreecellIdentifier = @"freeselectViewCell";
 
 
@@ -715,9 +721,6 @@ static NSString *selectFreecellIdentifier = @"freeselectViewCell";
 }
 
 - (IBAction)chatWithEnterprise:(id)sender {
-    
-    
-    [self.navigationController pushViewController:[[EvaluateViewController alloc] init] animated:YES];
     
     AVObject *qiyeInfo = self.viewModel.jianZhi.jianZhiQiYe;
     AVUser *user = [qiyeInfo objectForKey:@"qiYeUser"];
