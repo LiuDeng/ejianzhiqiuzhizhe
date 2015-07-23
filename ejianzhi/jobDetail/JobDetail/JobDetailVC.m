@@ -21,6 +21,7 @@
 #import "MBProgressHUD.h"
 #import "MBProgressHUD+Add.h"
 #import "ChatViewController.h"
+#import "EvaluateViewController.h"
 
 static NSString *selectFreecellIdentifier = @"freeselectViewCell";
 
@@ -521,7 +522,7 @@ static NSString *selectFreecellIdentifier = @"freeselectViewCell";
 - (IBAction)chatWithEnterprise:(id)sender {
     
     
-    
+    [self.navigationController pushViewController:[[EvaluateViewController alloc] init] animated:YES];
     
     AVObject *qiyeInfo = self.viewModel.jianZhi.jianZhiQiYe;
     AVUser *user = [qiyeInfo objectForKey:@"qiYeUser"];
@@ -536,7 +537,7 @@ static NSString *selectFreecellIdentifier = @"freeselectViewCell";
     }
     chatVC.title = user.username;
     chatVC.jianzhi = self.viewModel.jianZhi;
-    [self.navigationController pushViewController:chatVC animated:YES];
+//    [self.navigationController pushViewController:chatVC animated:YES];
     
 //    ChatViewController *chatVC = [[ChatViewController alloc] init];
 //    
