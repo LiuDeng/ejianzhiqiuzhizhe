@@ -48,6 +48,8 @@
     if (self=[super init]) {
         self.isAutoLoad=autoload;
         self.viewModel=[[MLJianZhiViewModel alloc]init];
+        
+
         return self;
     }
     return nil;
@@ -118,7 +120,7 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return 2;
 }
 
 //改变行高
@@ -128,8 +130,13 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     // Return the number of rows in the section.
-    if (self.resultsArray!=nil) {
+    
+    if(section==0){
+        return 0;
+    }else if(section==1){
+        if (self.resultsArray!=nil) {
         return self.resultsArray.count;
+        }
     }
     return 0;
 }

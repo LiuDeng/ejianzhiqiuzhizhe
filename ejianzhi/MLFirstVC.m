@@ -30,7 +30,7 @@
 #import "JobListWithDropDownListVCViewController.h"
 #import "AJLocationManager.h"
 #import "CompanyInfoViewController.h"
-
+#import "FSDropDownMenu.h"
 
 #import <AVOSCloud/AVOSCloud.h>
 
@@ -40,7 +40,7 @@
 
 #import "SearchViewController.h"
 
-@interface MLFirstVC ()<ValueClickDelegate,UITableViewDataSource,UITableViewDelegate,UIWebViewDelegate>
+@interface MLFirstVC ()<ValueClickDelegate,UITableViewDataSource,UITableViewDelegate,UIWebViewDelegate,FSDropDownMenuDelegate,FSDropDownMenuDataSource>
 {
     NSArray *collectionViewCellArray;
     SRAdvertisingView *_bannerView;
@@ -49,7 +49,17 @@
     UILabel *_recommendLabel;
     UIView *_bottomLineView;
     UIView *_headView;
+    UIView *_upButtonView;
+    BOOL _isShow;
+    
+    NSInteger _currentIndex;
+    UIButton *_button;
+    
 }
+//点击按钮显示的View
+@property(nonatomic,strong) NSArray *cityArr;
+@property(nonatomic,strong) NSArray *areaArr;
+@property(nonatomic,strong) NSArray *currentAreaArr;
 
 
 @property (weak, nonatomic) IBOutlet UIScrollView *middleScrollView;
@@ -100,30 +110,187 @@
     {
         self.joblistTableVC=[[JobListTableViewController alloc]initWithAutoLoad:YES];
         self.joblistTableVC.isAutoLoad=NO;
+        self.joblistTableVC.tableView.delegate=self;
+        // self.joblistTableVC.tableView.dataSource=self;
     }
     return self;
 }
 
-- (void)creatHeadView{
-    CGFloat bannerWidth=130*[[UIScreen mainScreen] bounds].size.width/320;
-        _headView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH,bannerWidth+102+12+37)];
-       _bannerView=[[SRAdvertisingView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 130*[[UIScreen mainScreen] bounds].size.width/320)];
-    [_headView addSubview:_bannerView];
+
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self creatHeadView];
+    [self creatTitleLabel];
+    [self creatLocationButton];
+    [self creatRightButtonItem];
+    [self creatModel];
+    [self creatDropMenu];
     
     
-    [self creatScrollView];
-    [self creatLineGrayView];
-    [self creatRecommendLabel];
-    [self creatBottomLineView];
+    
+    
     
 }
 
+- (void)creatDropMenu{
+    FSDropDownMenu *menu = [[FSDropDownMenu alloc] initWithOrigin:CGPointMake(0, _button.frame.origin.y+_button.frame.size.height) andHeight:200];
+    menu.tag = 1003;
+    menu.dataSource = self;
+    menu.delegate = self;
+    [self.view addSubview:menu];
+
+}
+- (void)creatHeadView{
+    [self creatBannerView];
+    [self creatScrollView];
+    [self creatLineGrayView];
+    [self creatButton];
+    [self creatBottomLineView];
+}
+
+- (void)creatBannerView{
+    CGFloat bannerWidth=130*[[UIScreen mainScreen] bounds].size.width/320;
+    _headView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH,bannerWidth+102+12+3)];
+    _bannerView=[[SRAdvertisingView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 130*[[UIScreen mainScreen] bounds].size.width/320)];
+    [_headView addSubview:_bannerView];
+    
+}
+
+- (void)showView:(UIButton *)button{
+    
+    switch (button.tag) {
+            
+        case 1000:
+        {
+            
+            if(_upButtonView.frame.origin.y==_lineGrayView.frame.origin.y+15){
+                [UIView animateWithDuration:0.2 animations:^{
+                    self.joblistTableVC.tableView.contentOffset=CGPointMake(0, 400);
+                }];
+                
+            }
+            
+            _cityArr = @[@"IT互联网",@"金融",@"材料能源",@"礼仪服务",@"媒体传播"];
+            _areaArr = @[
+                         @[@"UI设计师",@"JAVA开发",@"Android",@"iOS开发",@"PHP开发",@"前端开发"],
+                         @[@"金融管理",@"财务",@""],
+                         @[@"石头",@"亚运村",@"朝阳公园"],
+                         @[@"同城"],
+                         @[@"电视"],
+                         
+                         ];
+            _currentAreaArr=_areaArr[0];
+            _currentIndex=3;
+            FSDropDownMenu *menu = (FSDropDownMenu*)[self.view viewWithTag:1003];
+            [UIView animateWithDuration:0.2 animations:^{
+                
+            } completion:^(BOOL finished) {
+                [menu menuTapped];
+            }];
+            
+        }
+            break;
+        case 1001:
+        {
+            if(_upButtonView.frame.origin.y==_lineGrayView.frame.origin.y+15){
+                [UIView animateWithDuration:0.2 animations:^{
+                    self.joblistTableVC.tableView.contentOffset=CGPointMake(0, 400);
+                }];
+                
+            }
+            
+            _cityArr = @[@"海淀区",@"丰台区",@"石景山",@"朝阳区"];
+            _areaArr = @[
+                         @[@"海淀区",@"丰台区",@"石景山",@"朝阳区"],
+                         @[@"丰台区1",@"丰台区2",@"丰台区3"],
+                         @[@"石景山1",@"石景山2",@"石景山3"],
+                         @[@"朝阳1",@"朝阳2",@"朝阳3"],
+                         
+                         ];
+            _currentAreaArr=_areaArr[0];
+            _currentIndex=2;
+            FSDropDownMenu *menu = (FSDropDownMenu*)[self.view viewWithTag:1003];
+            [UIView animateWithDuration:0.2 animations:^{
+                
+            } completion:^(BOOL finished) {
+                [menu menuTapped];
+            }];
+            
+        }
+            break;
+            
+        case 1002:
+        {
+            if(_upButtonView.frame.origin.y==_lineGrayView.frame.origin.y+15){
+                [UIView animateWithDuration:0.2 animations:^{
+                    self.joblistTableVC.tableView.contentOffset=CGPointMake(0, 400);
+                }];
+                
+            }
+            _cityArr = @[@"结算方式",@"报名数量",@"提供住宿",@"提供用餐",@"但保险"];
+            _areaArr = @[
+                         @[@"日",@"月",@"年",@"时",@"周",@"季",],
+                         @[@"1",@"10",@"20",@"30",@"100"],
+                         @[@"是",@"否"],
+                         @[@"是",@"否"],
+                         @[@"是",@"否"],
+                         ];
+            _currentAreaArr=_areaArr[0];
+            _currentIndex=1;
+            FSDropDownMenu *menu = (FSDropDownMenu*)[self.view viewWithTag:1003];
+            [UIView animateWithDuration:0.2 animations:^{
+                
+            } completion:^(BOOL finished) {
+                [menu menuTapped];
+            }];
+            
+        }
+            break;
+            
+        default:
+            break;
+    }
+    
+}
+#pragma mark - FSDropDown datasource & delegate
+
+- (NSInteger)menu:(FSDropDownMenu *)menu tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section{
+    if (tableView == menu.leftTableView) {
+        return _cityArr.count;
+    }else{
+        return _currentAreaArr.count;
+    }
+}
+- (NSString *)menu:(FSDropDownMenu *)menu tableView:(UITableView*)tableView titleForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (tableView == menu.leftTableView) {
+        
+        return _cityArr[indexPath.row];
+    }else{
+        return _currentAreaArr[indexPath.row];
+    }
+}
+
+
+- (void)menu:(FSDropDownMenu *)menu tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath tag:(NSInteger)tag {
+    
+    if(tableView == menu.leftTableView){
+        _currentAreaArr = _areaArr[indexPath.row];
+        [menu.rightTableView reloadData];
+    }else{
+        UIButton *button=(UIButton *)[_upButtonView viewWithTag:tag-_currentIndex];
+        [button setTitle:_currentAreaArr[indexPath.row]forState:UIControlStateNormal];
+    }
+    
+}
+
+#pragma -mark  creatScrollView
 -(void)creatScrollView{
     
     CGFloat scrollViewWidth=102;
     _buttonScrollView=[[UIScrollView alloc]initWithFrame:CGRectMake(0, 130*[[UIScreen mainScreen] bounds].size.width/320, SCREENWIDTH,scrollViewWidth)];
     [_headView addSubview:_buttonScrollView];
-        NSArray *imageArray=@[@"internIcon.png",@"hmTeacherIcon.png",@"distribterIcon.png",@"moreFirstPage.png"];
+    NSArray *imageArray=@[@"internIcon.png",@"hmTeacherIcon.png",@"distribterIcon.png",@"moreFirstPage.png"];
     NSArray *titleArray=@[@"实习",@"家教",@"派单",@"更多"];
     for(NSInteger i=0;i<4;i++){
         UIButton *button=[UIButton buttonWithType:UIButtonTypeCustom];
@@ -140,12 +307,12 @@
         label.textAlignment=NSTextAlignmentCenter;
         label.textColor=[UIColor colorWithRed:48/255.0 green:48/255.0 blue:48/255.0 alpha:1];
         [_buttonScrollView addSubview:button];
-         [_buttonScrollView addSubview:label];
+        [_buttonScrollView addSubview:label];
     }
 }
 
 -(void)btnClick:(UIButton*)button{
-
+    
     switch (button.tag){
         case 100:{
             [self itWorkBtnAction:button];
@@ -167,36 +334,45 @@
             
     }
 }
+
+
 -(void)creatLineGrayView{
     _lineGrayView=[[UIView alloc]initWithFrame:CGRectMake(0, _bannerView.frame.size.height+_buttonScrollView.frame.size.height, SCREENWIDTH, 12)];
     _lineGrayView.backgroundColor=[UIColor colorWithRed:239/255.0 green:239/255.0 blue:244/255.0 alpha:1];
     [_headView addSubview:_lineGrayView];
-
-}
-
-- (void)creatRecommendLabel{
-    _recommendLabel=[[UILabel alloc]initWithFrame:CGRectMake(10, _lineGrayView.frame.origin.y+12, 74, 22)];
-    _recommendLabel.text=@"推荐兼职";
-    _recommendLabel.font=[UIFont fontWithName:nil size:16];
-    _recommendLabel.textColor=[UIColor colorWithRed:48/255.0 green:48/255.0 blue:48/255.0 alpha:1];
-    [_headView addSubview:_recommendLabel];
     
 }
+
 
 - (void)creatBottomLineView{
     _bottomLineView=[[UIView alloc]initWithFrame:CGRectMake(0, _recommendLabel.frame.origin.y+24, SCREENWIDTH, 1)];
     _bottomLineView.backgroundColor=[UIColor colorWithRed:221/255.0 green:221/255.0 blue:221/255.0 alpha:0.5];
-    [_headView addSubview:_bottomLineView];
+    // [_headView addSubview:_bottomLineView];
     
 }
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    [self creatHeadView];
-    [self creatTitleLabel];
-    [self creatLocationButton];
-    [self creatRightButtonItem];
+- (void)creatButton{
+    _upButtonView=[[UIView alloc]initWithFrame:CGRectMake(0, _recommendLabel.frame.origin.y+_recommendLabel.frame.size.height+5, SCREENWIDTH, 30)];
+    NSArray *array=@[@"岗位类型",@"地理位置",@"综合筛选"];
+    for(NSInteger i=0; i<3;i++){
+        _button=[UIButton buttonWithType:UIButtonTypeCustom];
+        _button.titleLabel.font=[UIFont systemFontOfSize:14];
+        _button.frame=CGRectMake(SCREENWIDTH/3*i,0,SCREENWIDTH/3, 30);
+        _button.tag=1000+i;
+        _button.backgroundColor=[UIColor whiteColor];
+        [_button setTitle:array[i] forState:UIControlStateNormal];
+        [_button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [_button setImage:[UIImage imageNamed:@"expandableImage"] forState:UIControlStateNormal];
+        //_button.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 11, 52);
+        
+        [_button addTarget:self action:@selector(showView:) forControlEvents:UIControlEventTouchUpInside];
+        [ _upButtonView addSubview:_button];
+        
+        
+    }
     
-    
+}
+
+- (void)creatModel{
     self.viewModel=[[MLMainPageViewModel alloc]init];
     [self addChildViewController:self.joblistTableVC];
     //collectiveViewCell
@@ -212,12 +388,13 @@
     self.joblistTableVC.isFisrtView=YES;
     
     
+    
 }
 
 -(void)creatRightButtonItem{
     UIBarButtonItem *rightItem=[[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"搜索icon副本.png"] style:UIBarButtonItemStylePlain target:self action:@selector(searchBarTapped)];
     self.navigationItem.rightBarButtonItem=rightItem;
-
+    
 }
 - (void)creatLocationButton{
     UIImage *image=[UIImage imageNamed:@"Locationicon"];
@@ -275,15 +452,61 @@
 -(void)addHeaderAndFooterToTableView
 {
     //添加表头
-   
+    
     [_tableHeadView2 setFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 172+152*[[UIScreen mainScreen] bounds].size.width/320)];
-        self.joblistTableVC.tableView.tableHeaderView=_headView;
+    //self.joblistTableVC.tableView.tableHeaderView=_headView;
     //[self.joblistTableVC.tableView setTableHeaderView:_tableHeadView2];
     //添加表尾
     [self.joblistTableVC addFooterRefresher];
     [self.joblistTableVC addHeaderRefresher];
 }
 
+
+#pragma - mark UItableViewdelegate - joblistTableVC
+
+
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    if(tableView==self.joblistTableVC.tableView){
+        if(section==0)
+        {
+            return _headView;
+        }else if(section==1){
+            //_upButtonView.backgroundColor=[UIColor greenColor];
+            return _upButtonView;
+        }
+    }
+    return nil;
+    
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if(tableView==self.joblistTableVC.tableView){
+        if(section==0){
+            CGFloat bannerWidth=130*[[UIScreen mainScreen] bounds].size.width/320;
+            return bannerWidth+102+12+3;
+        }else if (section==1){
+            return 30;
+        }
+    }
+    return 0;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    JobDetailVC *detailVC=[[JobDetailVC alloc]initWithData:[self.joblistTableVC.resultsArray objectAtIndex:indexPath.row]];
+    detailVC.hidesBottomBarWhenPushed=YES;
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
+    backItem.title = @"";
+    self.navigationItem.backBarButtonItem = backItem;
+    [self.navigationController pushViewController:detailVC animated:YES];
+    [self performSelector:@selector(deselect) withObject:nil afterDelay:0.5f];
+}
+
+- (void)deselect
+{
+    [self.joblistTableVC.tableView deselectRowAtIndexPath:[self.joblistTableVC.tableView indexPathForSelectedRow] animated:YES];
+}
 
 
 /**
@@ -326,14 +549,13 @@
     NSUserDefaults *mysettings=[NSUserDefaults standardUserDefaults];
     NSArray *bannerData=[mysettings objectForKey:@"BannerData"];
     if(bannerData==nil) return;
-    for (NSDictionary *dict in bannerData) {
+       for (NSDictionary *dict in bannerData) {
         NSString *imageUrl=[dict objectForKey:@"BannerImageUrl"];
         [urlArray addObject:imageUrl];
     }
     SRAdvertisingView *bannerView=[[SRAdvertisingView alloc]initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 130*[[UIScreen mainScreen] bounds].size.width/320) imageArray:urlArray interval:3.0];
     
     bannerView.vDelegate=self;
-    //[self.blankView addSubview:bannerView];
     [_bannerView addSubview:bannerView];
 }
 

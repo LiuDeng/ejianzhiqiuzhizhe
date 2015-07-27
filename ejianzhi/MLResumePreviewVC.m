@@ -284,7 +284,7 @@ static NSString *selectFreecellIdentifier = @"freeselectViewCell";
 
         self.experienceConstraint.constant=rect2.size.height+20;
     }
-    self.totalConstraint.constant=670+rect1.size.height+rect2.size.height;
+    //  self.totalConstraint.constant=670+rect1.size.height+rect2.size.height;
     
     [self timeCollectionViewInit];
     

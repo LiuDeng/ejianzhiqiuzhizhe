@@ -435,7 +435,7 @@
         [[IQKeyboardManager topMostController] modalPresentationStyle] == UIModalPresentationPageSheet)
     {
         //  Positive or zero.
-        if (move>=0)
+        if (move >=0)
         {
             // We should only manipulate y.
             rootViewRect.origin.y -= move;

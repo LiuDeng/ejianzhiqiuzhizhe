@@ -228,6 +228,7 @@
             [[NSUserDefaults standardUserDefaults] synchronize];
             [MLTabbarVC shareInstance].selectedIndex = 2;
             [self performSelector:@selector(dealWithNotification) withObject:self afterDelay:0.1];
+       
             
         }
     }

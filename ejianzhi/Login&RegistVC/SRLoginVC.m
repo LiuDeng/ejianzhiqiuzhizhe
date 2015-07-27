@@ -207,7 +207,7 @@ static  SRLoginVC *thisController=nil;
     
     self.userAccount.placeholder=@"请输入账户名";
     self.titleLabel.text=@"求职者登录";
-    [self.otherLoginBtn setTitle:@"企业登录" forState:UIControlStateNormal];
+   // [self.otherLoginBtn setTitle:@"企业登录" forState:UIControlStateNormal];
     self.view.backgroundColor =COLOR(235, 235, 241);
     [self.otherLoginBtn setTitleColor:COLOR(53, 156, 108) forState:UIControlStateNormal];
     _loginButton.backgroundColor = COLOR(53, 156, 108);

@@ -63,7 +63,6 @@ static NSString *selectFreecellIdentifier = @"freeselectViewCell";
     UILabel *_jobNeedLabel;
     UIButton *_connectComanyButton;
     UIButton *_applyJianZhiButton;
-    NSString *companyId;
     
     
 }
@@ -96,6 +95,7 @@ static NSString *selectFreecellIdentifier = @"freeselectViewCell";
 //绑定内容展示表现层
 @property (strong, nonatomic) IBOutlet UIButton *chatBtn;
 @property (strong, nonatomic) IBOutlet UILabel *chatLabel;
+@property (strong, nonatomic) NSString *companyId;
 @end
 
 @implementation JobDetailVC
@@ -142,7 +142,6 @@ static NSString *selectFreecellIdentifier = @"freeselectViewCell";
 
 - (void)viewDidLoad {
     
-    UILabel *titleLabel=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, 21, 80)];    
     [super viewDidLoad];
     [self creatTitleLabel];
     //[self timeCollectionViewInit];
@@ -370,17 +369,15 @@ static NSString *selectFreecellIdentifier = @"freeselectViewCell";
     comanyLabel.userInteractionEnabled=YES;
     RAC(comanyLabel,text)=RACObserve(self.viewModel, jobQiYeName);
     
-    
     [_underScrollView addSubview:comanyLabel];
     UIButton *comanyButton=[[UIButton alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 30)];
     [comanyLabel addSubview:comanyButton];
     comanyButton.rac_command=[[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
-        companyId=self.viewModel.jianZhi.jianZhiQiYe.objectId;
-
+    RAC(self,companyId)=RACObserve(self.viewModel, companyId);
         
-        NSLog(@"%@",companyId);
-        if (companyId!=nil) {
-            CompanyInfoViewController *companyInfoVC=[[CompanyInfoViewController alloc]initWithData:companyId];
+        NSLog(@"%@",self.companyId);
+        if (self.companyId!=nil) {
+            CompanyInfoViewController *companyInfoVC=[[CompanyInfoViewController alloc]initWithData:self.companyId];
             companyInfoVC.hidesBottomBarWhenPushed=YES;
             companyInfoVC.edgesForExtendedLayout=UIRectEdgeNone;
             [self.navigationController pushViewController:companyInfoVC animated:YES];
@@ -418,7 +415,7 @@ static NSString *selectFreecellIdentifier = @"freeselectViewCell";
     rightImageView.image=[UIImage imageNamed:@"灰箭头"];
     [placeLabel addSubview:rightImageView];
     
-    UIImageView *rightImageView2=[[UIImageView alloc]initWithFrame:CGRectMake(placeView.frame.origin.x+30, 10, 10, 10)];
+    UIImageView *rightImageView2=[[UIImageView alloc]initWithFrame:CGRectMake(placeView.frame.origin.x+30, 12, 10, 10)];
     rightImageView2.image=[UIImage imageNamed:@"灰箭头"];
     [comanyLabel addSubview:rightImageView2];
 
@@ -490,13 +487,13 @@ static NSString *selectFreecellIdentifier = @"freeselectViewCell";
     
     
     //任职资格内容
-    _jobNeedLabel=[[UILabel alloc]initWithFrame:CGRectMake(20, underNeedLabelLine.frame.origin.y+10, SCREENHEIGHT-40, 20)];
+    _jobNeedLabel=[[UILabel alloc]initWithFrame:CGRectMake(20, underNeedLabelLine.frame.origin.y+10, SCREENWIDTH-40, 20)];
     _jobNeedLabel.numberOfLines=0;
     _jobNeedLabel.font=[UIFont systemFontOfSize:15];
     _jobNeedLabel.text=self.viewModel.jianZhi.jianZhiRequirement;
 
     CGSize jobNeed = [_jobNeedLabel.text sizeWithFont:[UIFont systemFontOfSize:15.0f] constrainedToSize:CGSizeMake(SCREENWIDTH-40, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
-    _jobNeedLabel.frame=CGRectMake(20, underNeedLabelLine.frame.origin.y+10,SCREENHEIGHT-40,jobNeed.height);
+    _jobNeedLabel.frame=CGRectMake(20, underNeedLabelLine.frame.origin.y+10,SCREENWIDTH-40,jobNeed.height);
     
     [_underScrollView addSubview:_jobNeedLabel];
     
