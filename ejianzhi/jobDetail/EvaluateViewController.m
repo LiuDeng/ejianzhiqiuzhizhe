@@ -109,7 +109,7 @@
     // 页脚图片
     UIImageView *footimageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, submitButton.frame.origin.y+submitButton.frame.size.height + 20, SCREENWIDTH, 50)];
     footimageView.image = [UIImage imageNamed:@"页脚"];
-    [self.view addSubview:footimageView];
+    [scrollView addSubview:footimageView];
     
     float height = seperatorView.frame.origin.y;
     height += 20 + label.frame.size.height+20+textView.frame.size.height+20+submitButton.frame.size.height+50+50+20;
