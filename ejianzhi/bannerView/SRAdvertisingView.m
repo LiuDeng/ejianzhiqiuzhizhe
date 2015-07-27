@@ -43,7 +43,7 @@
         slideImages = imageArray;
         
         // 初始化 pagecontrol
-        pageControl = [[UIPageControl alloc]initWithFrame:CGRectMake(320-[self.slideImages count]*20,self.frame.size.height-15,[self.slideImages count]*20,10)]; // 初始化mypagecontrol
+        pageControl = [[UIPageControl alloc]initWithFrame:CGRectMake(SCREENWIDTH/2-[self.slideImages count]*20/2,self.frame.size.height-15,[self.slideImages count]*20,10)]; // 初始化mypagecontrol
         [pageControl setCurrentPageIndicatorTintColor:[UIColor colorWithRed:0.98 green:0.30 blue:0.37 alpha:1.0]];
         [pageControl setPageIndicatorTintColor:[UIColor grayColor]];
         pageControl.numberOfPages = [self.slideImages count];

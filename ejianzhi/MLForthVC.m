@@ -78,7 +78,7 @@
     
     
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGColorRef colorref = CGColorCreate(colorSpace,(CGFloat[]){ 247/255.0, 79/255.0, 92/255.0, 1.0 });
+   // CGColorRef colorref = CGColorCreate(colorSpace,(CGFloat[]){ 247/255.0, 79/255.0, 92/255.0, 1.0 });
 }
 
 - (void)creatAvuserImage{
@@ -239,7 +239,7 @@
             
         }
     }else{
-        NSUserDefaults *mySettingData = [NSUserDefaults standardUserDefaults];
+       // NSUserDefaults *mySettingData = [NSUserDefaults standardUserDefaults];
         
         if (buttonIndex==1) {
             BOOL isLogout=[[[SRLoginBusiness alloc]init]logOut];

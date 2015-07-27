@@ -23,14 +23,15 @@
     [super viewDidLoad];
     
     [self.textView.layer setBorderWidth:1.0f];
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGColorRef colorref = CGColorCreate(colorSpace,(CGFloat[]){0.0/255.0,0.0/255.0,0.0/255.0,1.0});
+    //CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    CGColorRef colorref=CGColorCreate(CGColorSpaceCreateDeviceRGB(), (CGFloat[]){0,0,0,1});
+   // CGColorRef colorref = CGColorCreate(colorSpace,(CGFloat[]){0.0/255.0,0.0/255.0,0.0/255.0,1.0});
     [self.textView.layer setBorderColor:colorref];
     [self.textView.layer setCornerRadius:5.0];
-    
+
     [self.button1.layer setBorderWidth:1.0f];
     CGColorSpaceRef colorSpace1 = CGColorSpaceCreateDeviceRGB();
-    CGColorRef colorref1 = CGColorCreate(colorSpace1,(CGFloat[]){255.0/255.0,255.0/255.0,255.0/255.0,1.0});
+    CGColorRef colorref1 = CGColorCreate(CGColorSpaceCreateDeviceRGB(),(CGFloat[]){255.0/255.0,255.0/255.0,255.0/255.0,1.0});
     [self.button1.layer setBorderColor:colorref1];
     [self.button1.layer setCornerRadius:5.0];
 

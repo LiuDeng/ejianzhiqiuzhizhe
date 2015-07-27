@@ -217,9 +217,9 @@
         if (error==nil) {
             NSArray *array=[NSArray array];
             for (AVObject *object in objects) {
-                NSString *appUrl = [object objectForKey:@"_app_url"];
-                NSString *deeplink = [object objectForKey:@"_deeplink"];
-                NSString *hightlight = [object objectForKey:@"_highlight"];
+//                NSString *appUrl = [object objectForKey:@"_app_url"];
+//                NSString *deeplink = [object objectForKey:@"_deeplink"];
+//                NSString *hightlight = [object objectForKey:@"_highlight"];
                 // other fields
                 // code is here
                 array=[array arrayByAddingObject:object];
