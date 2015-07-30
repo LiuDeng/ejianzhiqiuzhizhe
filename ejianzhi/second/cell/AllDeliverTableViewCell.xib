@@ -138,7 +138,7 @@
                     <constraint firstAttribute="trailingMargin" secondItem="Usc-RE-b1U" secondAttribute="trailing" constant="-13" id="tpe-4T-nsD"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" red="0.83137254901960778" green="0.83137254901960778" blue="0.83137254901960778" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.95686274509803915" green="0.95686274509803915" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
             <connections>
                 <outlet property="addressLabel" destination="4lh-uW-Q6T" id="JZ7-eq-JuW"/>
                 <outlet property="dataLabel" destination="tSH-Mj-qc0" id="nLU-dK-2Mi"/>

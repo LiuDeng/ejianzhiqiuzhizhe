@@ -19,6 +19,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *jinduImageView;
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
 
-- (void)setContentWithJianzhi:(JianZhi *)jianzhi andToudiData:(NSString *)date;
+- (void)setContentWithJianzhi:(JianZhi *)jianzhi andToudiData:(NSString *)date andenterpriseHandleResult:(NSString *)enterpriseHandleResult;
 
 @end

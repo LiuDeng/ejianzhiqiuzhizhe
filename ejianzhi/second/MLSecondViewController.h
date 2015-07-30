@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JobDetailVC.h"
 
 @interface MLSecondViewController : UIViewController
 

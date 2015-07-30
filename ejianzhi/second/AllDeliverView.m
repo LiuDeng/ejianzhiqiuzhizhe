@@ -164,6 +164,7 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _tableView.allowsMultipleSelectionDuringEditing = YES;
     [self addSubview:_tableView];
     [self addHeader];
     [self addFooter];
@@ -176,7 +177,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.dataArray.count;;
+    return self.dataArray.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -189,12 +190,54 @@
     }
     AVObject *obj = [_dataArray objectAtIndex:indexPath.row];
     JianZhi *jianzhi = [obj objectForKey:@"jianZhi"];
-    [cell setContentWithJianzhi:jianzhi andToudiData:[DateUtil msgTimetoCurrent:[obj objectForKey:@"createdAt"]]];
+    [cell setContentWithJianzhi:jianzhi andToudiData:[DateUtil msgTimetoCurrent:[obj objectForKey:@"createdAt"]] andenterpriseHandleResult:[obj objectForKey:@"enterpriseHandleResult"]];
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    AVObject *obj = [_dataArray objectAtIndex:indexPath.row];
+    JianZhi *jianzhi = [obj objectForKey:@"jianZhi"];
+    if (_status == normalStatus)
+    {
+        if (jianzhi)
+        {
+            if ([_delegate respondsToSelector:@selector(didSelectedRowToPushJobDetail:)])
+            {
+                [_delegate didSelectedRowToPushJobDetail:jianzhi];
+            }
+        }
+        else
+        {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"该兼职已经被删除" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alertView show];
+        }
+    }
+    else if (_status == deleteStatus)
+    {
+        if (obj)
+        {
+            if ([_delegate respondsToSelector:@selector(deleteSelectRow:)])
+            {
+                [_delegate deleteSelectRow:obj.objectId];
+            }
+        }
+    }
+}
+
+-(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (_status == deleteStatus)
+    {
+        AVObject *obj = [_dataArray objectAtIndex:indexPath.row];
+        if (obj)
+        {
+            if ([_delegate respondsToSelector:@selector(deleteDeselectRow:)])
+            {
+                [_delegate deleteDeselectRow:obj.objectId];
+            }
+        }
+    }
     
 }
 

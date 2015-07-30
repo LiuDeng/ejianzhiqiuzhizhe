@@ -14,8 +14,9 @@
     // Initialization code
 }
 
--(void)setContentWithJianzhi:(JianZhi *)jianzhi andToudiData:(NSString *)date
+-(void)setContentWithJianzhi:(JianZhi *)jianzhi andToudiData:(NSString *)date andenterpriseHandleResult:(NSString *)enterpriseHandleResult
 {
+    _offerImageView.hidden = YES;
     if (jianzhi.jianZhiTitle)
     {
         self.titleLabel.text = jianzhi.jianZhiTitle;
@@ -33,6 +34,22 @@
         self.addressLabel.text = jianzhi.jianZhiAddress;
     }
     self.dataLabel.text = date;
+    if ([enterpriseHandleResult isEqualToString:@"已投递"])
+    {
+        
+    }
+    else if ([enterpriseHandleResult isEqualToString:@"被查看"])
+    {
+        
+    }
+    else if ([enterpriseHandleResult isEqualToString:@"待沟通"])
+    {
+        
+    }
+    else if ([enterpriseHandleResult isEqualToString:@"录用"])
+    {
+        _offerImageView.hidden = NO;
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

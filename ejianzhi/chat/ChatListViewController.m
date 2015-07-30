@@ -437,6 +437,22 @@
                         [_delegate didselecteAction:chatController];
                     }
                 }
+                else
+                {
+                    chatController.jianzhi = nil;
+                    if ([_delegate respondsToSelector:@selector(didselecteAction:)])
+                    {
+                        [_delegate didselecteAction:chatController];
+                    }
+                }
+            }
+            else
+            {
+                chatController.jianzhi = nil;
+                if ([_delegate respondsToSelector:@selector(didselecteAction:)])
+                {
+                    [_delegate didselecteAction:chatController];
+                }
             }
         }];
     }
