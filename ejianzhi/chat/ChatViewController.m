@@ -182,13 +182,17 @@
     [self.tableView addSubview:self.slimeView];
     [self.view addSubview:self.chatToolBar];
     
-    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 100)];
-    backView.backgroundColor = COLOR(240, 240, 240);
-    TopView *topView = [[TopView alloc] initWithFrame:CGRectMake(22, 10, SCREENWIDTH-44, 80)];
-    [topView setContentValue:self.jianzhi];
-    topView.delegate = self;
-    [backView addSubview:topView];
-    [self.view addSubview:backView];
+    if (self.jianzhi)
+    {
+        UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 100)];
+        backView.backgroundColor = COLOR(240, 240, 240);
+        TopView *topView = [[TopView alloc] initWithFrame:CGRectMake(22, 10, SCREENWIDTH-44, 80)];
+        [topView setContentValue:self.jianzhi];
+        topView.delegate = self;
+        [backView addSubview:topView];
+        [self.view addSubview:backView];
+    }
+    
     
     //将self注册为chatToolBar的moreView的代理
     if ([self.chatToolBar.moreView isKindOfClass:[DXChatBarMoreView class]]) {
@@ -447,7 +451,7 @@
 - (UITableView *)tableView
 {
     if (_tableView == nil) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 100, self.view.frame.size.width, self.view.frame.size.height - self.chatToolBar.frame.size.height) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 100, self.view.frame.size.width, self.view.frame.size.height - self.chatToolBar.frame.size.height-80) style:UITableViewStylePlain];
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _tableView.delegate = self;
         _tableView.dataSource = self;

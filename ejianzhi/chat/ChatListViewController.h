@@ -11,6 +11,13 @@
   */
 
 #import <UIKit/UIKit.h>
+#import "ChatViewController.h"
+
+@protocol ChatListViewControllerDelegate <NSObject>
+
+- (void)didselecteAction:(ChatViewController *)vc;
+
+@end
 
 @interface ChatListViewController : UIViewController
 
@@ -18,5 +25,6 @@
 
 - (void)isConnect:(BOOL)isConnect;
 - (void)networkChanged:(EMConnectionState)connectionState;
+@property (nonatomic, weak) id<ChatListViewControllerDelegate> delegate;
 
 @end

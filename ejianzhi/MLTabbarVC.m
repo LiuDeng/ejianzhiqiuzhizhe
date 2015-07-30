@@ -59,6 +59,15 @@ static  MLTabbarVC *thisController=nil;
     return  _forthVC;
 }
 
+- (MLSecondViewController *)secondVC
+{
+    if (_secondVC == nil)
+    {
+        _secondVC = [[MLSecondViewController alloc] init];
+    }
+    return _secondVC;
+}
+
 -(MLNavi*)makeRootByNavigationController:(UIViewController*) childVC
 {
     @try {
@@ -83,9 +92,7 @@ static  MLTabbarVC *thisController=nil;
 
     UIViewController *pageOneVC=[self makeRootByNavigationController:self.firstVC];
     
-    JobListWithDropDownListVCViewController *myJobVC=[[JobListWithDropDownListVCViewController alloc]init];
-    
-    UIViewController *pageTwoVC=[self makeRootByNavigationController:myJobVC];
+    UIViewController *pageTwoVC=[self makeRootByNavigationController:self.secondVC];
     
     //UIViewController *pageThreeVC=[self makeRootByNavigationController:self.chatVC];
 
@@ -111,20 +118,20 @@ static  MLTabbarVC *thisController=nil;
     
     tabBarItem1.title=@"首页";
     
-    tabBarItem2.title=@"发现";
+    tabBarItem2.title=@"投递";
     
     //tabBarItem3.title=@"消息";
     
     tabBarItem4.title=@"我";
     
 
-    [[self.tabBar.items objectAtIndex:0] setFinishedSelectedImage:[[UIImage imageNamed:@"首页icon(高亮)"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] withFinishedUnselectedImage:[[UIImage imageNamed:@"首页icon"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    [[self.tabBar.items objectAtIndex:0] setFinishedSelectedImage:[[UIImage imageNamed:@"首页选中"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] withFinishedUnselectedImage:[[UIImage imageNamed:@"首页未选中"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     
-    [[self.tabBar.items objectAtIndex:1] setFinishedSelectedImage:[[UIImage imageNamed:@"发现icon(高亮)"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] withFinishedUnselectedImage:[[UIImage imageNamed:@"发现icon"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    [[self.tabBar.items objectAtIndex:1] setFinishedSelectedImage:[[UIImage imageNamed:@"投递选中"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] withFinishedUnselectedImage:[[UIImage imageNamed:@"投递未选中"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     
     //[[self.tabBar.items objectAtIndex:2] setFinishedSelectedImage:[[UIImage imageNamed:@"消息icon(高亮)"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] withFinishedUnselectedImage:[[UIImage imageNamed:@"消息icon"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     
-    [[self.tabBar.items objectAtIndex:2] setFinishedSelectedImage:[[UIImage imageNamed:@"我icon(高亮)"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] withFinishedUnselectedImage:[[UIImage imageNamed:@"我icon"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    [[self.tabBar.items objectAtIndex:2] setFinishedSelectedImage:[[UIImage imageNamed:@"我的选中"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] withFinishedUnselectedImage:[[UIImage imageNamed:@"我的未选中"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
 }
 
 - (void)viewWillLayoutSubviews{

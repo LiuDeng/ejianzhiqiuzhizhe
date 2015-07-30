@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "MLFirstVC.h"
 #import "MLForthVC.h"
+#import "MLSecondViewController.h"
 @interface MLTabbarVC : UITabBarController
 +(MLTabbarVC*)shareInstance;
 @property (strong,nonatomic)MLFirstVC *firstVC;
-//@property (strong,nonatomic)MLSecondVC *secondVC;
+@property (nonatomic, strong) MLSecondViewController *secondVC;
 @property (strong,nonatomic)MLForthVC *forthVC;
 @end

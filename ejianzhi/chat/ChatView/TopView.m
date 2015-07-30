@@ -105,15 +105,31 @@
 
 -(void)setContentValue:(JianZhi *)jianzhi
 {
-    [self setIconBackgroundColor:[self colorForType:jianzhi.jianZhiType]];
-    _typeLabel.text = jianzhi.jianZhiType;
-    _titleLabel.text = jianzhi.jianZhiTitle;
+    if (jianzhi.jianZhiType)
+    {
+        [self setIconBackgroundColor:[self colorForType:jianzhi.jianZhiType]];
+        _typeLabel.text = jianzhi.jianZhiType;
+    }
+    if (jianzhi.jianZhiTitle)
+    {
+        _titleLabel.text = jianzhi.jianZhiTitle;
+    }
+    
+    
     _createTimeLabel.text = [DateUtil stringFromDate:jianzhi.createdAt];
-    _wageLabel.text = [NSString stringWithFormat:@"%@元/%@",[@"¥" stringByAppendingString:[jianzhi.jianZhiWage stringValue]],jianzhi.jianZhiWageType];
+    if (jianzhi.jianZhiWage && jianzhi.jianZhiWageType)
+    {
+        _wageLabel.text = [NSString stringWithFormat:@"%@元/%@",[@"¥" stringByAppendingString:[jianzhi.jianZhiWage stringValue]],jianzhi.jianZhiWageType];
+        _salaryType.text = [NSString stringWithFormat:@"结算方式：%@",jianzhi.jianZhiWageType];
+    }
     
-    _salaryType.text = [NSString stringWithFormat:@"结算方式：%@",jianzhi.jianZhiWageType];
     
-    self.distanceLabel.text=[self distanceFromJobPoint:jianzhi.jianZhiPoint.latitude Lon:jianzhi.jianZhiPoint.longitude];
+    
+    if (jianzhi.jianZhiPoint)
+    {
+        self.distanceLabel.text=[self distanceFromJobPoint:jianzhi.jianZhiPoint.latitude Lon:jianzhi.jianZhiPoint.longitude];
+    }
+    
     if([self.distanceLabel.text isEqualToString:@""]){
         self.distanceLabel.hidden=YES;
     }else{

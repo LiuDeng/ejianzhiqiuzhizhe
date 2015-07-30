@@ -486,9 +486,7 @@ static  SRLoginVC *thisController=nil;
                         }
                         else
                         {
-                            [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:currentUser.objectId password:@"111111" completion:^(NSDictionary *loginInfo, EMError *error) {
-                                
-                            } onQueue:nil];
+                            
                         }
                         
                         AVQuery *userDetailQuery=[AVQuery queryWithClassName:@"UserDetail"];
@@ -527,7 +525,16 @@ static  SRLoginVC *thisController=nil;
                         }
                         
                         [loginer loginInbackground:snsAccount.userName Pwd:@"123456" loginType:loginType withBlock:^(BOOL succeed, NSNumber *userType) {
-                            
+                            [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:currentUser.objectId password:@"111111" completion:^(NSDictionary *loginInfo, EMError *error) {
+                                if (error)
+                                {
+                                    NSLog(@"登录环信失败");
+                                }
+                                else
+                                {
+                                    NSLog(@"登录环信成功");
+                                }
+                            } onQueue:nil];
                             AVUser *user = [AVUser currentUser];
                             [user setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"deviceToken"] forKey:@"installationId"];
                             [user saveEventually];
@@ -590,9 +597,7 @@ static  SRLoginVC *thisController=nil;
                         }
                         else
                         {
-                            [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:currentUser.objectId password:@"111111" completion:^(NSDictionary *loginInfo, EMError *error) {
-                                
-                            } onQueue:nil];
+                            
                         }
                         
                         AVQuery *userDetailQuery=[AVQuery queryWithClassName:@"UserDetail"];
@@ -631,7 +636,16 @@ static  SRLoginVC *thisController=nil;
                         }
                         
                         [loginer loginInbackground:snsAccount.userName Pwd:@"123456" loginType:loginType withBlock:^(BOOL succeed, NSNumber *userType) {
-                            
+                            [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:currentUser.objectId password:@"111111" completion:^(NSDictionary *loginInfo, EMError *error) {
+                                if (error)
+                                {
+                                    NSLog(@"登录环信失败");
+                                }
+                                else
+                                {
+                                    NSLog(@"登录环信成功");
+                                }
+                            } onQueue:nil];
                             AVUser *user = [AVUser currentUser];
                             [user setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"deviceToken"] forKey:@"installationId"];
                             [user saveEventually];
@@ -733,7 +747,16 @@ static  SRLoginVC *thisController=nil;
                         }
                         
                         [loginer loginInbackground:snsAccount.userName Pwd:@"123456" loginType:loginType withBlock:^(BOOL succeed, NSNumber *userType) {
-                            
+                            [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:currentUser.objectId password:@"111111" completion:^(NSDictionary *loginInfo, EMError *error) {
+                                if (error)
+                                {
+                                    NSLog(@"登录环信失败");
+                                }
+                                else
+                                {
+                                    NSLog(@"登录环信成功");
+                                }
+                            } onQueue:nil];
                             AVUser *user = [AVUser currentUser];
                             [user setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"deviceToken"] forKey:@"installationId"];
                             [user saveEventually];

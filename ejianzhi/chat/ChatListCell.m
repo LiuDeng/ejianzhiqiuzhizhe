@@ -19,6 +19,7 @@
     UILabel *_unreadLabel;
     UILabel *_detailLabel;
     UIView *_lineView;
+    UIView *backView;
 }
 
 @end
@@ -31,10 +32,15 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        _timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(240, 7, 80, 16)];
+        backView = [[UIView alloc] initWithFrame:CGRectMake(0, 5, SCREENWIDTH, 71)];
+        [self.contentView addSubview:backView];
+        
+        
+        _timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREENWIDTH-100, 7, 80, 16)];
         _timeLabel.font = [UIFont systemFontOfSize:13];
         _timeLabel.backgroundColor = [UIColor clearColor];
-        [self.contentView addSubview:_timeLabel];
+        _timeLabel.textAlignment = NSTextAlignmentRight;
+        [backView addSubview:_timeLabel];
         
         _unreadLabel = [[UILabel alloc] initWithFrame:CGRectMake(45, 0, 20, 20)];
         _unreadLabel.backgroundColor = [UIColor redColor];
@@ -44,19 +50,19 @@
         _unreadLabel.font = [UIFont systemFontOfSize:11];
         _unreadLabel.layer.cornerRadius = 10;
         _unreadLabel.clipsToBounds = YES;
-        [self.contentView addSubview:_unreadLabel];
+        [backView addSubview:_unreadLabel];
         
         _detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(65, 30, 175, 20)];
         _detailLabel.backgroundColor = [UIColor clearColor];
         _detailLabel.font = [UIFont systemFontOfSize:15];
         _detailLabel.textColor = [UIColor lightGrayColor];
-        [self.contentView addSubview:_detailLabel];
+        [backView addSubview:_detailLabel];
         
         self.textLabel.backgroundColor = [UIColor clearColor];
         
         _lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.contentView.frame.size.width, 1)];
         _lineView.backgroundColor = RGBACOLOR(207, 210, 213, 0.7);
-        [self.contentView addSubview:_lineView];
+        [backView addSubview:_lineView];
     }
     return self;
 }
@@ -64,6 +70,7 @@
 - (void)awakeFromNib
 {
     // Initialization code
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -86,7 +93,7 @@
     CGRect frame = self.imageView.frame;
     
     [self.imageView sd_setImageWithURL:_imageURL placeholderImage:_placeholderImage];
-    self.imageView.frame = CGRectMake(10, 7, 45, 45);
+    self.imageView.frame = CGRectMake(10, 10, 50, 50);
     
     self.textLabel.text = _name;
     self.textLabel.frame = CGRectMake(65, 7, 175, 20);
@@ -102,7 +109,7 @@
             _unreadLabel.font = [UIFont systemFontOfSize:10];
         }
         [_unreadLabel setHidden:NO];
-        [self.contentView bringSubviewToFront:_unreadLabel];
+        [backView bringSubviewToFront:_unreadLabel];
         _unreadLabel.text = [NSString stringWithFormat:@"%ld",(long)_unreadCount];
     }else{
         [_unreadLabel setHidden:YES];
@@ -120,6 +127,6 @@
 
 +(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 60;
+    return 81;
 }
 @end

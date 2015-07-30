@@ -12,13 +12,14 @@
 
 #import "ChatListViewController.h"
 #import "SRRefreshView.h"
-#import "ChatListCell.h"
 #import "EMSearchBar.h"
 #import "NSDate+Category.h"
 #import "RealtimeSearchUtil.h"
 #import "ChatViewController.h"
 #import "EMSearchDisplayController.h"
 #import "ConvertToCommonEmoticonsHelper.h"
+#import "AppDelegate.h"
+#import "ChatListTableViewCell.h"
 
 @interface ChatListViewController ()<UITableViewDelegate,UITableViewDataSource, UISearchDisplayDelegate,SRRefreshDelegate, UISearchBarDelegate, IChatManagerDelegate,ChatViewControllerDelegate>
 
@@ -47,15 +48,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self refreshDataSource];
+    [self registerNotifications];
+    
     [[EaseMob sharedInstance].chatManager loadAllConversationsFromDatabaseWithAppend2Chat:NO];
-    [self removeEmptyConversationsFromDB];
+//    [self removeEmptyConversationsFromDB];
 
-    [self.view addSubview:self.searchBar];
+//    [self.view addSubview:self.searchBar];
     [self.view addSubview:self.tableView];
     [self.tableView addSubview:self.slimeView];
     [self networkStateView];
 
-    [self searchController];
+//    [self searchController];
 }
 
 - (void)didReceiveMemoryWarning
@@ -154,81 +158,80 @@
 - (UITableView *)tableView
 {
     if (_tableView == nil) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.searchBar.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - self.searchBar.frame.size.height) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, self.view.frame.size.height) style:UITableViewStylePlain];
         _tableView.backgroundColor = [UIColor whiteColor];
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.tableFooterView = [[UIView alloc] init];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        [_tableView registerClass:[ChatListCell class] forCellReuseIdentifier:@"chatListCell"];
     }
     
     return _tableView;
 }
 
-- (EMSearchDisplayController *)searchController
-{
-    if (_searchController == nil) {
-        _searchController = [[EMSearchDisplayController alloc] initWithSearchBar:self.searchBar contentsController:self];
-        _searchController.delegate = self;
-        _searchController.searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        
-        __weak ChatListViewController *weakSelf = self;
-        [_searchController setCellForRowAtIndexPathCompletion:^UITableViewCell *(UITableView *tableView, NSIndexPath *indexPath) {
-            static NSString *CellIdentifier = @"ChatListCell";
-            ChatListCell *cell = (ChatListCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-            
-            // Configure the cell...
-            if (cell == nil) {
-                cell = [[ChatListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-            }
-            
-            EMConversation *conversation = [weakSelf.searchController.resultsSource objectAtIndex:indexPath.row];
-            cell.name = conversation.chatter;
-            if (conversation.conversationType != eConversationTypeChat) {
-                cell.placeholderImage = [UIImage imageNamed:@"chatListCellHead.png"];
-            }
-            else{
-                NSString *imageName = @"groupPublicHeader";
-                NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
-                for (EMGroup *group in groupArray) {
-                    if ([group.groupId isEqualToString:conversation.chatter]) {
-                        cell.name = group.groupSubject;
-                        imageName = group.isPublic ? @"groupPublicHeader" : @"groupPrivateHeader";
-                        break;
-                    }
-                }
-                cell.placeholderImage = [UIImage imageNamed:imageName];
-            }
-            cell.detailMsg = [weakSelf subTitleMessageByConversation:conversation];
-            cell.time = [weakSelf lastMessageTimeByConversation:conversation];
-            cell.unreadCount = [weakSelf unreadMessageCountByConversation:conversation];
-            if (indexPath.row % 2 == 1) {
-                cell.contentView.backgroundColor = RGBACOLOR(246, 246, 246, 1);
-            }else{
-                cell.contentView.backgroundColor = [UIColor whiteColor];
-            }
-            return cell;
-        }];
-        
-        [_searchController setHeightForRowAtIndexPathCompletion:^CGFloat(UITableView *tableView, NSIndexPath *indexPath) {
-            return [ChatListCell tableView:tableView heightForRowAtIndexPath:indexPath];
-        }];
-        
-        [_searchController setDidSelectRowAtIndexPathCompletion:^(UITableView *tableView, NSIndexPath *indexPath) {
-            [tableView deselectRowAtIndexPath:indexPath animated:YES];
-            [weakSelf.searchController.searchBar endEditing:YES];
-            
-            EMConversation *conversation = [weakSelf.searchController.resultsSource objectAtIndex:indexPath.row];
-            ChatViewController *chatVC = [[ChatViewController alloc] initWithChatter:conversation.chatter conversationType:conversation.conversationType];
-            chatVC.title = conversation.chatter;
-            [weakSelf.navigationController pushViewController:chatVC animated:YES];
-        }];
-    }
-    
-    return _searchController;
-}
+//- (EMSearchDisplayController *)searchController
+//{
+//    if (_searchController == nil) {
+//        _searchController = [[EMSearchDisplayController alloc] initWithSearchBar:self.searchBar contentsController:self];
+//        _searchController.delegate = self;
+//        _searchController.searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//        
+//        __weak ChatListViewController *weakSelf = self;
+//        [_searchController setCellForRowAtIndexPathCompletion:^UITableViewCell *(UITableView *tableView, NSIndexPath *indexPath) {
+//            static NSString *CellIdentifier = @"ChatListCell";
+//            ChatListCell *cell = (ChatListCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+//            
+//            // Configure the cell...
+//            if (cell == nil) {
+//                cell = [[ChatListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+//            }
+//            
+//            EMConversation *conversation = [weakSelf.searchController.resultsSource objectAtIndex:indexPath.row];
+//            cell.name = conversation.chatter;
+//            if (conversation.conversationType != eConversationTypeChat) {
+//                cell.placeholderImage = [UIImage imageNamed:@"chatListCellHead.png"];
+//            }
+//            else{
+//                NSString *imageName = @"groupPublicHeader";
+//                NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
+//                for (EMGroup *group in groupArray) {
+//                    if ([group.groupId isEqualToString:conversation.chatter]) {
+//                        cell.name = group.groupSubject;
+//                        imageName = group.isPublic ? @"groupPublicHeader" : @"groupPrivateHeader";
+//                        break;
+//                    }
+//                }
+//                cell.placeholderImage = [UIImage imageNamed:imageName];
+//            }
+//            cell.detailMsg = [weakSelf subTitleMessageByConversation:conversation];
+//            cell.time = [weakSelf lastMessageTimeByConversation:conversation];
+//            cell.unreadCount = [weakSelf unreadMessageCountByConversation:conversation];
+//            if (indexPath.row % 2 == 1) {
+//                cell.contentView.backgroundColor = RGBACOLOR(246, 246, 246, 1);
+//            }else{
+//                cell.contentView.backgroundColor = [UIColor whiteColor];
+//            }
+//            return cell;
+//        }];
+//        
+//        [_searchController setHeightForRowAtIndexPathCompletion:^CGFloat(UITableView *tableView, NSIndexPath *indexPath) {
+//            return [ChatListCell tableView:tableView heightForRowAtIndexPath:indexPath];
+//        }];
+//        
+//        [_searchController setDidSelectRowAtIndexPathCompletion:^(UITableView *tableView, NSIndexPath *indexPath) {
+//            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+//            [weakSelf.searchController.searchBar endEditing:YES];
+//            
+//            EMConversation *conversation = [weakSelf.searchController.resultsSource objectAtIndex:indexPath.row];
+//            ChatViewController *chatVC = [[ChatViewController alloc] initWithChatter:conversation.chatter conversationType:conversation.conversationType];
+//            chatVC.title = conversation.chatter;
+//            [weakSelf.navigationController pushViewController:chatVC animated:YES];
+//        }];
+//    }
+//    
+//    return _searchController;
+//}
 
 - (UIView *)networkStateView
 {
@@ -333,14 +336,15 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    static NSString *identify = @"chatListCell";
-    ChatListCell *cell = [tableView dequeueReusableCellWithIdentifier:identify];
+    static NSString *identify = @"ChatListTableViewCell";
+    ChatListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identify];
     
     if (!cell) {
-        cell = [[ChatListCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identify];
+        cell = [[[NSBundle mainBundle] loadNibNamed:@"ChatListTableViewCell" owner:self options:nil] lastObject];
     }
     EMConversation *conversation = [self.dataSource objectAtIndex:indexPath.row];
     cell.name = conversation.chatter;
+    
     if (conversation.conversationType == eConversationTypeChat) {
         cell.placeholderImage = [UIImage imageNamed:@"chatListCellHead.png"];
     }
@@ -377,6 +381,7 @@
     }else{
         cell.contentView.backgroundColor = [UIColor whiteColor];
     }
+    [cell setContentCell];
     return cell;
 }
 
@@ -385,14 +390,14 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return [ChatListCell tableView:tableView heightForRowAtIndexPath:indexPath];
+    return 81;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+   
     EMConversation *conversation = [self.dataSource objectAtIndex:indexPath.row];
-    
+    NSDictionary *dict = conversation.latestMessage.ext;
     ChatViewController *chatController;
     NSString *title = conversation.chatter;
     if (conversation.conversationType != eConversationTypeChat) {
@@ -416,7 +421,35 @@
     chatController = [[ChatViewController alloc] initWithChatter:chatter conversationType:conversation.conversationType];
     chatController.delelgate = self;
     chatController.title = title;
-    [self.navigationController pushViewController:chatController animated:YES];
+//    NSLog(@"%@", [dict objectForKey:@"jianzhi"]);
+    AVQuery *query = [AVQuery queryWithClassName:@"JianZhi"];
+    if ([dict objectForKey:@"jianzhi"])
+    {
+        [query whereKey:@"objectId" equalTo:[dict objectForKey:@"jianzhi"]];
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            if (!error)
+            {
+                if (objects.count)
+                {
+                    chatController.jianzhi = (JianZhi *)[objects objectAtIndex:0];
+                    if ([_delegate respondsToSelector:@selector(didselecteAction:)])
+                    {
+                        [_delegate didselecteAction:chatController];
+                    }
+                }
+            }
+        }];
+    }
+    else
+    {
+        chatController.jianzhi = nil;
+        if ([_delegate respondsToSelector:@selector(didselecteAction:)])
+        {
+            [_delegate didselecteAction:chatController];
+        }
+    }
+    
+//    [self.navigationController pushViewController:chatController animated:YES];
 }
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
