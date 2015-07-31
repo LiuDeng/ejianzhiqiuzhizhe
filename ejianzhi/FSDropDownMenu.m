@@ -34,7 +34,7 @@
         
         //tableView init 左边的tableview
         _leftTableView = [[UITableView alloc] initWithFrame:CGRectMake(origin.x, self.frame.origin.y + self.frame.size.height, ScreenWidth/3, 0) style:UITableViewStylePlain];
-        _leftTableView.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.f];
+//        _leftTableView.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.f];
 
          _leftTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _leftTableView.tableFooterView=[[UIView alloc]init];
@@ -45,6 +45,7 @@
         
         //右边的tableview
         _rightTableView = [[UITableView alloc] initWithFrame:CGRectMake(origin.x+ScreenWidth/3, self.frame.origin.y + self.frame.size.height, ScreenWidth/3*2, 0) style:UITableViewStylePlain];
+        _rightTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _rightTableView.tableFooterView=[[UIView alloc]init];
         _rightTableView.rowHeight = 38;
         _rightTableView.dataSource = self;
@@ -186,6 +187,7 @@
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
+    
     NSAssert(self.dataSource != nil, @"menu's datasource shouldn't be nil");
     if ([self.dataSource respondsToSelector:@selector(menu:tableView:titleForRowAtIndexPath:)]) {
         cell.textLabel.text = [self.dataSource menu:self tableView:tableView titleForRowAtIndexPath:indexPath];
@@ -193,13 +195,16 @@
         NSAssert(0 == 1, @"dataSource method needs to be implemented");
     }
     if(tableView == _rightTableView){
-        cell.backgroundColor = [UIColor whiteColor];
+        cell.backgroundColor = COLOR(244, 244, 244);
+        UIView *sView = [[UIView alloc] init];
+        sView.backgroundColor = COLOR(57 ,156 ,109);
+        cell.selectedBackgroundView = sView;
     }else{
         UIView *sView = [[UIView alloc] init];
-        sView.backgroundColor = [UIColor whiteColor];
+        sView.backgroundColor = COLOR(174, 210, 194);
         cell.selectedBackgroundView = sView;
         [cell setSelected:YES animated:NO];
-        cell.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.f];
+        cell.backgroundColor = COLOR(238, 238, 238);
     }
     cell.textLabel.font = [UIFont systemFontOfSize:14.0];
     cell.separatorInset = UIEdgeInsetsZero;
@@ -211,15 +216,20 @@
 
 #pragma mark - tableview delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.delegate || [self.delegate respondsToSelector:@selector(menu:tableView:didSelectRowAtIndexPath:)]) {
+    if (self.delegate || [self.delegate respondsToSelector:@selector(menu:tableView:didSelectRowAtIndexPath:tag:)]) {
         if (tableView == self.rightTableView) {
             [self animateBackGroundView:_backGroundView show:NO complete:^{
                 [self animateTableViewShow:NO complete:^{
                     _show = NO;
                 }];
             }];
+            
+            [self.delegate menu:self tableView:tableView didSelectRowAtIndexPath:indexPath tag:self.tag];
         }
-        [self.delegate menu:self tableView:tableView didSelectRowAtIndexPath:indexPath tag:self.tag];
+        else if (tableView == self.leftTableView)
+        {
+            [self.delegate menu:self tableView:tableView didSelectRowAtIndexPath:indexPath tag:self.tag];
+        }
     } else {
         //TODO: delegate is nil
     }

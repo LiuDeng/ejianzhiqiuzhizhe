@@ -118,11 +118,12 @@
         if (index==0){
             [weakSelf.mainScrollView setContentOffset:CGPointMake(0, 0) animated:YES];
             weakSelf.currentPage=0;
-            
+            rightButton.hidden = NO;
         }
         else if (index==1){
             [weakSelf.mainScrollView setContentOffset:CGPointMake([[UIScreen mainScreen] bounds].size.width, 0) animated:YES];
             weakSelf.currentPage=1;
+            rightButton.hidden = YES;
         }
     }];
     

@@ -53,8 +53,8 @@
 #define SCREENHEIGHT [UIScreen mainScreen].bounds.size.height
 
 // 测试
-//#define test NO
-#define test YES
+#define test NO
+//#define test YES
 
 // 兼职是否认证
 //#define authorized @"未认证"

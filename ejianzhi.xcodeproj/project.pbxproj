@@ -532,6 +532,9 @@
 		3BBF70931AD6D22A00A33F5A /* MLTabbarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BBF70921AD6D22A00A33F5A /* MLTabbarVC.m */; };
 		3BC84AC11B26D70000B78C6B /* feedbackVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC84ABF1B26D70000B78C6B /* feedbackVC.m */; };
 		3BC84AC21B26D70000B78C6B /* feedbackVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BC84AC01B26D70000B78C6B /* feedbackVC.xib */; };
+		6003356A1B6B16CA00F72D83 /* filterData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 600335691B6B16CA00F72D83 /* filterData.plist */; };
+		6003356D1B6B29B300F72D83 /* FilterDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003356C1B6B29B300F72D83 /* FilterDataModel.m */; };
+		600335701B6B458500F72D83 /* CustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003356F1B6B458500F72D83 /* CustomButton.m */; };
 		6007F30D1B4CF0FC00E03DFB /* InvitationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6007F30C1B4CF0FC00E03DFB /* InvitationManager.m */; };
 		6007F31E1B4CF11200E03DFB /* ChineseToPinyin.m in Sources */ = {isa = PBXBuildFile; fileRef = 6007F3101B4CF11200E03DFB /* ChineseToPinyin.m */; };
 		6007F31F1B4CF11200E03DFB /* ContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6007F3121B4CF11200E03DFB /* ContactsViewController.m */; };
@@ -902,10 +905,6 @@
 		605E5AA01B3A8F5900FD9AB2 /* markdown.css in Resources */ = {isa = PBXBuildFile; fileRef = 605E5A7E1B3A8F5900FD9AB2 /* markdown.css */; };
 		605E5AAA1B3BB0C300FD9AB2 /* Locationicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 605E5AA91B3BB0C300FD9AB2 /* Locationicon.png */; };
 		605E5AB01B3BB0CC00FD9AB2 /* distanceIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 605E5AAB1B3BB0CC00FD9AB2 /* distanceIcon.png */; };
-		605E5AB11B3BB0CC00FD9AB2 /* distribterIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 605E5AAC1B3BB0CC00FD9AB2 /* distribterIcon.png */; };
-		605E5AB21B3BB0CC00FD9AB2 /* hmTeacherIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 605E5AAD1B3BB0CC00FD9AB2 /* hmTeacherIcon.png */; };
-		605E5AB31B3BB0CC00FD9AB2 /* internIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 605E5AAE1B3BB0CC00FD9AB2 /* internIcon.png */; };
-		605E5AB41B3BB0CC00FD9AB2 /* moreFirstPage.png in Resources */ = {isa = PBXBuildFile; fileRef = 605E5AAF1B3BB0CC00FD9AB2 /* moreFirstPage.png */; };
 		60616F891B57572C00408C09 /* EvaluateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60616F881B57572C00408C09 /* EvaluateViewController.m */; };
 		60616F981B5760CE00408C09 /* RatingBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 60616F931B5760CE00408C09 /* RatingBar.m */; };
 		607997F31B302CA200408A1F /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 607997F21B302CA200408A1F /* ImageIO.framework */; };
@@ -1644,6 +1643,11 @@
 		3BC84AC01B26D70000B78C6B /* feedbackVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = feedbackVC.xib; sourceTree = "<group>"; };
 		4D7B0DB645FE063645795595 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		5D949AFCA703C27F1EB6696F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		600335691B6B16CA00F72D83 /* filterData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = filterData.plist; sourceTree = "<group>"; };
+		6003356B1B6B29B300F72D83 /* FilterDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterDataModel.h; sourceTree = "<group>"; };
+		6003356C1B6B29B300F72D83 /* FilterDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterDataModel.m; sourceTree = "<group>"; };
+		6003356E1B6B458500F72D83 /* CustomButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomButton.h; sourceTree = "<group>"; };
+		6003356F1B6B458500F72D83 /* CustomButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomButton.m; sourceTree = "<group>"; };
 		6007F30B1B4CF0FC00E03DFB /* InvitationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvitationManager.h; sourceTree = "<group>"; };
 		6007F30C1B4CF0FC00E03DFB /* InvitationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvitationManager.m; sourceTree = "<group>"; };
 		6007F30F1B4CF11200E03DFB /* ChineseToPinyin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChineseToPinyin.h; sourceTree = "<group>"; };
@@ -2236,10 +2240,6 @@
 		605E5A7E1B3A8F5900FD9AB2 /* markdown.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = markdown.css; sourceTree = "<group>"; };
 		605E5AA91B3BB0C300FD9AB2 /* Locationicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Locationicon.png; sourceTree = "<group>"; };
 		605E5AAB1B3BB0CC00FD9AB2 /* distanceIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = distanceIcon.png; sourceTree = "<group>"; };
-		605E5AAC1B3BB0CC00FD9AB2 /* distribterIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = distribterIcon.png; sourceTree = "<group>"; };
-		605E5AAD1B3BB0CC00FD9AB2 /* hmTeacherIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hmTeacherIcon.png; sourceTree = "<group>"; };
-		605E5AAE1B3BB0CC00FD9AB2 /* internIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = internIcon.png; sourceTree = "<group>"; };
-		605E5AAF1B3BB0CC00FD9AB2 /* moreFirstPage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = moreFirstPage.png; sourceTree = "<group>"; };
 		60616F871B57572C00408C09 /* EvaluateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EvaluateViewController.h; sourceTree = "<group>"; };
 		60616F881B57572C00408C09 /* EvaluateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EvaluateViewController.m; sourceTree = "<group>"; };
 		60616F921B5760CE00408C09 /* RatingBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RatingBar.h; sourceTree = "<group>"; };
@@ -2411,6 +2411,7 @@
 				045622E81AD61672006E159C /* PrefixHeader.pch */,
 				0443C12E1AD5531D004F29A5 /* Info.plist */,
 				0443C12F1AD5531D004F29A5 /* main.m */,
+				600335691B6B16CA00F72D83 /* filterData.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -2473,6 +2474,10 @@
 				04C3480D1AEE397D00B48D11 /* subClass */,
 				044E6AC71B60DA1600E0ACB5 /* DropDownListView.h */,
 				044E6AC81B60DA1600E0ACB5 /* DropDownListView.m */,
+				6003356B1B6B29B300F72D83 /* FilterDataModel.h */,
+				6003356C1B6B29B300F72D83 /* FilterDataModel.m */,
+				6003356E1B6B458500F72D83 /* CustomButton.h */,
+				6003356F1B6B458500F72D83 /* CustomButton.m */,
 			);
 			name = First;
 			sourceTree = "<group>";
@@ -3343,10 +3348,6 @@
 			isa = PBXGroup;
 			children = (
 				605E5AAB1B3BB0CC00FD9AB2 /* distanceIcon.png */,
-				605E5AAC1B3BB0CC00FD9AB2 /* distribterIcon.png */,
-				605E5AAD1B3BB0CC00FD9AB2 /* hmTeacherIcon.png */,
-				605E5AAE1B3BB0CC00FD9AB2 /* internIcon.png */,
-				605E5AAF1B3BB0CC00FD9AB2 /* moreFirstPage.png */,
 			);
 			name = subClass;
 			sourceTree = "<group>";
@@ -5394,7 +5395,6 @@
 				1FEDE4FF1B3BD10F0082476B /* 搜索icon副本.png in Resources */,
 				0456257C1AD6211D006E159C /* moreTop.png in Resources */,
 				045623131AD61AC9006E159C /* checkbox1_unchecked@2x.png in Resources */,
-				605E5AB11B3BB0CC00FD9AB2 /* distribterIcon.png in Resources */,
 				04B346F21AEA95FA00A8A180 /* 9@2x.png in Resources */,
 				6007F62B1B4CF3A300E03DFB /* chatBar_faceSelected@2x.png in Resources */,
 				6007F66E1B4CF3A300E03DFB /* account@2x.png in Resources */,
@@ -5405,7 +5405,6 @@
 				04B346DA1AEA95FA00A8A180 /* 17.png in Resources */,
 				6088B5881B40F2E20061315A /* JobDetailVC.xib in Resources */,
 				045625451AD6211D006E159C /* am.png in Resources */,
-				605E5AB41B3BB0CC00FD9AB2 /* moreFirstPage.png in Resources */,
 				045626341AD62129006E159C /* user_money.png in Resources */,
 				045626281AD62129006E159C /* placeholder@3x.png in Resources */,
 				045624FD1AD6211D006E159C /* yes@2x.png in Resources */,
@@ -5532,7 +5531,6 @@
 				045624E81AD6211D006E159C /* d4.png in Resources */,
 				040861CD1AF905570060C76D /* map_change.png in Resources */,
 				6007F6281B4CF3A300E03DFB /* chatBar_face.png in Resources */,
-				605E5AB31B3BB0CC00FD9AB2 /* internIcon.png in Resources */,
 				045625D31AD6211D006E159C /* releas1@3x.png in Resources */,
 				3BBF6F4E1AD6D0E800A33F5A /* MLTemplateVC.xib in Resources */,
 				6007F5FC1B4CF3A300E03DFB /* VoiceSearchFeedback015.png in Resources */,
@@ -5556,7 +5554,6 @@
 				0456254C1AD6211D006E159C /* d1.png in Resources */,
 				045624E61AD6211D006E159C /* d2.png in Resources */,
 				3BBF6F4C1AD6D0E800A33F5A /* MLStudentCard.xib in Resources */,
-				605E5AB21B3BB0CC00FD9AB2 /* hmTeacherIcon.png in Resources */,
 				04B346D21AEA95FA00A8A180 /* 13.png in Resources */,
 				040861C41AF904FC0060C76D /* icon_location.png in Resources */,
 				045625501AD6211D006E159C /* d5.png in Resources */,
@@ -5794,6 +5791,7 @@
 				0456253C1AD6211D006E159C /* btn_yd.png in Resources */,
 				04B346F01AEA95FA00A8A180 /* 8@2x.png in Resources */,
 				6007F68F1B4CF3A300E03DFB /* tabbarSelectBg.png in Resources */,
+				6003356A1B6B16CA00F72D83 /* filterData.plist in Resources */,
 				6007F6831B4CF3A300E03DFB /* tabbar_chatsHL.png in Resources */,
 				6007F6541B4CF3A300E03DFB /* messageToolbarBg@2x.png in Resources */,
 				0456255E1AD6211D006E159C /* launchImage2.png in Resources */,
@@ -6053,6 +6051,7 @@
 				0443C2081AD5559E004F29A5 /* UserDetail.m in Sources */,
 				045623251AD61B4B006E159C /* MLCustomjobListViewController.m in Sources */,
 				04B346901AEA843F00A8A180 /* UIView+ImageFromView.m in Sources */,
+				600335701B6B458500F72D83 /* CustomButton.m in Sources */,
 				045626501AD621AC006E159C /* stringUtil.m in Sources */,
 				3BBF6F1A1AD6D0C900A33F5A /* SDWaitingView.m in Sources */,
 				60616F891B57572C00408C09 /* EvaluateViewController.m in Sources */,
@@ -6093,6 +6092,7 @@
 				0410883E1B25D0DF00F1CCD2 /* MapSelectedViewController.m in Sources */,
 				04C3481A1AEFBB9D00B48D11 /* JobOfComListVC.m in Sources */,
 				3BBF6F181AD6D0C900A33F5A /* SDBrowserImageView.m in Sources */,
+				6003356D1B6B29B300F72D83 /* FilterDataModel.m in Sources */,
 				6007F4ED1B4CF35C00E03DFB /* DXChatBarMoreView.m in Sources */,
 				6007F30D1B4CF0FC00E03DFB /* InvitationManager.m in Sources */,
 				0443C1F61AD55591004F29A5 /* MLJobDetailViewModel.m in Sources */,
